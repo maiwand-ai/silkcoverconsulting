@@ -25,6 +25,8 @@ Open **http://localhost:4321/keystatic** while `npm run dev` is running. The sid
 
 Saving writes a JSON file under `content/<language>/…`. In development the change appears on the next page load.
 
+If the admin ever shows a blank page, stop the server (Ctrl+C) and run `npm run dev` again; it clears the development cache on every start.
+
 **Pages** have a *Page type*. The seven designed pages (Home, About, Expertise, Approach, Industries, Insights, Contact) keep their layouts; **Custom page** builds a page from blocks (text, cards, numbered list, quote, call to action). To add a page, create an entry in *Pages*, choose a type and give it the **same page address in every language**. To remove a page, delete its entry (or untick *Show in menu* to hide it from navigation only). Home, Expertise, Insights and Contact are required.
 
 Small conventions:
