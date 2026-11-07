@@ -3,20 +3,23 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import keystatic from '@keystatic/astro';
 import sitemap from '@astrojs/sitemap';
+import vercel from '@astrojs/vercel';
 
 /**
- * The admin (Keystatic, at /keystatic) needs a server. Locally it runs with `npm run dev`.
- * For editing on the live site, add a hosting adapter (e.g. @astrojs/vercel or @astrojs/netlify),
- * set KEYSTATIC_ADMIN=1 and PUBLIC_KEYSTATIC_GITHUB_REPO=owner/repo, and follow README → "Admin on the live site".
- * Without that, `npm run build` produces a fully static site (the admin is simply left out).
+ * Pages are pre-built as static HTML. The only server code is the admin (Keystatic at /keystatic),
+ * which runs as a Vercel function when KEYSTATIC_ADMIN=1 is set on Vercel, and always in `npm run dev`.
+ * See README → "Admin on the live site" for the GitHub App and environment variables it needs.
  */
 const isDev = process.argv.includes('dev');
 const adminInBuild = process.env.KEYSTATIC_ADMIN === '1';
 
-// TODO(content): replace with the verified production domain before launch.
+// Live address. Set SITE_URL on Vercel once the custom domain is connected (e.g. https://www.silkcover.com).
+const site = process.env.SITE_URL || 'https://silkcoverconsulting.vercel.app';
+
 export default defineConfig({
-  site: 'https://www.silkcover.example',
+  site,
   build: { format: 'directory', inlineStylesheets: 'always' },
+  ...(adminInBuild ? { adapter: vercel() } : {}),
   integrations: [
     react(),
     ...(isDev || adminInBuild ? [keystatic()] : []),

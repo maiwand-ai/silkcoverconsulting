@@ -44,15 +44,20 @@ Small conventions:
 
 The language switcher links each page to the same page in the other languages. The Dari and Pashto text is a **machine-assisted translation and must be reviewed by a native speaker before launch.** Brand names (SilkCover, NEXNGO, Sevil) stay in Latin script. Arabic-script text uses Noto Naskh Arabic (headings) and Noto Sans Arabic (body), which cover all Pashto letters.
 
-## Admin on the live site
+## Admin on the live site (Vercel)
 
-`npm run build` makes a static site without the admin. To edit on the live site:
+The site is hosted on Vercel at https://silkcoverconsulting.vercel.app. Pages are static; only `/keystatic` runs as a function. Editing on the live site saves straight to GitHub (`maiwand-ai/silkcoverconsulting`), and Vercel republishes in about 1–2 minutes.
 
-1. Put this project in a GitHub repository.
-2. Choose a host and install its adapter, e.g. `npx astro add vercel` or `npx astro add netlify`.
-3. Set environment variables on the host: `KEYSTATIC_ADMIN=1` and `PUBLIC_KEYSTATIC_GITHUB_REPO=owner/repo`.
-4. Open `/keystatic` on the live site and follow Keystatic’s prompt to create its GitHub app (it stores the app secrets as environment variables).
-5. Editors sign in with GitHub. Each save is a commit; the host rebuilds the site in about 1–2 minutes.
+One-time setup:
+
+1. **Create the GitHub App (on your computer).** With `.env` containing `PUBLIC_KEYSTATIC_GITHUB_REPO=maiwand-ai/silkcoverconsulting`, run `npm run dev`, open http://localhost:4321/keystatic and click **Create GitHub App**. Approve it on GitHub and install it on the `silkcoverconsulting` repository. Keystatic writes four values into `.env`: `KEYSTATIC_GITHUB_CLIENT_ID`, `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET`, `PUBLIC_KEYSTATIC_GITHUB_APP_SLUG`.
+2. **Allow the live address to log in.** On GitHub: Settings → Developer settings → GitHub Apps → your app → add the callback URL `https://silkcoverconsulting.vercel.app/api/keystatic/github/oauth/callback` (keep the localhost one) and save.
+3. **Add environment variables on Vercel** (Project → Settings → Environment Variables, Production): the four values from `.env`, plus `KEYSTATIC_ADMIN=1` and `PUBLIC_KEYSTATIC_GITHUB_REPO=maiwand-ai/silkcoverconsulting`. Then redeploy.
+4. Open https://silkcoverconsulting.vercel.app/keystatic and sign in with GitHub. Only accounts with write access to the repository can edit.
+
+`.env` holds secrets and is never committed. To keep editing local files on your computer afterwards, remove the `PUBLIC_KEYSTATIC_GITHUB_REPO` line from `.env`.
+
+When the domain is connected, add `SITE_URL=https://your-domain` on Vercel, add a matching callback URL to the GitHub App, and update `public/robots.txt`.
 
 ## Project structure
 
@@ -72,7 +77,7 @@ The language switcher links each page to the same page in the other languages. T
 
 | Item | Where (admin) | Status |
 |---|---|---|
-| Domain | `astro.config.mjs` → `site`, `public/robots.txt` | placeholder |
+| Domain | Vercel env `SITE_URL`, GitHub App callback, `public/robots.txt` | using silkcoverconsulting.vercel.app until connected |
 | Enquiry email | Whole site → Contact and form settings | placeholder |
 | Form handler | Whole site → Contact and form settings | not connected; form validates but sends nothing |
 | Dari and Pashto text | each language’s entries | needs native-speaker review |
