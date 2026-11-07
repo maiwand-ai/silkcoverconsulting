@@ -1,0 +1,19 @@
+{
+  "id": "Education and training",
+  "name": "Education and training providers",
+  "short": "Education and training",
+  "challenge": "Courses must match employer demand and meet the standards of the authorities that approve them.",
+  "questions": [
+    "Which skills do employers need now and in the next five years?",
+    "Does our curriculum match that demand?",
+    "How do we involve employers in course design?"
+  ],
+  "services": [
+    "professional-development",
+    "research-surveys-assessments",
+    "institutional-development"
+  ],
+  "fold": "16",
+  "sample": true,
+  "order": 5
+}

@@ -1,0 +1,20 @@
+{
+  "id": "Public institutions",
+  "name": "Government and public institutions",
+  "short": "Public institutions",
+  "challenge": "Reforms depend on workable structures, trained staff and public trust.",
+  "questions": [
+    "How should this institution be structured to deliver its mandate?",
+    "Which stakeholders must be consulted before a reform is adopted?",
+    "What skills do staff need, and how should training be organised?"
+  ],
+  "services": [
+    "institutional-development",
+    "dialogue-conferences-events",
+    "strategic-communications",
+    "professional-development"
+  ],
+  "fold": "12",
+  "sample": true,
+  "order": 2
+}

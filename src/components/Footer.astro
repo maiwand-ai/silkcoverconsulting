@@ -1,0 +1,62 @@
+---
+import Mark from './Mark.astro';
+import type { Site } from '../lib/content';
+interface Props { site: Site }
+const { site } = Astro.props;
+const S = site.settings;
+const year = new Date().getFullYear();
+const expertisePath = site.templatePath('expertise');
+---
+<footer class="footer" data-tone="dark">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <Mark class="footer__mark" />
+      <p class="footer__name" lang="en" dir="ltr">{S.siteName}</p>
+      <p class="footer__line muted">{S.tagline.join(' ')}</p>
+    </div>
+    <nav class="footer__col" aria-label={S.footer.pages}>
+      <h2 class="footer__h">{S.footer.pages}</h2>
+      <ul>
+        {site.footerPages.map((p) => <li><a href={site.pagePath(p.slug)}>{p.menu.label || p.title}</a></li>)}
+      </ul>
+    </nav>
+    <div class="footer__col">
+      <h2 class="footer__h">{S.footer.expertise}</h2>
+      <ul>
+        {site.services.map((s) => <li><a href={`${expertisePath}#${s.slug}`}>{s.label}</a></li>)}
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h2 class="footer__h">{S.footer.contact}</h2>
+      <p class="footer__email" dir="ltr">{site.global.email}</p>
+      {site.global.emailPlaceholder && <span class="sample-tag">{S.tags.placeholder}</span>}
+      <button class="btn btn--ghost footer__btn" type="button" data-enquire>{S.common.makeEnquiry}</button>
+    </div>
+  </div>
+  <div class="container footer__base">
+    <p><span dir="ltr">© {year} {S.siteName}</span></p>
+    <ul class="footer__legal">
+      {S.footer.legal.filter((l) => site.bySlug[l.page]).map((l) => <li><a href={site.pagePath(l.page)}>{l.label}</a></li>)}
+    </ul>
+    <p class="muted">{S.footer.offices}</p>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--lapis-950); padding-top: clamp(64px, 9vw, 120px); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 28px); }
+  .footer__grid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 48px 32px; }
+  .footer__brand { display: grid; gap: 14px; align-content: start; justify-items: start; }
+  .footer__brand :global(.footer__mark) { width: 52px; height: 52px; color: var(--brass); }
+  .footer__name { font-family: 'Marcellus', Georgia, serif; font-size: var(--step-2); }
+  .footer__line { font-family: var(--font-display); max-width: 22ch; }
+  .footer__h { font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--brass); margin-bottom: 18px; }
+  .footer__col ul { list-style: none; display: grid; gap: 10px; }
+  .footer__col a, .footer__legal a { text-decoration: none; opacity: 0.86; transition: opacity 0.2s, color 0.2s; }
+  .footer__col a:hover, .footer__legal a:hover { opacity: 1; color: var(--turquoise); }
+  .footer__email { margin-bottom: 10px; word-break: break-word; text-align: start; }
+  .footer__btn { margin-top: 20px; }
+  .footer__base { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px 28px; margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--line-dark); font-size: 0.85rem; }
+  .footer__legal { list-style: none; display: flex; gap: 18px; margin-inline-end: auto; }
+  @media (max-width: 900px) { .footer__grid { grid-template-columns: 1fr 1fr; } .footer__brand { grid-column: 1 / -1; } }
+  @media (max-width: 520px) { .footer__grid { grid-template-columns: 1fr; } }
+</style>

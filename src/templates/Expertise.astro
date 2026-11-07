@@ -1,0 +1,215 @@
+---
+import GirihTile from '../components/GirihTile.astro';
+import Closing from '../components/Closing.astro';
+import SectionRail from '../components/SectionRail.astro';
+import { starPath, polygonPath, defaultStep } from '../lib/geometry';
+import { sectionsFor, type Site, type Page } from '../lib/content';
+
+interface Props { site: Site; page: Page }
+const { site, page } = Astro.props;
+if (page.template.discriminant !== 'expertise') throw new Error('Expertise template needs an expertise page');
+const v = page.template.value;
+const S = site.settings;
+const L = v.labels;
+const combos = v.combinations.items.filter((c) => c.a && c.b && site.serviceBySlug[c.a] && site.serviceBySlug[c.b]) as { a: string; b: string; note: string }[];
+
+const withGlyph = site.services.map((s) => ({ ...s, star: starPath(s.fold, defaultStep(s.fold), 46), core: polygonPath(s.fold, 15) }));
+const related = (slug: string) => combos.filter(({ a, b }) => a === slug || b === slug).map(({ a, b }) => site.serviceBySlug[a === slug ? b : a]);
+const sep = site.info.dir === 'rtl' ? '، ' : ', ';
+const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" /></svg>';
+---
+<!-- OPENING: an index, lit by a large rosette -->
+<section class="x-open" data-tone="light" aria-labelledby="x-title">
+  <div class="container x-open__grid">
+    <div class="x-open__lead">
+      <p class="eyebrow">{v.hero.eyebrow}</p>
+      <h1 id="x-title">{site.withCount(v.hero.title)} <span>{v.hero.accent}</span></h1>
+      <p class="lede muted">{v.hero.lede}</p>
+      <svg class="x-open__rosette" viewBox="-60 -60 120 120" aria-hidden="true" data-rosette>
+        <circle r="56" class="x-open__orbit" />
+        {withGlyph.map((s, i) => (
+          <g data-rosette-for={s.slug} class:list={{ 'is-on': i === 0 }}>
+            <path d={s.star} />
+            <path d={s.core} class="x-open__core" />
+          </g>
+        ))}
+      </svg>
+    </div>
+    <nav class="x-index" aria-label={v.hero.eyebrow}>
+      <ol>
+        {withGlyph.map((s) => (
+          <li>
+            <a href={`#${s.slug}`} data-index-for={s.slug}>
+              <svg viewBox="-50 -50 100 100" class="x-index__glyph" aria-hidden="true"><path d={s.star} /></svg>
+              <span class="x-index__title">{s.title}</span>
+              <span class="x-index__line">{s.line}</span>
+              <svg class="x-index__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v15M6 13l6 6 6-6" /></svg>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<SectionRail items={sectionsFor(page, site)} title={S.common.onThisPage} />
+
+<!-- SERVICES -->
+{withGlyph.map((s, i) => (
+  <section class:list={['x-svc', { 'x-svc--flip': i % 2 === 1 }]} id={s.slug} data-tone={i % 2 ? 'ivory' : 'light'} data-svc aria-labelledby={`${s.slug}-h`}>
+    <div class="container x-svc__grid">
+      <div class="x-svc__art" data-reveal>
+        <GirihTile id={`svc-${s.slug}`} fold={s.fold} tone={i % 3 === 0 ? 'dark' : i % 3 === 1 ? 'turquoise' : 'light'} tile={i % 2 ? 84 : 112} />
+      </div>
+      <div class="x-svc__body">
+        <p class="x-svc__kicker" data-reveal>
+          <svg viewBox="-50 -50 100 100" aria-hidden="true"><path d={s.star} /></svg>
+          {s.label}
+        </p>
+        <h2 id={`${s.slug}-h`} data-reveal>{s.title}</h2>
+        <p class="x-svc__line" data-reveal style="--delay:.05s">{s.line}</p>
+        <p class="x-svc__intro muted" data-reveal style="--delay:.1s">{s.intro}</p>
+        {s.platformName && s.platformUrl && (
+          <a class="x-svc__platform" href={s.platformUrl} target="_blank" rel="noopener" data-reveal style="--delay:.12s">
+            <span class="x-svc__platform-k">{L.platform}</span>
+            <span class="x-svc__platform-n" lang="en" dir="ltr">{s.platformName}</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M9 8h7v7" /></svg>
+            <span class="visually-hidden">({S.common.newTab})</span>
+          </a>
+        )}
+        <div class="x-svc__examples" data-reveal style="--delay:.15s">
+          <h3>{L.examples}</h3>
+          <ul>{s.examples.map((e) => <li>{e}</li>)}</ul>
+        </div>
+        <div class="x-svc__foot" data-reveal style="--delay:.2s">
+          <button class="btn btn--solid" type="button" data-enquire data-service={s.slug}>{L.enquire}<Fragment set:html={arrow} /></button>
+          {related(s.slug).length > 0 && (
+            <p class="x-svc__related"><span>{L.related}</span>
+              {related(s.slug).map((r, j) => <>{j > 0 && sep}<a href={`#${r.slug}`}>{r.label}</a></>)}
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+))}
+
+<!-- COMBINATIONS -->
+{combos.length > 0 && (
+<section class="section x-combo" id="combinations" data-tone="dark" aria-labelledby="combo-title">
+  <div class="container">
+    <header class="x-combo__head">
+      <p class="eyebrow" data-reveal>{v.combinations.section.eyebrow}</p>
+      <h2 id="combo-title" data-reveal>{v.combinations.section.title}</h2>
+      <p class="muted" data-reveal>{v.combinations.section.text}</p>
+    </header>
+    <ul class="x-combo__list">
+      {combos.map(({ a, b, note }, i) => (
+        <li data-reveal style={`--delay:${i * 0.05}s`}>
+          <span class="x-combo__pair">
+            <a href={`#${a}`}>{site.serviceBySlug[a].label}</a>
+            <i aria-hidden="true"></i>
+            <a href={`#${b}`}>{site.serviceBySlug[b].label}</a>
+          </span>
+          <span class="x-combo__note muted">{note}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+)}
+
+<Closing heading={v.closing.title} text={v.closing.text} button={S.common.makeEnquiry} />
+<style>
+  /* ---------- Opening ---------- */
+  .x-open { padding-top: calc(var(--header-h) + clamp(48px, 8vw, 110px)); padding-bottom: clamp(56px, 8vw, 110px); overflow: hidden; }
+  .x-open__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(40px, 6vw, 96px); align-items: start; }
+  .x-open__lead { display: grid; gap: 22px; position: sticky; top: calc(var(--header-h) + 24px); }
+  .x-open__lead h1 { font-size: var(--step-4); line-height: 1; }
+  .x-open__lead h1 span { display: block; color: var(--turquoise-ink); }
+  .x-open__rosette { width: min(300px, 70%); height: auto; margin-top: 12px; overflow: visible; }
+  .x-open__rosette g { fill: none; stroke: var(--ink); stroke-width: 0.6; opacity: 0; transform: rotate(-30deg) scale(0.85); transform-origin: 0 0; transition: opacity 0.6s, transform 1.1s var(--ease-arch); }
+  .x-open__rosette g.is-on { opacity: 1; transform: none; }
+  .x-open__rosette .x-open__core { stroke: var(--brass-ink); stroke-width: 0.9; }
+  .x-open__orbit { fill: none; stroke: var(--line-light); stroke-dasharray: 1 3; }
+
+  .x-index ol { list-style: none; border-top: 1px solid var(--line-light); counter-reset: none; }
+  .x-index a { display: grid; grid-template-columns: 44px minmax(0, 1fr) 24px; grid-template-rows: auto auto; column-gap: 20px; row-gap: 4px; align-items: center; padding: 22px 4px; border-bottom: 1px solid var(--line-light); text-decoration: none; transition: background 0.3s, padding 0.5s var(--ease-out); }
+  .x-index a:hover, .x-index a:focus-visible, .x-index a.is-on { background: var(--ivory); padding-inline-start: 16px; padding-inline-end: 16px; }
+  .x-index__glyph { grid-row: span 2; width: 40px; height: 40px; fill: none; stroke: var(--brass-ink); stroke-width: 2.4; transition: transform 0.9s var(--ease-arch); }
+  .x-index a:hover .x-index__glyph, .x-index a.is-on .x-index__glyph { transform: rotate(45deg); stroke: var(--turquoise-ink); }
+  .x-index__title { font-family: var(--font-display); font-size: var(--step-1); line-height: 1.2; }
+  .x-index__line { grid-column: 2; font-size: 0.9rem; color: var(--ink-soft); }
+  .x-index__arrow { grid-row: 1 / span 2; grid-column: 3; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.4; opacity: 0.4; transition: opacity 0.3s, transform 0.4s var(--ease-out); }
+  .x-index a:hover .x-index__arrow { opacity: 1; transform: translateY(3px); }
+  @media (max-width: 900px) {
+    .x-open__grid { grid-template-columns: 1fr; }
+    .x-open__lead { position: static; }
+    .x-open__rosette { display: none; }
+  }
+
+  /* ---------- Service modules ---------- */
+  .x-svc { padding-block: clamp(64px, 7vw, 104px); }
+  .x-svc__grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(36px, 6vw, 100px); align-items: start; }
+  .x-svc--flip .x-svc__art { order: 2; }
+  .x-svc__art { position: sticky; top: calc(var(--header-h) + 96px); max-width: 420px; width: 100%; justify-self: center; }
+  .x-svc__art :global(.girih-tile__pattern) { transition: transform 2s var(--ease-out); }
+  .x-svc:hover .x-svc__art :global(.girih-tile__pattern) { transform: rotate(15deg) scale(1.08); }
+  .x-svc__body { display: grid; gap: 20px; align-content: start; max-width: 40rem; }
+  .x-svc__kicker { display: inline-flex; align-items: center; gap: 12px; font-size: 0.75rem; font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--brass-ink); }
+  .x-svc__kicker svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 3; }
+  .x-svc h2 { font-size: var(--step-3); }
+  .x-svc__line { font-family: var(--font-display); font-size: var(--step-2); color: var(--turquoise-ink); line-height: 1.2; }
+  .x-svc__intro { font-size: var(--step-1); line-height: 1.5; max-width: 44ch; }
+  .x-svc__platform { justify-self: start; display: inline-grid; grid-template-columns: auto auto; grid-template-rows: auto auto; column-gap: 18px; align-items: center; text-decoration: none; padding: 12px 18px; border: 1px solid var(--line-light); border-radius: 2px; background: var(--paper); transition: border-color 0.3s, background 0.3s; }
+  .x-svc__platform-k { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass-ink); }
+  .x-svc__platform-n { grid-row: 2; font-family: var(--font-display); font-size: var(--step-1); letter-spacing: 0.04em; }
+  .x-svc__platform svg { grid-row: 1 / span 2; grid-column: 2; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; transition: transform 0.4s var(--ease-out); }
+  .x-svc__platform:hover { border-color: var(--turquoise-ink); }
+  .x-svc__platform:hover svg { transform: translate(3px, -3px); color: var(--turquoise-ink); }
+  [data-tone='ivory'] .x-svc__platform { background: var(--paper); }
+  .x-svc__examples { display: grid; gap: 14px; padding-top: 8px; }
+  .x-svc__examples h3 { font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--ink-soft); }
+  .x-svc__examples ul { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; border-top: 1px solid var(--line-light); }
+  .x-svc__examples li { position: relative; padding-block: 13px; padding-inline: 24px 0; border-bottom: 1px solid var(--line-light); font-size: 0.98rem; }
+  .x-svc__examples li::before { content: ''; position: absolute; inset-inline-start: 2px; top: 1.3em; width: 7px; height: 7px; border: 1px solid var(--turquoise-ink); transform: rotate(45deg); }
+  .x-svc__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; padding-top: 12px; }
+  .x-svc__related { font-size: 0.9rem; color: var(--ink-soft); }
+  .x-svc__related span { display: block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 2px; }
+  .x-svc__related a { color: var(--ink); text-underline-offset: 3px; text-decoration-color: var(--brass); }
+  .x-svc__related a:hover { color: var(--turquoise-ink); }
+  @media (max-width: 860px) {
+    .x-svc__grid { grid-template-columns: 1fr; }
+    .x-svc--flip .x-svc__art { order: 0; }
+    .x-svc__art { position: static; max-width: 220px; justify-self: start; }
+  }
+  @media (max-width: 560px) { .x-svc__examples ul { grid-template-columns: 1fr; } }
+
+  /* ---------- Combinations ---------- */
+  .x-combo__head { display: grid; gap: 18px; margin-bottom: clamp(36px, 5vw, 64px); max-width: 44rem; }
+  .x-combo__head h2 { font-size: var(--step-4); }
+  .x-combo__list { list-style: none; border-top: 1px solid var(--line-dark); }
+  .x-combo__list li { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 8px 40px; padding: 20px 0; border-bottom: 1px solid var(--line-dark); align-items: center; }
+  .x-combo__pair { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; font-family: var(--font-display); font-size: var(--step-1); }
+  .x-combo__pair a { text-decoration: none; transition: color 0.2s; }
+  .x-combo__pair a:hover { color: var(--turquoise); }
+  .x-combo__pair i { width: 44px; height: 1px; background: var(--brass); position: relative; flex: none; transition: width 0.5s var(--ease-out); }
+  .x-combo__pair i::before, .x-combo__pair i::after { content: ''; position: absolute; top: -3px; width: 7px; height: 7px; border: 1px solid var(--brass); transform: rotate(45deg); background: var(--lapis-900); }
+  .x-combo__pair i::before { inset-inline-start: -4px; } .x-combo__pair i::after { inset-inline-end: -4px; }
+  .x-combo__list li:hover i { width: 72px; background: var(--turquoise); }
+  @media (max-width: 760px) { .x-combo__list li { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  // Opening index lights the rosette.
+  const rosette = document.querySelector('[data-rosette]');
+  const setRosette = (slug: string) => {
+    rosette?.querySelectorAll<SVGGElement>('[data-rosette-for]').forEach((g) => g.classList.toggle('is-on', g.dataset.rosetteFor === slug));
+    document.querySelectorAll<HTMLElement>('[data-index-for]').forEach((a) => a.classList.toggle('is-on', a.dataset.indexFor === slug));
+  };
+  document.querySelectorAll<HTMLElement>('[data-index-for]').forEach((a) => {
+    a.addEventListener('mouseenter', () => setRosette(a.dataset.indexFor!));
+    a.addEventListener('focus', () => setRosette(a.dataset.indexFor!));
+  });
+
+</script>

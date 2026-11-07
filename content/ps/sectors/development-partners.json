@@ -1,0 +1,21 @@
+{
+  "id": "Development partners",
+  "name": "نړیوال پراختیایي شریکان",
+  "short": "پراختیایي شریکان",
+  "challenge": "پروګرامونه باوري شواهدو، سیمه‌ییزې پوهې او تمویلوونکو ته روښانه راپور ورکولو ته اړتیا لري.",
+  "questions": [
+    "ایا پروګرام هغو خلکو ته رسېږي چې ورته ډیزاین شوی؟",
+    "د بنسټیزې او پایلیزې مطالعې ترمنځ څه بدل شول او ولې؟",
+    "کوم سیمه‌ییز شریکان د اجرا ظرفیت لري؟"
+  ],
+  "services": [
+    "research-surveys-assessments",
+    "institutional-development",
+    "dialogue-conferences-events",
+    "strategic-communications",
+    "ngo-strategy-systems"
+  ],
+  "fold": "8",
+  "sample": true,
+  "order": 1
+}

@@ -1,0 +1,131 @@
+{
+  "id": "About",
+  "title": "About SilkCover",
+  "description": "Who SilkCover Consulting is, the principles that guide our work, and the heritage behind our identity.",
+  "menu": {
+    "show": true,
+    "footer": true,
+    "order": 1,
+    "label": "About SilkCover",
+    "blurb": "Who we are, what we value and how we think.",
+    "fold": "10",
+    "tone": "light"
+  },
+  "template": {
+    "discriminant": "about",
+    "value": {
+      "hero": {
+        "eyebrow": "About SilkCover",
+        "title": "Advice shaped by *evidence*, *context* and *purpose*.",
+        "lede": "SilkCover Consulting supports institutions, investors and programmes through {count} connected services, from research and market analysis to dialogue, communications and capability building.",
+        "caption": "Eight-fold girih, after the tilework of Herat"
+      },
+      "intro": {
+        "title": "A consultancy for decisions that matter",
+        "paragraphs": [
+          "Organisations come to us at moments of decision: before a programme starts, before an investment is made, before a reform is adopted, or when a message has to reach people who are hard to reach. Our role is to give them a clear view of where they stand and practical options for what to do next.",
+          "We combine research and analysis with the work that turns findings into action: convening stakeholders, communicating clearly, strengthening institutions and building skills. Clients can use one service or bring several together into a single programme of support."
+        ],
+        "rail": "Who we are"
+      },
+      "principles": {
+        "section": {
+          "eyebrow": "Our principles",
+          "title": "Three lines, one figure"
+        },
+        "items": [
+          {
+            "title": "Global perspective",
+            "text": "International standards and methods applied to every assignment, so findings stand up to scrutiny from donors, investors and partners anywhere."
+          },
+          {
+            "title": "Cultural depth",
+            "text": "Understanding the languages, institutions and histories that shape how decisions are made on the ground. Good advice depends on knowing the setting it will be used in."
+          },
+          {
+            "title": "Strategic thinking",
+            "text": "Every finding has a use and every recommendation has a reason. We connect evidence to the decision it is meant to inform."
+          }
+        ],
+        "draft": true,
+        "rail": "Principles"
+      },
+      "values": {
+        "section": {
+          "eyebrow": "What we value",
+          "title": "Five commitments"
+        },
+        "items": [
+          {
+            "title": "Integrity",
+            "text": "We report what the evidence shows, including what clients may not want to hear."
+          },
+          {
+            "title": "Rigour",
+            "text": "Sound methods, checked data and conclusions that can be traced back to their source."
+          },
+          {
+            "title": "Respect",
+            "text": "For participants, for local knowledge and for the institutions we work alongside."
+          },
+          {
+            "title": "Partnership",
+            "text": "We work with clients, not around them, and leave capability behind."
+          },
+          {
+            "title": "Clarity",
+            "text": "Plain language, clear recommendations and no unnecessary complexity."
+          }
+        ],
+        "draft": true,
+        "rail": "Values"
+      },
+      "team": {
+        "section": {
+          "eyebrow": "Leadership",
+          "title": "The people behind the work"
+        },
+        "people": [
+          {
+            "name": "Name to be confirmed",
+            "role": "Founder and Managing Director",
+            "focus": "Strategy, client relationships and quality of delivery.",
+            "fold": "8",
+            "sample": true
+          },
+          {
+            "name": "Name to be confirmed",
+            "role": "Director of Research",
+            "focus": "Research design, surveys, evaluation and data analysis.",
+            "fold": "12",
+            "sample": true
+          },
+          {
+            "name": "Name to be confirmed",
+            "role": "Director of Engagement",
+            "focus": "Dialogue, events, communications and partnerships.",
+            "fold": "10",
+            "sample": true
+          }
+        ],
+        "rail": "Leadership"
+      },
+      "identity": {
+        "section": {
+          "eyebrow": "About our identity",
+          "title": "Many lines, one coherent pattern"
+        },
+        "paragraphs": [
+          "Our visual identity draws on girih, the strapwork geometry found in the tilework of Herat’s historic architecture. Girih patterns are built with compass and straightedge from a few simple rules, yet they produce figures of great complexity and balance.",
+          "We see the same idea in good consulting: separate disciplines, drawn with care, that fit together into one coherent piece of work. The pointed arch that frames our images and pages comes from the same architectural tradition."
+        ],
+        "rail": "Our identity"
+      },
+      "closing": {
+        "title": "Work with us",
+        "text": "Tell us about the decision in front of you. We will tell you honestly whether and how we can help."
+      },
+      "closingRail": "Work with us"
+    }
+  }
+}

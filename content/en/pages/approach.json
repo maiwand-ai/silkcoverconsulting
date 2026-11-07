@@ -1,0 +1,108 @@
+{
+  "id": "Approach",
+  "title": "Our Approach",
+  "description": "How SilkCover Consulting runs an assignment: four stages from first question to final result.",
+  "menu": {
+    "show": true,
+    "footer": true,
+    "order": 3,
+    "label": "Our Approach",
+    "blurb": "How an assignment moves from question to result.",
+    "fold": "10",
+    "tone": "dark"
+  },
+  "template": {
+    "discriminant": "approach",
+    "value": {
+      "hero": {
+        "eyebrow": "Our approach",
+        "title": "From the first question to a result you can use",
+        "lede": "Every assignment moves through the same four stages. Each one builds on the last, so nothing is designed before it is understood."
+      },
+      "stages": [
+        {
+          "title": "Listen",
+          "text": "Understand the decision you face, the context around it and the people it affects.",
+          "happens": [
+            "Inception meeting",
+            "Document review",
+            "Stakeholder mapping"
+          ],
+          "receive": "An inception note setting out the questions, scope and timeline we have agreed.",
+          "you": "A briefing, and access to the documents and people who know the context."
+        },
+        {
+          "title": "Evidence",
+          "text": "Gather and test the facts with methods suited to the setting and the question.",
+          "happens": [
+            "Surveys and interviews",
+            "Market and data analysis",
+            "Field visits where needed"
+          ],
+          "receive": "Clean data, field notes and a briefing on emerging findings.",
+          "you": "Introductions and permissions that open the right doors."
+        },
+        {
+          "title": "Design",
+          "text": "Turn findings into practical options with clear trade-offs and costs.",
+          "happens": [
+            "Analysis workshops",
+            "Option development",
+            "Costing and risk review"
+          ],
+          "receive": "A draft report, plan or strategy with options and recommendations.",
+          "you": "Review and feedback, so the final version fits how you work."
+        },
+        {
+          "title": "Deliver",
+          "text": "Implement, report and learn, so the next decision starts from a stronger base.",
+          "happens": [
+            "Final reporting",
+            "Events, training or implementation support",
+            "Handover"
+          ],
+          "receive": "Final deliverables, a presentation of results and handover materials.",
+          "you": "Decisions on next steps, with our support if you want it."
+        }
+      ],
+      "labels": {
+        "stage": "Stage",
+        "happens": "What happens",
+        "receive": "What you receive",
+        "you": "Your part"
+      },
+      "draft": true,
+      "principles": {
+        "section": {
+          "eyebrow": "How we deliver",
+          "title": "Principles that hold across every stage"
+        },
+        "items": [
+          {
+            "title": "Context first",
+            "text": "Methods, language and timing are chosen for the setting, not copied from a template."
+          },
+          {
+            "title": "Ethical and safe",
+            "text": "Informed consent, data protection and participant safety come before deadlines."
+          },
+          {
+            "title": "Multilingual by design",
+            "text": "Interpretation and translated materials are planned from the start, not added at the end."
+          },
+          {
+            "title": "Usable outputs",
+            "text": "Every deliverable is written to be acted on: short, clear and honest about uncertainty."
+          }
+        ],
+        "draft": true,
+        "rail": "Principles"
+      },
+      "closing": {
+        "title": "Begin with a conversation",
+        "text": "Stage one starts with listening. Tell us about the question you are facing."
+      },
+      "closingRail": "Get in touch"
+    }
+  }
+}

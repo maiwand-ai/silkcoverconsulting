@@ -1,0 +1,43 @@
+{
+  "id": "Insights",
+  "title": "Insights",
+  "description": "Perspectives from SilkCover Consulting on research, markets, institutions and dialogue.",
+  "menu": {
+    "show": true,
+    "footer": true,
+    "order": 5,
+    "label": "Insights",
+    "blurb": "Perspectives and notes from our work.",
+    "fold": "9",
+    "tone": "dark"
+  },
+  "template": {
+    "discriminant": "insights",
+    "value": {
+      "hero": {
+        "eyebrow": "Insights",
+        "title": "Notes from the field",
+        "lede": "Perspectives on research, markets, institutions and dialogue."
+      },
+      "labels": {
+        "all": "All",
+        "read": "Read the article",
+        "minRead": "min read",
+        "topics": "Topics we write about",
+        "empty": "No articles on this topic yet.",
+        "related": "Related service",
+        "discuss": "Discuss this with us",
+        "next": "Next article",
+        "introduction": "Introduction",
+        "featured": "Featured",
+        "more": "More articles",
+        "topicsRail": "Topics"
+      },
+      "closing": {
+        "title": "Suggest a topic",
+        "text": "Tell us what you are working on. Some of our best articles start as a client’s question."
+      },
+      "closingRail": "Suggest a topic"
+    }
+  }
+}

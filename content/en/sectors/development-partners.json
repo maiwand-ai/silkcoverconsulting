@@ -1,0 +1,21 @@
+{
+  "id": "Development partners",
+  "name": "International development partners",
+  "short": "Development partners",
+  "challenge": "Programmes need credible evidence, local insight and clear reporting to donors.",
+  "questions": [
+    "Is the programme reaching the people it was designed for?",
+    "What changed between baseline and endline, and why?",
+    "Which local partners have the capacity to deliver?"
+  ],
+  "services": [
+    "research-surveys-assessments",
+    "institutional-development",
+    "dialogue-conferences-events",
+    "strategic-communications",
+    "ngo-strategy-systems"
+  ],
+  "fold": "8",
+  "sample": true,
+  "order": 1
+}

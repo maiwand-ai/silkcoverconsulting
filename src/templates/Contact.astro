@@ -1,0 +1,112 @@
+---
+import EnquiryForm from '../components/EnquiryForm.astro';
+import SectionRail from '../components/SectionRail.astro';
+import { archPath, ARCH_RISE } from '../lib/geometry';
+import { sectionsFor, type Site, type Page } from '../lib/content';
+
+interface Props { site: Site; page: Page }
+const { site, page } = Astro.props;
+if (page.template.discriminant !== 'contact') throw new Error('Contact template needs a contact page');
+const v = page.template.value;
+const S = site.settings;
+const arch = archPath(150, 400, 150, 400 - ARCH_RISE * 150);
+---
+<!-- OPENING BAND -->
+<section class="c-open" data-tone="dark" data-contact-hero aria-labelledby="c-title">
+  <canvas class="c-open__canvas" aria-hidden="true" data-girih></canvas>
+  <div class="container c-open__inner">
+    <p class="eyebrow">{v.hero.eyebrow}</p>
+    <h1 id="c-title">{v.hero.title}</h1>
+    <p class="lede muted">{v.hero.lede}</p>
+  </div>
+</section>
+
+<SectionRail items={sectionsFor(page, site)} title={S.common.onThisPage} />
+
+<!-- SPLIT -->
+<section class="c-split" data-tone="ivory" aria-label={v.hero.title}>
+  <div class="container c-split__grid">
+    <div class="c-info">
+      <div class="c-block" id="write-to-us">
+        <h2>{v.write.title}</h2>
+        <p class="c-email" dir="ltr">{site.global.email}</p>
+        {site.global.emailPlaceholder && <span class="sample-tag">{S.tags.placeholder}</span>}
+        <button class="c-copy" type="button" data-copy={site.global.email} data-copied={v.write.copied} data-fail={v.write.copyFail}>{v.write.copy}</button>
+      </div>
+
+      <div class="c-block" id="next-steps">
+        <h2>{v.steps.title}</h2>
+        <ol class="c-steps">
+          {v.steps.items.map((s, i) => (
+            <li>
+              <span class="c-steps__n" aria-hidden="true">{(i + 1).toLocaleString(site.info.lang)}</span>
+              <div><h3>{s.title}</h3><p class="muted">{s.text}</p></div>
+            </li>
+          ))}
+        </ol>
+        {v.steps.draft && <span class="sample-tag">{S.tags.draft}</span>}
+      </div>
+
+      <div class="c-block c-place" id="where-we-are">
+        <svg viewBox="0 0 300 400" aria-hidden="true"><path d={arch} /></svg>
+        <div>
+          <h2>{v.where.title}</h2>
+          <p class="muted">{v.where.text}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="c-form" id="enquiry-form">
+      <h2 class="c-form__h">{v.form.title}</h2>
+      <p class="muted c-form__sub">{v.form.sub}</p>
+      <EnquiryForm site={site} idp="contact" preset={site.services[0]?.slug} />
+    </div>
+  </div>
+</section>
+<style>
+  .c-open { position: relative; overflow: hidden; isolation: isolate; padding-top: calc(var(--header-h) + clamp(48px, 8vw, 120px)); padding-bottom: clamp(56px, 8vw, 110px); min-height: 56vh; display: grid; align-items: end; touch-action: pan-y; }
+  .c-open__canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
+  .c-open__inner { display: grid; gap: 20px; }
+  .c-open h1 { font-size: var(--step-5); line-height: 0.98; max-width: 12ch; }
+  .c-open .lede { max-width: 46ch; }
+
+  .c-split { padding-block: clamp(56px, 8vw, 110px); }
+  .c-split__grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+  .c-info { display: grid; gap: 44px; }
+  .c-block { display: grid; gap: 12px; justify-items: start; }
+  .c-block h2 { font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--brass-ink); }
+  .c-email { font-family: var(--font-display); font-size: var(--step-2); word-break: break-word; }
+  .c-copy { background: none; border: 0; padding: 0; font-size: 0.88rem; font-weight: 600; color: var(--turquoise-ink); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+  .c-steps { list-style: none; display: grid; gap: 18px; }
+  .c-steps li { display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start; }
+  .c-steps__n { width: 34px; height: 34px; display: grid; place-items: center; font-family: var(--font-display); font-size: 1.05rem; color: var(--brass-ink); position: relative; }
+  .c-steps__n::before { content: ''; position: absolute; inset: 4px; border: 1px solid var(--brass-ink); transform: rotate(45deg); }
+  .c-steps h3 { font-size: var(--step-1); margin-bottom: 2px; }
+  .c-steps p { font-size: 0.95rem; }
+  .c-place { grid-template-columns: 56px 1fr; align-items: center; gap: 18px; }
+  .c-place svg { width: 56px; height: auto; fill: none; stroke: var(--brass-ink); stroke-width: 4; }
+  .c-place > div { display: grid; gap: 6px; }
+
+  .c-form { --field-bg: #fffdf8; background: var(--paper); padding: clamp(28px, 4vw, 52px); padding-top: clamp(56px, 7vw, 90px); border-radius: 260px 260px 4px 4px / 110px 110px 4px 4px; box-shadow: 0 1px 0 var(--line-light), 0 30px 60px -40px rgba(14, 26, 43, 0.35); }
+  .c-form__h { font-size: var(--step-3); text-align: center; }
+  .c-form__sub { text-align: center; font-size: 0.9rem; margin: 8px 0 28px; }
+  @media (max-width: 900px) {
+    .c-split__grid { grid-template-columns: 1fr; }
+    .c-form { order: -1; border-radius: 160px 160px 4px 4px / 70px 70px 4px 4px; }
+  }
+</style>
+
+<script>
+  import { mountGirihField } from '../scripts/girih-field';
+  const canvas = document.querySelector<HTMLCanvasElement>('[data-girih]');
+  const host = document.querySelector<HTMLElement>('[data-contact-hero]');
+  const rtl = document.documentElement.dir === 'rtl';
+  if (canvas && host) mountGirihField(canvas, host, { origin: [rtl ? 0.22 : 0.78, 0.5], originPortrait: [rtl ? 0.4 : 0.6, 0.2], rtl });
+
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((b) => b.addEventListener('click', async () => {
+    const label = b.textContent;
+    try { await navigator.clipboard.writeText(b.dataset.copy || ''); b.textContent = b.dataset.copied || ''; }
+    catch { b.textContent = b.dataset.fail || ''; }
+    setTimeout(() => { b.textContent = label; }, 2200);
+  }));
+</script>

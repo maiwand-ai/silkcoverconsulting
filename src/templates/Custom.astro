@@ -1,0 +1,112 @@
+---
+/**
+ * Custom page: an opening plus any number of section blocks, all added and
+ * ordered in the admin (Pages → Page type: Custom). Used for the privacy policy.
+ */
+import GirihTile from '../components/GirihTile.astro';
+import Closing from '../components/Closing.astro';
+import SectionRail from '../components/SectionRail.astro';
+import { starPath } from '../lib/geometry';
+import { emph, sectionsFor, type Site, type Page } from '../lib/content';
+
+interface Props { site: Site; page: Page }
+const { site, page } = Astro.props;
+if (page.template.discriminant !== 'custom') throw new Error('Custom template needs a custom page');
+const v = page.template.value;
+const S = site.settings;
+const rail = sectionsFor(page, site);
+const num = (i: number) => i.toLocaleString(site.info.lang, { minimumIntegerDigits: 2 });
+const folds = [8, 10, 12, 16];
+---
+<section class="u-open" data-tone="ivory" aria-labelledby="u-title">
+  <div class="container u-open__grid">
+    <div class="u-open__text">
+      {v.hero.eyebrow && <p class="eyebrow">{v.hero.eyebrow}</p>}
+      <h1 id="u-title" set:html={emph(v.hero.title || page.title)} />
+      {v.hero.lede && <p class="lede muted">{v.hero.lede}</p>}
+    </div>
+    <div class="u-open__art" aria-hidden="true"><GirihTile id={`u-${page.slug}`} fold={Number(page.menu.fold)} tone={page.menu.tone} tile={90} h={420} /></div>
+  </div>
+</section>
+
+{rail.length > 1 && <SectionRail items={rail} title={S.common.onThisPage} />}
+
+<div class="u-body" data-tone="light">
+  <div class="container u-flow">
+    {v.blocks.map((b, i) => {
+      const id = `section-${i + 1}`;
+      if (b.discriminant === 'text') return (
+        <section class="u-block u-text" id={id} data-reveal>
+          {b.value.eyebrow && <p class="eyebrow">{b.value.eyebrow}</p>}
+          {b.value.heading && <h2>{b.value.heading}</h2>}
+          <div class="u-prose">{b.value.paragraphs.map((p) => <p>{p}</p>)}</div>
+        </section>
+      );
+      if (b.discriminant === 'cards') return (
+        <section class="u-block u-cards" id={id} data-reveal>
+          {b.value.eyebrow && <p class="eyebrow">{b.value.eyebrow}</p>}
+          {b.value.heading && <h2>{b.value.heading}</h2>}
+          <ul class="u-cards__grid">
+            {b.value.items.map((c, ci) => (
+              <li>
+                <svg viewBox="-50 -50 100 100" aria-hidden="true"><path d={starPath(folds[ci % 4], folds[ci % 4] === 12 ? 5 : folds[ci % 4] === 16 ? 6 : 3, 44)} /></svg>
+                <h3>{c.title}</h3>
+                <p class="muted">{c.text}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      );
+      if (b.discriminant === 'list') return (
+        <section class="u-block u-list" id={id} data-reveal>
+          {b.value.heading && <h2>{b.value.heading}</h2>}
+          <ol>{b.value.items.map((it, li) => <li><span aria-hidden="true">{num(li + 1)}</span>{it}</li>)}</ol>
+        </section>
+      );
+      if (b.discriminant === 'quote') return (
+        <figure class="u-block u-quote" data-reveal>
+          <blockquote><p>{b.value.text}</p></blockquote>
+          {b.value.source && <figcaption>{b.value.source}</figcaption>}
+        </figure>
+      );
+      if (b.discriminant === 'cta') return (
+        <section class="u-block u-cta" id={id} data-tone="dark" data-reveal>
+          <h2>{b.value.heading}</h2>
+          {b.value.text && <p class="muted">{b.value.text}</p>}
+          <button class="btn btn--solid" type="button" data-enquire>{b.value.button || S.common.makeEnquiry}</button>
+        </section>
+      );
+      return null;
+    })}
+  </div>
+</div>
+
+{v.showClosing && v.closing.title && <Closing heading={v.closing.title} text={v.closing.text} button={S.common.makeEnquiry} />}
+
+<style>
+  .u-open { padding-top: calc(var(--header-h) + clamp(40px, 6vw, 90px)); padding-bottom: clamp(40px, 6vw, 80px); }
+  .u-open__grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 0.5fr); gap: clamp(28px, 5vw, 80px); align-items: end; }
+  .u-open__text { display: grid; gap: 20px; }
+  .u-open h1 { font-size: var(--step-4); line-height: 1.04; max-width: 20ch; }
+  .u-open h1 :global(em) { font-style: normal; color: var(--turquoise-ink); }
+  .u-open__art { max-width: 220px; justify-self: end; width: 100%; }
+  @media (max-width: 760px) { .u-open__grid { grid-template-columns: 1fr; } .u-open__art { display: none; } }
+
+  .u-body { padding-block: clamp(48px, 7vw, 96px); }
+  .u-flow { display: grid; gap: clamp(40px, 5vw, 64px); max-width: 860px; }
+  .u-block { display: grid; gap: 14px; }
+  .u-block h2 { font-size: var(--step-3); }
+  .u-prose { display: grid; gap: 1em; max-width: 66ch; font-size: 1.06rem; line-height: 1.75; }
+  .u-cards__grid { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0 28px; }
+  .u-cards__grid li { display: grid; gap: 8px; padding-block: 22px; border-top: 1px solid var(--line-light); }
+  .u-cards__grid svg { width: 32px; height: 32px; fill: none; stroke: var(--brass-ink); stroke-width: 2.4; }
+  .u-cards__grid h3 { font-size: var(--step-1); }
+  .u-list ol { list-style: none; border-top: 1px solid var(--line-light); }
+  .u-list li { display: grid; grid-template-columns: 44px 1fr; padding-block: 14px; border-bottom: 1px solid var(--line-light); font-size: 1.04rem; }
+  .u-list li span { font-size: 0.8rem; color: var(--brass-ink); padding-top: 0.25em; }
+  .u-quote { margin: 0; padding-inline-start: 1.4em; border-inline-start: 2px solid var(--brass); }
+  .u-quote blockquote { margin: 0; }
+  .u-quote p { font-family: var(--font-display); font-size: var(--step-2); line-height: 1.3; }
+  .u-quote figcaption { margin-top: 10px; color: var(--ink-soft); font-size: 0.9rem; }
+  .u-cta { justify-items: start; padding: clamp(28px, 4vw, 48px); border-radius: 160px 160px 4px 4px / 60px 60px 4px 4px; padding-top: clamp(56px, 6vw, 72px); }
+</style>

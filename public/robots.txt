@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /keystatic
+
+# TODO(content): update the domain when it is confirmed
+Sitemap: https://www.silkcover.example/sitemap-index.xml

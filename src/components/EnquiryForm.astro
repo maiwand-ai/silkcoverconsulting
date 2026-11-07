@@ -1,0 +1,164 @@
+---
+/**
+ * Enquiry form, used in the pop-up dialog and on the Contact page.
+ * `idp` keeps field ids unique when both are on the same page. All wording comes from the admin.
+ */
+import type { Site } from '../lib/content';
+interface Props { site: Site; idp: string; preset?: string }
+const { site, idp, preset } = Astro.props;
+const F = site.settings.form;
+const id = (n: string) => `${idp}-${n}`;
+const messages = {
+  name: F.errName, email: F.errEmail, emailFormat: F.errEmailFormat, message: F.errMessage, consent: F.errConsent,
+  notConnectedTitle: F.notConnectedTitle, notConnectedText: F.notConnectedText, sentTitle: F.sentTitle, sentText: F.sentText,
+  failTitle: F.failTitle, failText: F.failText, send: F.send, sending: F.sending,
+  email_address: site.global.email, endpoint: site.global.formEndpoint ?? '',
+};
+---
+<div class="enq" data-enquiry data-messages={JSON.stringify(messages)}>
+  <form class="enq__form" novalidate data-enquiry-form>
+    <div class="field">
+      <label for={id('name')}>{F.name}</label>
+      <input id={id('name')} name="name" type="text" autocomplete="name" required aria-describedby={id('name-err')} />
+      <p class="field__err" id={id('name-err')} data-err="name" aria-live="polite"></p>
+    </div>
+    <div class="field">
+      <label for={id('org')}>{F.org} <span class="opt">{F.optional}</span></label>
+      <input id={id('org')} name="organisation" type="text" autocomplete="organization" />
+    </div>
+    <div class="field">
+      <label for={id('email')}>{F.email}</label>
+      <input id={id('email')} name="email" type="email" autocomplete="email" required dir="ltr" aria-describedby={id('email-err')} />
+      <p class="field__err" id={id('email-err')} data-err="email" aria-live="polite"></p>
+    </div>
+    <div class="field">
+      <label for={id('service')}>{F.area}</label>
+      <select id={id('service')} name="service">
+        {site.services.map((s) => <option value={s.title} data-service={s.slug} selected={s.slug === preset}>{s.title}</option>)}
+        <option value={F.other}>{F.other}</option>
+      </select>
+    </div>
+    <div class="field field--wide">
+      <label for={id('message')}>{F.message}</label>
+      <textarea id={id('message')} name="message" rows="5" required minlength="20" aria-describedby={id('message-err')}></textarea>
+      <p class="field__err" id={id('message-err')} data-err="message" aria-live="polite"></p>
+    </div>
+    <div class="field field--wide field--check">
+      <input id={id('consent')} name="consent" type="checkbox" required aria-describedby={id('consent-err')} />
+      <label for={id('consent')}>{F.consent}</label>
+      <p class="field__err" id={id('consent-err')} data-err="consent" aria-live="polite"></p>
+    </div>
+    <input type="hidden" name="language" value={site.locale} />
+    <div class="field--wide enq__actions">
+      <button class="btn btn--solid" type="submit">{F.send}</button>
+    </div>
+  </form>
+
+  <div class="enq__done" data-enquiry-done hidden tabindex="-1">
+    <h3 data-done-title></h3>
+    <p data-done-text class="muted"></p>
+    <slot name="done-actions">
+      <button class="btn btn--ghost" type="button" data-enquiry-again>{F.again}</button>
+    </slot>
+  </div>
+</div>
+
+<style>
+  .enq__form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 20px; }
+  .field { display: grid; gap: 6px; min-width: 0; }
+  .field--wide { grid-column: 1 / -1; }
+  .field label { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.02em; }
+  .opt { font-weight: 400; color: var(--ink-soft); }
+  .field input[type='text'], .field input[type='email'], .field select, .field textarea {
+    width: 100%; font: inherit; font-size: 1rem; color: var(--ink); background: var(--field-bg, var(--paper));
+    border: 1px solid rgba(14, 26, 43, 0.22); border-radius: 3px; padding: 12px 14px; min-height: 48px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .field input[type='text'], .field input[type='email'], .field select { height: 52px; }
+  .field textarea { resize: vertical; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--turquoise-ink); box-shadow: 0 0 0 3px rgba(27, 111, 105, 0.18); }
+  .field :is(input, textarea, select)[aria-invalid='true'] { border-color: var(--garnet); }
+  .field__err { color: var(--garnet); font-size: 0.82rem; }
+  .field__err:empty { display: none; }
+  .field--check { grid-template-columns: auto 1fr; align-items: start; column-gap: 12px; }
+  .field--check input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--turquoise-ink); }
+  .field--check label { font-weight: 400; font-size: 0.92rem; }
+  .field--check .field__err { grid-column: 2; }
+  .enq__actions { display: flex; justify-content: var(--enq-actions, center); padding-top: 6px; }
+  .enq__done { text-align: center; display: grid; justify-items: center; gap: 14px; padding-block: 12px 8px; }
+  .enq__done h3 { font-size: var(--step-2); }
+  .enq__done p { max-width: 46ch; }
+  @media (max-width: 600px) { .enq__form { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  type Field = HTMLInputElement | HTMLTextAreaElement;
+
+  document.querySelectorAll<HTMLElement>('[data-enquiry]').forEach((root) => {
+    const M: Record<string, string> = JSON.parse(root.dataset.messages || '{}');
+    const fill = (s: string) => (s || '').replace('{email}', M.email_address || '');
+    const rules: Record<string, (el: Field) => string> = {
+      name: (el) => (el.value.trim() ? '' : M.name),
+      email: (el) => (!el.value.trim() ? M.email : el.validity.typeMismatch ? M.emailFormat : ''),
+      message: (el) => (el.value.trim().length < 20 ? M.message : ''),
+      consent: (el) => ((el as HTMLInputElement).checked ? '' : M.consent),
+    };
+    const form = root.querySelector<HTMLFormElement>('[data-enquiry-form]')!;
+    const done = root.querySelector<HTMLElement>('[data-enquiry-done]')!;
+    const fields = Array.from(form.querySelectorAll<Field>('input:not([type="hidden"]), textarea'));
+
+    const validate = (el: Field) => {
+      const rule = rules[el.name];
+      if (!rule) return true;
+      const msg = rule(el);
+      el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      const err = root.querySelector<HTMLElement>(`[data-err="${el.name}"]`);
+      if (err) err.textContent = msg;
+      return !msg;
+    };
+    fields.forEach((el) => {
+      el.addEventListener('blur', () => { if (el.value || el.getAttribute('aria-invalid')) validate(el); });
+      el.addEventListener('input', () => { if (el.getAttribute('aria-invalid') === 'true') validate(el); });
+      el.addEventListener('change', () => { if (el.getAttribute('aria-invalid') === 'true') validate(el); });
+    });
+
+    root.addEventListener('enquiry:reset', () => { form.hidden = false; done.hidden = true; });
+    root.querySelector('[data-enquiry-again]')?.addEventListener('click', () => {
+      form.hidden = false; done.hidden = true; form.querySelector<HTMLInputElement>('input')?.focus();
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (fields.map(validate).includes(false)) {
+        fields.find((f) => f.getAttribute('aria-invalid') === 'true')?.focus();
+        return;
+      }
+      const data = Object.fromEntries(new FormData(form).entries());
+      const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const title = done.querySelector<HTMLElement>('[data-done-title]')!;
+      const text = done.querySelector<HTMLElement>('[data-done-text]')!;
+
+      if (!M.endpoint) {
+        title.textContent = M.notConnectedTitle;
+        text.textContent = fill(M.notConnectedText);
+      } else {
+        try {
+          if (btn) { btn.disabled = true; btn.textContent = M.sending; }
+          const res = await fetch(M.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(data) });
+          if (!res.ok) throw new Error(String(res.status));
+          title.textContent = M.sentTitle;
+          text.textContent = fill(M.sentText);
+          form.reset();
+        } catch {
+          title.textContent = M.failTitle;
+          text.textContent = fill(M.failText);
+        } finally {
+          if (btn) { btn.disabled = false; btn.textContent = M.send; }
+        }
+      }
+      form.hidden = true;
+      done.hidden = false;
+      done.focus();
+    });
+  });
+</script>

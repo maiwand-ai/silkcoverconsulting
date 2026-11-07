@@ -1,0 +1,20 @@
+{
+  "id": "Private sector",
+  "name": "سکتور خصوصی و سرمایه‌گذاران",
+  "short": "سکتور خصوصی",
+  "challenge": "تصمیم‌های ورود به بازار و سرمایه‌گذاری به ارقام آزمایش‌شده و دید صادقانه از خطر نیاز دارند.",
+  "questions": [
+    "آیا تقاضای کافی برای توجیه این سرمایه‌گذاری وجود دارد؟",
+    "خطرهای تجارتی و مقرراتی چیست؟",
+    "چگونه به نخستین مشتریان برسیم و آن‌ها را قانع کنیم؟"
+  ],
+  "services": [
+    "market-analysis-feasibility",
+    "research-surveys-assessments",
+    "strategic-communications",
+    "digital-advertising-content"
+  ],
+  "fold": "18",
+  "sample": true,
+  "order": 3
+}

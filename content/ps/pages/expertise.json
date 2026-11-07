@@ -1,0 +1,104 @@
+{
+  "id": "Expertise",
+  "title": "زموږ تخصصونه",
+  "description": "",
+  "menu": {
+    "show": true,
+    "footer": true,
+    "order": 2,
+    "label": "زموږ تخصصونه",
+    "blurb": "اته خدمتونه، له څېړنې او د نادولتي موسسو له سیسټمونو تر اعلانونو.",
+    "fold": "12",
+    "tone": "turquoise"
+  },
+  "template": {
+    "discriminant": "expertise",
+    "value": {
+      "hero": {
+        "eyebrow": "زموږ تخصصونه",
+        "title": "{count} خدمتونه.",
+        "accent": "د کار یو معیار.",
+        "lede": "هر خدمت کولی شي یوازې یا د نورو خدمتونو سره په یوه ملاتړي پروګرام کې وړاندې شي. یو وټاکئ چې مستقیم ورته لاړ شئ."
+      },
+      "labels": {
+        "examples": "عملي بېلګې",
+        "enquire": "د دې خدمت په اړه غوښتنه",
+        "related": "اکثره ورسره یوځای",
+        "platform": "ځانګړی پلاتفورم",
+        "alsoOffered": "همدارنګه د دې له لارې",
+        "ourPlatform": "زموږ ځانګړی پلاتفورم",
+        "fullDetails": "بشپړ معلومات",
+        "enquireShort": "د دې په اړه غوښتنه"
+      },
+      "combinations": {
+        "section": {
+          "eyebrow": "یوځای ښه",
+          "title": "چېرته چې زموږ خدمات سره یوځای کېږي",
+          "text": "ډېری کارونه له یوې څخه زیاتو برخو ته اړتیا لري. دا هغه ترکیبونه دي چې موږ یې تر ټولو ډېر ډیزاینوو."
+        },
+        "items": [
+          {
+            "a": "research-surveys-assessments",
+            "b": "market-analysis-feasibility",
+            "note": "د بازار څېړنه پر باوري سروې او معلوماتي کار ولاړه ده."
+          },
+          {
+            "a": "research-surveys-assessments",
+            "b": "institutional-development",
+            "note": "ارزونې د نهادي بدلون لپاره د شواهدو بنسټ کېږي."
+          },
+          {
+            "a": "research-surveys-assessments",
+            "b": "professional-development",
+            "note": "د مهارتونو د اړتیاوو ارزونه ټاکي چې روزنه باید څه پوښښ کړي."
+          },
+          {
+            "a": "dialogue-conferences-events",
+            "b": "strategic-communications",
+            "note": "مشورې او غونډې د اړیکو ستراتیژي غونډې ته راوړي."
+          },
+          {
+            "a": "institutional-development",
+            "b": "professional-development",
+            "note": "نوي جوړښتونه د چلولو لپاره روزل شویو خلکو ته اړتیا لري."
+          },
+          {
+            "a": "dialogue-conferences-events",
+            "b": "institutional-development",
+            "note": "له اړوندو لورو سره مشوره ستراتیژیک پلانونه جوړوي."
+          },
+          {
+            "a": "market-analysis-feasibility",
+            "b": "strategic-communications",
+            "note": "د امکان‌سنجۍ موندنې پرېکړه کوونکو ته روښانه لنډیزونو ته اړتیا لري."
+          },
+          {
+            "a": "ngo-strategy-systems",
+            "b": "institutional-development",
+            "note": "د نادولتي موسسو عملیاتي سیسټمونه پر باوري سازماني جوړښتونو ولاړ دي."
+          },
+          {
+            "a": "ngo-strategy-systems",
+            "b": "research-surveys-assessments",
+            "note": "د اغېز شواهد او بنسټیز معلومات تمویلوونکو ته راپور ورکول تغذیه کوي."
+          },
+          {
+            "a": "digital-advertising-content",
+            "b": "strategic-communications",
+            "note": "د کمپاین منځپانګه د اړیکو ستراتیژي خپلو مخاطبانو ته رسوي."
+          },
+          {
+            "a": "digital-advertising-content",
+            "b": "market-analysis-feasibility",
+            "note": "د بازار پېژندنه اعلانونو ته ښیي چې چا ته او چېرته ورسېږي."
+          }
+        ],
+        "rail": "ترکیبونه"
+      },
+      "closing": {
+        "title": "ډاډه نه یاست چې کوم خدمت مناسب دی؟",
+        "text": "خپل حالت تشریح کړئ. موږ به ووایو چې د خدمتونو کوم ترکیب مرسته کوي او څه پکې شامل دي."
+      }
+    }
+  }
+}

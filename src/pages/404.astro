@@ -1,0 +1,30 @@
+---
+/** Page not found. Wording comes from the admin (Site text → Page not found). */
+import Base from '../layouts/Base.astro';
+import GirihTile from '../components/GirihTile.astro';
+import { getSite, alternatesFor } from '../lib/content';
+const site = await getSite('en');
+const N = site.settings.notFound;
+const alternates = await alternatesFor('home');
+---
+<Base site={site} title={N.title} alternates={alternates}>
+  <section class="nf" data-tone="dark">
+    <div class="container nf__grid">
+      <div class="nf__text">
+        <p class="eyebrow">404</p>
+        <h1>{N.title}</h1>
+        <p class="lede muted">{N.text}</p>
+        <a class="btn btn--solid" href="/">{N.home}</a>
+      </div>
+      <div class="nf__art" aria-hidden="true"><GirihTile id="nf" fold={8} tone="turquoise" tile={90} h={480} /></div>
+    </div>
+  </section>
+</Base>
+<style>
+  .nf { min-height: 80vh; display: grid; align-items: center; padding-top: calc(var(--header-h) + 40px); padding-bottom: 60px; background: radial-gradient(70% 60% at 70% 40%, var(--lapis-700), var(--lapis-900)); }
+  .nf__grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr); gap: 48px; align-items: center; }
+  .nf__text { display: grid; gap: 20px; justify-items: start; }
+  .nf h1 { font-size: var(--step-4); }
+  .nf__art { max-width: 260px; }
+  @media (max-width: 760px) { .nf__grid { grid-template-columns: 1fr; } .nf__art { display: none; } }
+</style>

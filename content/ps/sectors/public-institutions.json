@@ -1,0 +1,20 @@
+{
+  "id": "Public institutions",
+  "name": "حکومت او دولتي ادارې",
+  "short": "دولتي ادارې",
+  "challenge": "اصلاحات په عملي جوړښتونو، روزل شویو کارکوونکو او عامه باور پورې اړه لري.",
+  "questions": [
+    "دا اداره د خپلې دندې د ترسره کولو لپاره څنګه جوړښت ولري؟",
+    "له تصویب مخکې له کومو اړوندو لورو سره باید مشوره وشي؟",
+    "کارکوونکي کومو مهارتونو ته اړتیا لري او روزنه څنګه تنظیم شي؟"
+  ],
+  "services": [
+    "institutional-development",
+    "dialogue-conferences-events",
+    "strategic-communications",
+    "professional-development"
+  ],
+  "fold": "12",
+  "sample": true,
+  "order": 2
+}

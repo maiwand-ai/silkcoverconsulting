@@ -1,0 +1,104 @@
+{
+  "id": "Expertise",
+  "title": "تخصص‌های ما",
+  "description": "",
+  "menu": {
+    "show": true,
+    "footer": true,
+    "order": 2,
+    "label": "تخصص‌های ما",
+    "blurb": "هشت خدمت، از تحقیق و سیستم‌های مؤسسات غیردولتی تا اعلانات.",
+    "fold": "12",
+    "tone": "turquoise"
+  },
+  "template": {
+    "discriminant": "expertise",
+    "value": {
+      "hero": {
+        "eyebrow": "تخصص‌های ما",
+        "title": "{count} خدمت.",
+        "accent": "یک معیار کار.",
+        "lede": "هر خدمت می‌تواند به تنهایی یا در ترکیب با دیگر خدمات در یک برنامهٔ حمایتی واحد ارائه شود. یکی را انتخاب کنید تا مستقیم به آن بروید."
+      },
+      "labels": {
+        "examples": "نمونه‌های عملی",
+        "enquire": "درخواست دربارهٔ این خدمت",
+        "related": "اغلب همراه با",
+        "platform": "پلتفورم اختصاصی",
+        "alsoOffered": "همچنین از طریق",
+        "ourPlatform": "پلتفورم اختصاصی ما",
+        "fullDetails": "جزئیات کامل",
+        "enquireShort": "درخواست دربارهٔ این"
+      },
+      "combinations": {
+        "section": {
+          "eyebrow": "بهتر در کنار هم",
+          "title": "جایی که خدمات ما به هم می‌رسند",
+          "text": "بسیاری از کارها به بیش از یک رشته نیاز دارند. این‌ها ترکیب‌هایی هستند که بیشتر از همه طراحی می‌کنیم."
+        },
+        "items": [
+          {
+            "a": "research-surveys-assessments",
+            "b": "market-analysis-feasibility",
+            "note": "تحقیق بازار بر سروی و کار معلوماتی معتبر استوار است."
+          },
+          {
+            "a": "research-surveys-assessments",
+            "b": "institutional-development",
+            "note": "ارزیابی‌ها پایهٔ شواهد برای تغییر نهادی می‌شوند."
+          },
+          {
+            "a": "research-surveys-assessments",
+            "b": "professional-development",
+            "note": "ارزیابی نیازهای مهارتی تعیین می‌کند که آموزش چه چیزی را پوشش دهد."
+          },
+          {
+            "a": "dialogue-conferences-events",
+            "b": "strategic-communications",
+            "note": "مشوره‌ها و رویدادها استراتژی ارتباطی را به جلسه می‌آورند."
+          },
+          {
+            "a": "institutional-development",
+            "b": "professional-development",
+            "note": "ساختارهای نو به افراد آموزش‌دیده برای اداره نیاز دارند."
+          },
+          {
+            "a": "dialogue-conferences-events",
+            "b": "institutional-development",
+            "note": "مشوره با جوانب ذیدخل پلان‌های استراتژیک را شکل می‌دهد."
+          },
+          {
+            "a": "market-analysis-feasibility",
+            "b": "strategic-communications",
+            "note": "یافته‌های امکان‌سنجی به گزارش‌های روشن برای تصمیم‌گیرندگان نیاز دارند."
+          },
+          {
+            "a": "ngo-strategy-systems",
+            "b": "institutional-development",
+            "note": "سیستم‌های عملیاتی مؤسسات غیردولتی بر ساختارهای سازمانی معتبر بنا می‌شوند."
+          },
+          {
+            "a": "ngo-strategy-systems",
+            "b": "research-surveys-assessments",
+            "note": "شواهد اثرگذاری و معلومات پایه گزارش‌دهی به تمویل‌کنندگان را تغذیه می‌کنند."
+          },
+          {
+            "a": "digital-advertising-content",
+            "b": "strategic-communications",
+            "note": "محتوای کمپاین استراتژی ارتباطی را به مخاطب می‌رساند."
+          },
+          {
+            "a": "digital-advertising-content",
+            "b": "market-analysis-feasibility",
+            "note": "شناخت بازار به اعلانات می‌گوید به چه کسی و در کجا برسد."
+          }
+        ],
+        "rail": "ترکیب‌ها"
+      },
+      "closing": {
+        "title": "مطمئن نیستید کدام خدمت مناسب است؟",
+        "text": "وضعیت خود را شرح دهید. ما خواهیم گفت کدام ترکیب از خدمات کمک می‌کند و چه کارهایی در بر دارد."
+      }
+    }
+  }
+}

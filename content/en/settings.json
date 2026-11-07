@@ -1,0 +1,85 @@
+{
+  "siteName": "SilkCover Consulting",
+  "shortName": "SilkCover",
+  "tagline": [
+    "Global perspective.",
+    "Cultural depth.",
+    "Strategic thinking."
+  ],
+  "description": "SilkCover Consulting provides research and assessments, market analysis and feasibility studies, institutional development, dialogue and events, strategic communications, professional development support, NGO strategy and systems advisory, and digital advertising and content.",
+  "header": {
+    "enquire": "Enquire",
+    "menu": "Menu",
+    "skip": "Skip to content",
+    "home": "SilkCover Consulting, home"
+  },
+  "menu": {
+    "kicker": "Where would you like to go?",
+    "close": "Close",
+    "youAreHere": "You are here",
+    "onHome": "You are on Home",
+    "backHome": "Back to Home",
+    "sectionsOf": "Show sections of",
+    "enquiries": "Enquiries",
+    "enquire": "Make an enquiry",
+    "language": "Language"
+  },
+  "footer": {
+    "pages": "Pages",
+    "expertise": "Expertise",
+    "contact": "Contact",
+    "offices": "Office locations will be listed once confirmed.",
+    "legal": [
+      {
+        "label": "Privacy policy",
+        "page": "privacy"
+      }
+    ]
+  },
+  "tags": {
+    "sample": "Sample",
+    "draft": "Draft",
+    "placeholder": "Placeholder",
+    "sampleSectors": "Sample sectors, to confirm",
+    "sampleArticles": "Sample articles"
+  },
+  "common": {
+    "onThisPage": "On this page",
+    "makeEnquiry": "Make an enquiry",
+    "scroll": "Scroll",
+    "skipIntro": "Skip intro",
+    "newTab": "opens in a new tab"
+  },
+  "form": {
+    "title": "Start a conversation",
+    "intro": "Tell us a little about what you need. We will reply to the address you give.",
+    "name": "Your name",
+    "org": "Organisation",
+    "optional": "optional",
+    "email": "Email",
+    "area": "Area of interest",
+    "other": "Something else",
+    "message": "How can we help?",
+    "consent": "I agree that SilkCover may use these details to reply to my enquiry.",
+    "send": "Send enquiry",
+    "sending": "Sending…",
+    "again": "Write another message",
+    "close": "Close",
+    "errName": "Please enter your name.",
+    "errEmail": "Please enter your email address.",
+    "errEmailFormat": "Please enter an email address in the format name@example.com.",
+    "errMessage": "Please tell us a little more, at least 20 characters.",
+    "errConsent": "Please confirm we may use your details to reply.",
+    "notConnectedTitle": "Form not connected yet",
+    "notConnectedText": "Your details passed validation, but this preview is not connected to an inbox, so nothing was sent. Until it is, please email {email}.",
+    "sentTitle": "Thank you",
+    "sentText": "Your enquiry has been sent. We will reply to the email address you gave.",
+    "failTitle": "Your enquiry was not sent",
+    "failText": "Something went wrong on our side. Please try again in a moment, or email {email}."
+  },
+  "notFound": {
+    "title": "This page could not be found",
+    "text": "The link may be out of date, or the address may have a typing error.",
+    "home": "Go to the homepage"
+  }
+}

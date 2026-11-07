@@ -1,0 +1,36 @@
+---
+/**
+ * One girih figure in three layers, one per principle:
+ * global (outer ring), cultural (interlaced star), strategic (core).
+ * Toggle a layer by adding `is-on` to [data-layer="…"].
+ */
+import { starPath, polygonPath } from '../lib/geometry';
+interface Props { class?: string; tone?: 'light' | 'dark' }
+const { class: cls = '', tone = 'light' } = Astro.props;
+const ring = polygonPath(8, 92, 0, 0, -67.5);
+const cultural = starPath(8, 3, 80, 0, 0, -67.5);
+const strategic = [polygonPath(8, 30, 0, 0, -67.5), starPath(8, 2, 30, 0, 0, -67.5)].join(' ');
+---
+<svg viewBox="-100 -100 200 200" class:list={['idfig', `idfig--${tone}`, cls]} aria-hidden="true" data-identity>
+  <g class="layer layer--global" data-layer="global">
+    <path d={ring} />
+    {Array.from({ length: 8 }, (_, i) => <line x1="0" y1="-96" x2="0" y2="-82" transform={`rotate(${i * 45})`} />)}
+    <circle r="97" class="layer__orbit" />
+  </g>
+  <g class="layer layer--cultural" data-layer="cultural"><path d={cultural} /></g>
+  <g class="layer layer--strategic" data-layer="strategic"><path d={strategic} /></g>
+</svg>
+
+<style>
+  .idfig { width: 100%; height: auto; overflow: visible; }
+  .layer { fill: none; stroke-width: 0.8; transform-origin: 0 0; transition: stroke 0.6s, stroke-width 0.6s, transform 1.4s var(--ease-arch); }
+  .idfig--light .layer { stroke: rgba(14, 26, 43, 0.22); }
+  .idfig--dark .layer { stroke: rgba(242, 236, 223, 0.2); }
+  .layer line { stroke-width: 1.2; }
+  .layer__orbit { stroke-dasharray: 1 4; }
+  .idfig--light .layer.is-on { stroke: var(--turquoise-ink); stroke-width: 1.4; }
+  .idfig--dark .layer.is-on { stroke: var(--turquoise); stroke-width: 1.4; }
+  .layer--cultural.is-on { transform: rotate(22.5deg); }
+  .layer--strategic.is-on { transform: scale(1.18); }
+  .layer--global.is-on { transform: rotate(-22.5deg); }
+</style>

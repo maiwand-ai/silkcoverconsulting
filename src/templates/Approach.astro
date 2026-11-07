@@ -1,0 +1,204 @@
+---
+import Closing from '../components/Closing.astro';
+import SectionRail from '../components/SectionRail.astro';
+import { archPath, ARCH_RISE, starPath, polygonPath, defaultStep } from '../lib/geometry';
+import { sectionsFor, type Site, type Page } from '../lib/content';
+
+interface Props { site: Site; page: Page }
+const { site, page } = Astro.props;
+if (page.template.discriminant !== 'approach') throw new Error('Approach template needs an approach page');
+const v = page.template.value;
+const S = site.settings;
+const n = Math.max(1, v.stages.length);
+const num = (i: number) => i.toLocaleString(site.info.lang);
+
+// Opening: one arch per stage, rising in sequence.
+const step = 720 / n;
+const openArches = v.stages.map((_, i) => ({ d: archPath(step * (i + 0.5), 460, Math.min(70, step * 0.4), 90 + i * (180 / n)) }));
+const openTop = 460 - (90 + (n - 1) * (180 / n)) - ARCH_RISE * Math.min(70, step * 0.4);
+
+// Stepper arch: one tall arch filled band by band, bottom to top.
+const W = 300, H = 520, A = 130, J = H - 40 - ARCH_RISE * A;
+const stepperArch = archPath(W / 2, H - 20, A, J);
+const bandH = (H - 40) / n;
+const folds = [8, 10, 12, 16, 14, 9, 18, 7];
+const glyphs = v.stages.map((_, i) => { const f = folds[i % folds.length]; return { star: starPath(f, defaultStep(f), Math.min(28, bandH * 0.38)), core: polygonPath(f, Math.min(10, bandH * 0.14)), i }; });
+---
+<!-- OPENING -->
+<section class="p-open" data-tone="light" aria-labelledby="p-title">
+  <div class="container p-open__grid">
+    <div class="p-open__text">
+      <p class="eyebrow">{v.hero.eyebrow}</p>
+      <h1 id="p-title">{v.hero.title}</h1>
+      <p class="lede muted">{v.hero.lede}</p>
+      {v.draft && <span class="sample-tag">{S.tags.draft}</span>}
+    </div>
+    <svg class="p-open__arches" viewBox={`0 ${Math.floor(openTop) - 6} 720 ${Math.ceil(470 - openTop) + 6}`} aria-hidden="true">
+      {openArches.map((a, i) => <path d={a.d} pathLength="1" style={`--i:${i}`} />)}
+      <line x1="0" y1="460.5" x2="720" y2="460.5" />
+    </svg>
+  </div>
+</section>
+
+<SectionRail items={sectionsFor(page, site)} title={S.common.onThisPage} />
+
+<!-- STEPPER -->
+<section class="p-steps" data-tone="dark" aria-labelledby="p-steps-h" data-stepper>
+  <div class="container p-steps__grid">
+    <div class="p-steps__sticky">
+      <h2 id="p-steps-h" class="visually-hidden">{v.hero.eyebrow}</h2>
+      <svg class="p-steps__arch" viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
+        <defs><clipPath id="stepper-clip"><path d={stepperArch} /></clipPath></defs>
+        <g clip-path="url(#stepper-clip)">
+          {v.stages.map((_, i) => <rect class="band" data-band={i} x="0" width={W} y={H - 20 - (i + 1) * bandH} height={bandH + 1} />)}
+          {glyphs.map((g) => (
+            <g class="band-glyph" data-glyph={g.i} transform={`translate(${W / 2} ${H - 20 - (g.i + 0.5) * bandH})`}>
+              <path d={g.star} /><path d={g.core} class="band-core" />
+            </g>
+          ))}
+        </g>
+        <path d={stepperArch} class="p-steps__outline" />
+        {v.stages.map((_, i) => <line class="band-line" x1={W / 2 - A} x2={W / 2 + A} y1={H - 20 - (i + 1) * bandH} y2={H - 20 - (i + 1) * bandH} />)}
+      </svg>
+      <p class="p-steps__counter" aria-hidden="true"><span data-counter data-nums={JSON.stringify(v.stages.map((_, i) => num(i + 1)))}>{num(1)}</span> / {num(n)}</p>
+    </div>
+    <ol class="p-steps__list">
+      {v.stages.map((s, i) => (
+        <li class="stage" id={`stage-${i + 1}`} data-stage={i}>
+          <p class="stage__num">{v.labels.stage} {num(i + 1)}</p>
+          <h3>{s.title}</h3>
+          <p class="stage__lede">{s.text}</p>
+          <div class="stage__cols">
+            <div>
+              <h4>{v.labels.happens}</h4>
+              <ul>{s.happens.map((h) => <li>{h}</li>)}</ul>
+            </div>
+            <div>
+              <h4>{v.labels.receive}</h4>
+              <p>{s.receive}</p>
+            </div>
+            <div>
+              <h4>{v.labels.you}</h4>
+              <p>{s.you}</p>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+{v.principles.items.length > 0 && (
+<section class="section p-princ" id="principles" data-tone="ivory" aria-labelledby="p-princ-h">
+  <div class="container">
+    <header class="p-princ__head">
+      <p class="eyebrow" data-reveal>{v.principles.section.eyebrow}</p>
+      <h2 id="p-princ-h" data-reveal>{v.principles.section.title}</h2>
+      {v.principles.draft && <span class="sample-tag" data-reveal>{S.tags.draft}</span>}
+    </header>
+    <ul class="p-princ__grid">
+      {v.principles.items.map((p, i) => { const f = folds[i % folds.length]; return (
+        <li data-reveal style={`--delay:${i * 0.08}s`}>
+          <svg viewBox="-50 -50 100 100" aria-hidden="true"><path d={starPath(f, defaultStep(f), 44)} /></svg>
+          <div>
+            <h3>{p.title}</h3>
+            <p class="muted">{p.text}</p>
+          </div>
+        </li>
+      ); })}
+    </ul>
+  </div>
+</section>
+)}
+
+<Closing heading={v.closing.title} text={v.closing.text} button={S.common.makeEnquiry} />
+<style>
+  /* Opening */
+  .p-open { padding-top: calc(var(--header-h) + clamp(40px, 7vw, 100px)); padding-bottom: clamp(48px, 7vw, 100px); }
+  .p-open__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 96px); align-items: end; }
+  .p-open__text { display: grid; gap: 22px; justify-items: start; }
+  .p-open h1 { font-size: var(--step-4); line-height: 1.02; }
+  .p-open__arches { width: 100%; height: auto; overflow: visible; }
+  .p-open__arches path { fill: none; stroke: var(--ink); stroke-width: 1.4; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1.6s var(--ease-arch) forwards; animation-delay: calc(0.2s + var(--i) * 0.22s); }
+  .p-open__arches path:last-of-type { stroke: var(--turquoise-ink); stroke-width: 2.2; }
+  .p-open__arches line { stroke: var(--line-light); }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @media (max-width: 860px) { .p-open__grid { grid-template-columns: 1fr; } }
+
+  /* Stepper */
+  .p-steps { padding-block: clamp(60px, 8vw, 120px); background: linear-gradient(var(--lapis-900), var(--lapis-800)); }
+  .p-steps__grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(32px, 6vw, 110px); }
+  .p-steps__sticky { position: sticky; top: calc(var(--header-h) + 96px); align-self: start; display: grid; gap: 18px; justify-items: center; }
+  .p-steps__arch { width: min(100%, 300px); height: auto; overflow: visible; }
+  .band { fill: transparent; transition: fill 0.9s var(--ease-arch); }
+  .band.is-on { fill: rgba(79, 189, 177, 0.16); }
+  .band.is-current { fill: rgba(79, 189, 177, 0.34); }
+  .band-glyph path { fill: none; stroke: rgba(242, 236, 223, 0.18); stroke-width: 1; transition: stroke 0.6s, transform 1.2s var(--ease-arch); transform-origin: 0 0; }
+  .band-glyph .band-core { stroke: rgba(176, 141, 87, 0.4); }
+  .band-glyph.is-on path { stroke: var(--turquoise); }
+  .band-glyph.is-on .band-core { stroke: var(--brass); }
+  .band-glyph.is-current path:first-child { transform: rotate(22.5deg); }
+  .band-line { stroke: var(--line-dark); stroke-dasharray: 3 5; }
+  .p-steps__outline { fill: none; stroke: var(--brass); stroke-width: 1.5; }
+  .p-steps__counter { font-family: var(--font-display); font-size: var(--step-2); color: var(--brass); font-variant-numeric: tabular-nums; }
+  .p-steps__counter span { color: var(--ivory); }
+
+  .p-steps__list { list-style: none; display: grid; }
+  .stage { min-height: 56vh; display: grid; align-content: center; gap: 16px; padding-block: 48px; opacity: 0.45; transition: opacity 0.6s; border-bottom: 1px solid var(--line-dark); }
+  .stage:last-child { border-bottom: 0; }
+  .stage.is-current { opacity: 1; }
+  .stage__num { font-size: 0.78rem; font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--turquoise); }
+  .stage h3 { font-size: clamp(2.6rem, 1.6rem + 4vw, 5.2rem); line-height: 1; }
+  .stage__lede { font-size: var(--step-1); max-width: 36ch; color: rgba(242, 236, 223, 0.82); }
+  .stage__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 14px; padding-top: 22px; border-top: 1px solid var(--line-dark); }
+  .stage__cols h4 { font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass); margin-bottom: 10px; }
+  .stage__cols p, .stage__cols li { font-size: 0.95rem; color: rgba(242, 236, 223, 0.78); }
+  .stage__cols ul { list-style: none; display: grid; gap: 6px; }
+  .stage__cols li { padding-inline-start: 16px; position: relative; }
+  .stage__cols li::before { content: ''; position: absolute; inset-inline-start: 0; top: 0.6em; width: 6px; height: 6px; border: 1px solid var(--turquoise); transform: rotate(45deg); }
+  @media (max-width: 860px) {
+    .p-steps__grid { grid-template-columns: 1fr; }
+    .p-steps__sticky { top: calc(var(--header-h) + 52px); z-index: 1; grid-template-columns: 56px 1fr; justify-items: start; align-items: center; background: var(--lapis-900); padding-block: 10px; }
+    .p-steps__arch { width: 56px; }
+    .stage { min-height: auto; padding-block: 44px; opacity: 1; }
+    .stage__cols { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { .p-open__arches path { stroke-dashoffset: 0; animation: none; } }
+
+  /* Principles */
+  .p-princ__head { display: grid; gap: 14px; justify-items: start; margin-bottom: clamp(36px, 5vw, 64px); }
+  .p-princ__head h2 { font-size: var(--step-4); max-width: 18ch; }
+  .p-princ__grid { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(24px, 5vw, 80px); }
+  .p-princ__grid li { display: grid; grid-template-columns: 52px 1fr; gap: 20px; padding-block: 28px; border-top: 1px solid var(--line-light); }
+  .p-princ__grid svg { width: 44px; height: 44px; fill: none; stroke: var(--brass-ink); stroke-width: 2; transition: transform 1s var(--ease-arch); }
+  .p-princ__grid li:hover svg { transform: rotate(30deg); }
+  .p-princ__grid h3 { font-size: var(--step-2); margin-bottom: 6px; }
+  @media (max-width: 760px) { .p-princ__grid { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-stepper]');
+  if (root) {
+    const counter = root.querySelector<HTMLElement>('[data-counter]');
+    const set = (n: number) => {
+      root.querySelectorAll<SVGRectElement>('[data-band]').forEach((b) => {
+        const i = Number(b.dataset.band);
+        b.classList.toggle('is-on', i <= n);
+        b.classList.toggle('is-current', i === n);
+      });
+      root.querySelectorAll<SVGGElement>('[data-glyph]').forEach((g) => {
+        const i = Number(g.dataset.glyph);
+        g.classList.toggle('is-on', i <= n);
+        g.classList.toggle('is-current', i === n);
+      });
+      root.querySelectorAll<HTMLElement>('[data-stage]').forEach((s) => s.classList.toggle('is-current', Number(s.dataset.stage) === n));
+      if (counter) { const nums = JSON.parse(counter.dataset.nums || '[]'); counter.textContent = nums[n] ?? String(n + 1); }
+    };
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) set(Number((e.target as HTMLElement).dataset.stage)); });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    root.querySelectorAll<HTMLElement>('[data-stage]').forEach((s) => io.observe(s));
+    set(0);
+  }
+</script>

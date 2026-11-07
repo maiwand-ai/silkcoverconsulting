@@ -1,0 +1,91 @@
+---
+import Mark from './Mark.astro';
+import LangSwitch from './LangSwitch.astro';
+import type { Site } from '../lib/content';
+interface Props { site: Site; alternates: { locale: string; href: string; name: string }[] }
+const { site, alternates } = Astro.props;
+const S = site.settings;
+---
+<header class="site-header" data-header data-tone-current="dark">
+  <a class="brand" href={site.pagePath('home')} aria-label={S.header.home}>
+    <Mark class="brand-mark" />
+    <span class="brand-word" lang="en" dir="ltr">SilkCover<span class="brand-sub">Consulting</span></span>
+  </a>
+  <div class="header-actions">
+    <LangSwitch class="header-lang" alternates={alternates} current={site.locale} label={S.menu.language} />
+    <button class="btn btn--ghost header-enquire" type="button" data-enquire>{S.header.enquire}</button>
+    <button class="menu-toggle" type="button" data-menu-open aria-expanded="false" aria-controls="site-menu" aria-label={S.header.menu}>
+      <span class="menu-toggle__label">{S.header.menu}</span>
+      <span class="menu-toggle__icon" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: fixed; inset: 0 0 auto; z-index: 60;
+    height: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+    padding: env(safe-area-inset-top, 0px) max(var(--gutter), env(safe-area-inset-right, 0px)) 0 max(var(--gutter), env(safe-area-inset-left, 0px));
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    color: var(--ivory);
+    transition: color 0.4s, background-color 0.4s, box-shadow 0.4s, transform 0.5s var(--ease-arch);
+  }
+  .site-header[data-tone-current='light'] { color: var(--ink); }
+  .site-header.is-scrolled { backdrop-filter: blur(14px) saturate(1.2); -webkit-backdrop-filter: blur(14px) saturate(1.2); }
+  .site-header.is-scrolled[data-tone-current='dark'] { background-color: rgba(14, 26, 43, 0.82); box-shadow: 0 1px 0 var(--line-dark); }
+  .site-header.is-scrolled[data-tone-current='light'] { background-color: rgba(247, 243, 234, 0.86); box-shadow: 0 1px 0 var(--line-light); }
+  .site-header.is-hidden { transform: translateY(-100%); }
+
+  .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand :global(.brand-mark) { width: 34px; height: 34px; color: var(--brass); transition: transform 0.9s var(--ease-arch); }
+  .brand:hover :global(.brand-mark) { transform: rotate(45deg); }
+  .brand-word { font-family: 'Marcellus', Georgia, serif; font-size: 1.32rem; letter-spacing: 0.06em; line-height: 1; display: grid; gap: 4px; }
+  .brand-sub { font-family: 'Hanken Grotesk Variable', system-ui, sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.34em; text-transform: uppercase; opacity: 0.7; }
+
+  .header-actions { display: flex; align-items: center; gap: 10px; }
+  .header-enquire { min-height: 42px; padding: 0 1.2em; font-size: 0.85rem; }
+  .menu-toggle {
+    display: inline-flex; align-items: center; gap: 12px; min-height: 42px; padding-block: 0; padding-inline: 16px 6px;
+    background: none; border: 1px solid currentColor; border-radius: 999px; cursor: pointer;
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .menu-toggle__icon { width: 30px; height: 30px; border-radius: 50%; background: currentColor; display: grid; place-content: center; gap: 4px; }
+  .menu-toggle__icon i { display: block; width: 12px; height: 1.5px; background: var(--lapis-900); transition: transform 0.4s var(--ease-arch); }
+  .site-header[data-tone-current='light'] .menu-toggle__icon i { background: var(--ivory); }
+  .menu-toggle:hover .menu-toggle__icon i:first-child { transform: translateX(2px); }
+  .menu-toggle:hover .menu-toggle__icon i:last-child { transform: translateX(-2px); }
+  @media (max-width: 900px) { .header-actions :global(.header-lang) { display: none; } }
+  @media (max-width: 560px) {
+    .header-enquire { display: none; }
+    .brand-word { font-size: 1.15rem; }
+    .menu-toggle__label { display: none; }
+    .menu-toggle { padding: 0 5px; border: 0; }
+  }
+</style>
+
+<script>
+  // Header colour follows the tone of the section beneath it; hides on scroll down.
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  if (header) {
+    let lastY = window.scrollY;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const y = window.scrollY;
+      const probe = header.offsetHeight / 2;
+      const el = document.elementsFromPoint(window.innerWidth / 2, probe).find((n) => n !== header && !header.contains(n));
+      const sec = el?.closest<HTMLElement>('[data-tone]');
+      header.dataset.toneCurrent = sec?.dataset.tone === 'dark' ? 'dark' : 'light';
+      header.classList.toggle('is-scrolled', y > 24);
+      const menuOpen = document.documentElement.classList.contains('menu-open');
+      header.classList.toggle('is-hidden', !menuOpen && y > 400 && y > lastY + 4);
+      if (y < lastY - 4 || y < 400) header.classList.remove('is-hidden');
+      document.documentElement.classList.toggle('header-hidden', header.classList.contains('is-hidden'));
+      lastY = y;
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  }
+</script>

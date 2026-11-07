@@ -1,0 +1,101 @@
+{
+  "id": "Home",
+  "title": "SilkCover Consulting",
+  "description": "",
+  "menu": {
+    "show": false,
+    "footer": true,
+    "order": 0,
+    "label": "Home",
+    "blurb": "Back to the beginning.",
+    "fold": "8",
+    "tone": "dark"
+  },
+  "template": {
+    "discriminant": "home",
+    "value": {
+      "hero": {
+        "eyebrow": "SilkCover Consulting",
+        "lines": [
+          "Global perspective.",
+          "Cultural depth.",
+          "Strategic thinking."
+        ],
+        "lede": "SilkCover Consulting helps institutions, investors and programmes decide with evidence, engage the people who matter, and build lasting capability.",
+        "primary": "Explore our expertise",
+        "secondary": "Make an enquiry",
+        "hint": "Move to light the pattern",
+        "scroll": "Scroll"
+      },
+      "who": {
+        "section": {
+          "eyebrow": "Who we are",
+          "title": "A consultancy built on three lines of thought",
+          "lede": "SilkCover Consulting works with organisations that need sound evidence, clear strategy and effective engagement. Our identity draws on the geometry of Herat’s tilework: many lines, one coherent pattern.",
+          "caption": "One figure, three lines. Choose a principle to trace it.",
+          "more": "More about SilkCover"
+        },
+        "principles": [
+          {
+            "title": "Global perspective",
+            "text": "We bring international standards, methods and networks to every assignment."
+          },
+          {
+            "title": "Cultural depth",
+            "text": "We understand the languages, institutions and histories that shape how decisions are made on the ground."
+          },
+          {
+            "title": "Strategic thinking",
+            "text": "We connect evidence to decisions, so every finding has a use and every recommendation has a reason."
+          }
+        ],
+        "draft": true,
+        "rail": "Who we are"
+      },
+      "expertise": {
+        "section": {
+          "eyebrow": "Our expertise",
+          "title": "{count} disciplines, drawn as one pattern",
+          "text": "Each service stands on its own. The lines show where they reinforce each other. Choose a service, or filter by the kind of organisation you are.",
+          "filterLabel": "Who it’s for",
+          "allSectors": "All sectors"
+        },
+        "rail": "Expertise"
+      },
+      "approach": {
+        "section": {
+          "eyebrow": "Our approach",
+          "title": "Four stages, each built on the last",
+          "text": "The same discipline applies whether we are running a survey or a conference.",
+          "link": "See our approach in full"
+        },
+        "draft": true,
+        "rail": "Approach"
+      },
+      "sectors": {
+        "section": {
+          "eyebrow": "Who we work with",
+          "title": "Different sectors, different patterns",
+          "text": "Each sector has its own pressures. Select one to see the services that usually answer them.",
+          "link": "Explore all industries",
+          "mapLink": "Show on the map"
+        },
+        "rail": "Sectors"
+      },
+      "insights": {
+        "section": {
+          "eyebrow": "Insights",
+          "title": "Notes from the field",
+          "text": "Perspectives on research, markets, institutions and dialogue.",
+          "link": "Read all insights"
+        },
+        "rail": "Insights"
+      },
+      "closing": {
+        "title": "Start a conversation",
+        "text": "Whether you need evidence for a decision, a room full of the right people, or a team ready to deliver, tell us where you are starting from."
+      },
+      "closingRail": "Get in touch"
+    }
+  }
+}

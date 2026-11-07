@@ -1,0 +1,19 @@
+{
+  "id": "Education and training",
+  "name": "د زده‌کړې او روزنې ادارې",
+  "short": "زده‌کړه او روزنه",
+  "challenge": "کورسونه باید د کارګمارونکو له غوښتنې سره برابر وي او د تاییدوونکو مرجعو معیارونه پوره کړي.",
+  "questions": [
+    "کارګمارونکي اوس او په راتلونکو پنځو کلونو کې کومو مهارتونو ته اړتیا لري؟",
+    "ایا زموږ نصاب له دې غوښتنې سره برابر دی؟",
+    "څنګه کارګمارونکي د کورس په ډیزاین کې شامل کړو؟"
+  ],
+  "services": [
+    "professional-development",
+    "research-surveys-assessments",
+    "institutional-development"
+  ],
+  "fold": "16",
+  "sample": true,
+  "order": 5
+}

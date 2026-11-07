@@ -1,0 +1,20 @@
+{
+  "id": "Public institutions",
+  "name": "حکومت و نهادهای دولتی",
+  "short": "نهادهای دولتی",
+  "challenge": "اصلاحات به ساختارهای عملی، کارمندان آموزش‌دیده و اعتماد عامه وابسته است.",
+  "questions": [
+    "این نهاد برای انجام وظیفهٔ خود چگونه باید ساختار یابد؟",
+    "پیش از تصویب یک اصلاحات با کدام جوانب ذیدخل باید مشوره شود؟",
+    "کارمندان به چه مهارت‌هایی نیاز دارند و آموزش چگونه باید تنظیم شود؟"
+  ],
+  "services": [
+    "institutional-development",
+    "dialogue-conferences-events",
+    "strategic-communications",
+    "professional-development"
+  ],
+  "fold": "12",
+  "sample": true,
+  "order": 2
+}

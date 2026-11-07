@@ -1,0 +1,97 @@
+---
+/**
+ * Sticky section bar shown under the header on every page.
+ * Lists the page's sections and highlights the one being read.
+ */
+interface Props { items: { id: string; label: string }[]; title: string; label?: string }
+const { items, title, label = title } = Astro.props;
+---
+<nav class="rail" aria-label={label} data-rail>
+  <div class="container rail__inner">
+    <span class="rail__title" aria-hidden="true">{title}</span>
+    <div class="rail__links" data-rail-links>
+      {items.map((it) => <a href={`#${it.id}`} data-rail-for={it.id}>{it.label}</a>)}
+    </div>
+  </div>
+  <span class="rail__progress" aria-hidden="true"><i data-rail-progress></i></span>
+</nav>
+
+<style>
+  .rail {
+    position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--header-h)); z-index: 40;
+    background: rgba(247, 243, 234, 0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-block: 1px solid var(--line-light); color: var(--ink);
+    transition: top 0.5s var(--ease-arch);
+  }
+  :global(.header-hidden) .rail { top: env(safe-area-inset-top, 0px); }
+  .rail__inner { display: flex; align-items: center; gap: 18px; }
+  .rail__title { flex: none; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass-ink); padding-inline-end: 18px; border-inline-end: 1px solid var(--line-light); }
+  .rail__links { position: relative; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; padding-block: 9px; min-width: 0; }
+  .rail__links::-webkit-scrollbar { display: none; }
+  .rail a { flex: none; text-decoration: none; font-size: 0.85rem; font-weight: 500; padding: 8px 14px; border-radius: 999px; color: var(--ink-soft); white-space: nowrap; transition: background 0.3s, color 0.3s; }
+  .rail a:hover { color: var(--ink); background: rgba(14, 26, 43, 0.05); }
+  .rail a.is-on { background: var(--ink); color: var(--ivory); }
+  .rail__progress { position: absolute; inset-inline-start: 0; inset-inline-end: 0; bottom: -1px; height: 2px; }
+  .rail__progress i { display: block; height: 100%; background: var(--turquoise-ink); transform-origin: 0 50%; transform: scaleX(0); }
+  @media (max-width: 720px) { .rail__title { display: none; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-rail]').forEach((rail) => {
+    const links = Array.from(rail.querySelectorAll<HTMLAnchorElement>('[data-rail-for]'));
+    const strip = rail.querySelector<HTMLElement>('[data-rail-links]');
+    const bar = rail.querySelector<HTMLElement>('[data-rail-progress]');
+    const targets = links.map((l) => document.getElementById(l.dataset.railFor!)).filter(Boolean) as HTMLElement[];
+    if (!targets.length) return;
+    let current = '';
+    let ticking = false;
+    // After a click, keep the chosen section highlighted until the visitor scrolls away
+    // (two sections can start at the same height when they sit side by side).
+    let pinned = '';
+    let pinUntil = 0;
+    let pinY = 0;
+
+    const update = () => {
+      ticking = false;
+      // The section being read is the last one whose top has passed 35% of the viewport.
+      const line = window.innerHeight * 0.35;
+      let active = '';
+      let best = -Infinity;
+      for (const t of targets) {
+        const top = t.getBoundingClientRect().top;
+        if (top <= line && top > best + 1) { best = top; active = t.id; } // ties keep the earlier section
+      }
+      if (pinned) {
+        if (performance.now() < pinUntil) pinY = window.scrollY;
+        if (Math.abs(window.scrollY - pinY) < 80) active = pinned; else pinned = '';
+      }
+      if (active !== current) {
+        current = active;
+        links.forEach((l) => {
+          const on = l.dataset.railFor === active;
+          l.classList.toggle('is-on', on);
+          if (on) {
+            l.setAttribute('aria-current', 'location');
+            if (strip) strip.scrollTo({ left: l.offsetLeft - (strip.clientWidth - l.offsetWidth) / 2, behavior: 'smooth' });
+          } else l.removeAttribute('aria-current');
+        });
+      }
+      if (bar) {
+        const first = targets[0].getBoundingClientRect().top + window.scrollY;
+        const last = targets[targets.length - 1];
+        const end = last.getBoundingClientRect().bottom + window.scrollY - window.innerHeight * 0.6;
+        const p = Math.min(1, Math.max(0, (window.scrollY + line - first) / Math.max(1, end - first)));
+        bar.style.transform = `scaleX(${p})`;
+      }
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    links.forEach((l) => l.addEventListener('click', () => {
+      pinned = l.dataset.railFor!;
+      pinUntil = performance.now() + 1200;
+      setTimeout(onScroll, 30); // the page may not scroll at all if the target is already in place
+    }));
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  });
+</script>

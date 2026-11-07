@@ -1,0 +1,104 @@
+{
+  "id": "Expertise",
+  "title": "Our Expertise",
+  "description": "",
+  "menu": {
+    "show": true,
+    "footer": true,
+    "order": 2,
+    "label": "Our Expertise",
+    "blurb": "Eight services, from research and NGO systems to advertising.",
+    "fold": "12",
+    "tone": "turquoise"
+  },
+  "template": {
+    "discriminant": "expertise",
+    "value": {
+      "hero": {
+        "eyebrow": "Our expertise",
+        "title": "{count} services.",
+        "accent": "One standard of work.",
+        "lede": "Each service can stand alone or combine into a single programme of support. Choose one to go straight to it."
+      },
+      "labels": {
+        "examples": "Practical examples",
+        "enquire": "Enquire about this service",
+        "related": "Often combined with",
+        "platform": "Dedicated platform",
+        "alsoOffered": "Also offered through",
+        "ourPlatform": "our dedicated platform",
+        "fullDetails": "Full details",
+        "enquireShort": "Enquire about this"
+      },
+      "combinations": {
+        "section": {
+          "eyebrow": "Better together",
+          "title": "Where our services meet",
+          "text": "Many assignments draw on more than one discipline. These are the combinations we design for most often."
+        },
+        "items": [
+          {
+            "a": "research-surveys-assessments",
+            "b": "market-analysis-feasibility",
+            "note": "Market research rests on sound survey and data work."
+          },
+          {
+            "a": "research-surveys-assessments",
+            "b": "institutional-development",
+            "note": "Assessments become the evidence base for institutional change."
+          },
+          {
+            "a": "research-surveys-assessments",
+            "b": "professional-development",
+            "note": "Skills needs assessments shape what training should cover."
+          },
+          {
+            "a": "dialogue-conferences-events",
+            "b": "strategic-communications",
+            "note": "Consultations and events carry a communication strategy into the room."
+          },
+          {
+            "a": "institutional-development",
+            "b": "professional-development",
+            "note": "New structures need people trained to run them."
+          },
+          {
+            "a": "dialogue-conferences-events",
+            "b": "institutional-development",
+            "note": "Stakeholder consultation informs strategic plans."
+          },
+          {
+            "a": "market-analysis-feasibility",
+            "b": "strategic-communications",
+            "note": "Feasibility findings need clear briefings for decision-makers."
+          },
+          {
+            "a": "ngo-strategy-systems",
+            "b": "institutional-development",
+            "note": "NGO operating systems build on sound organisational structures."
+          },
+          {
+            "a": "ngo-strategy-systems",
+            "b": "research-surveys-assessments",
+            "note": "Impact evidence and baselines feed donor reporting."
+          },
+          {
+            "a": "digital-advertising-content",
+            "b": "strategic-communications",
+            "note": "Campaign content carries a communication strategy to its audience."
+          },
+          {
+            "a": "digital-advertising-content",
+            "b": "market-analysis-feasibility",
+            "note": "Market insight tells advertising whom to reach and where."
+          }
+        ],
+        "rail": "Combinations"
+      },
+      "closing": {
+        "title": "Not sure which service fits?",
+        "text": "Describe the situation you are in. We will tell you which combination of services would help, and what it would involve."
+      }
+    }
+  }
+}

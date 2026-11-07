@@ -1,0 +1,20 @@
+{
+  "id": "Civil society",
+  "name": "جامعهٔ مدنی و مؤسسات غیردولتی",
+  "short": "جامعهٔ مدنی و مؤسسات",
+  "challenge": "نهادها باید اثرگذاری را نشان دهند، سیستم‌ها را تقویت کنند و با مخاطبان گوناگون سخن بگویند.",
+  "questions": [
+    "آیا سیستم‌های ما برای بررسی تمویل‌کننده و تفتیش به اندازهٔ کافی قوی است؟",
+    "چگونه اثرگذاری را به شکل معتبر نشان دهیم؟",
+    "چگونه داستان خود را به تمویل‌کنندگان و جوامع بگوییم؟"
+  ],
+  "services": [
+    "ngo-strategy-systems",
+    "research-surveys-assessments",
+    "institutional-development",
+    "strategic-communications"
+  ],
+  "fold": "10",
+  "sample": true,
+  "order": 4
+}

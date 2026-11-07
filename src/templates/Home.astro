@@ -1,0 +1,322 @@
+---
+import ExpertiseMap from '../components/ExpertiseMap.astro';
+import GirihTile from '../components/GirihTile.astro';
+import Closing from '../components/Closing.astro';
+import IdentityFigure from '../components/IdentityFigure.astro';
+import SectionRail from '../components/SectionRail.astro';
+import { archPath, ARCH_RISE } from '../lib/geometry';
+import { sectionsFor, type Site, type Page } from '../lib/content';
+
+interface Props { site: Site; page: Page }
+const { site, page } = Astro.props;
+if (page.template.discriminant !== 'home') throw new Error('Home template needs a home page');
+const v = page.template.value;
+const S = site.settings;
+const expertisePath = site.templatePath('expertise');
+
+const approachPage = site.byTemplate('approach');
+const stages = approachPage?.template.discriminant === 'approach' ? approachPage.template.value.stages : [];
+const expPage = site.byTemplate('expertise');
+const exp = expPage?.template.discriminant === 'expertise' ? expPage.template.value : null;
+
+// Approach preview arches rise step by step: the sequence is the point.
+const archSet = stages.map((_, i) => {
+  const a = 60, jamb = 70 + i * 34, base = 300;
+  return { d: archPath(80, base, a, jamb), top: base - jamb - ARCH_RISE * a };
+});
+const tallest = archSet.length ? archSet[archSet.length - 1].top : 0;
+const principleKeys = ['global', 'cultural', 'strategic'];
+const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" /></svg>';
+---
+<!-- HERO -->
+<section class="hero" data-tone="dark" data-hero aria-labelledby="hero-title">
+  <canvas class="hero__canvas" aria-hidden="true" data-girih></canvas>
+  <div class="container hero__content">
+    <p class="eyebrow hero__eyebrow">{v.hero.eyebrow}</p>
+    <h1 id="hero-title" class="hero__title">
+      {v.hero.lines.map((l, i) => <span class="hero__line" style={`--i:${i}`}><span>{l}</span></span>)}
+    </h1>
+    <p class="hero__lede muted">{v.hero.lede}</p>
+    <div class="hero__actions">
+      <a class="btn btn--solid" href={expertisePath}>{v.hero.primary}<Fragment set:html={arrow} /></a>
+      <button class="btn btn--ghost" type="button" data-enquire>{v.hero.secondary}</button>
+    </div>
+  </div>
+  <div class="hero__base">
+    <div class="container hero__base-inner">
+      <a class="hero__scroll" href="#who"><span>{v.hero.scroll}</span><i aria-hidden="true"></i></a>
+      <ul class="hero__services" aria-label={S.footer.expertise}>
+        {site.services.map((s) => <li><a href={`${expertisePath}#${s.slug}`}>{s.label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+  <p class="hero__hint" aria-hidden="true">{v.hero.hint}</p>
+</section>
+
+<SectionRail items={sectionsFor(page, site)} title={S.common.onThisPage} />
+
+<!-- WHO WE ARE -->
+<section class="section who" id="who" data-tone="light" aria-labelledby="who-title">
+  <div class="container who__grid">
+    <figure class="who__figure" data-identity>
+      <IdentityFigure class="who__svg" />
+      <figcaption class="who__caption">{v.who.section.caption} {v.who.draft && <span class="sample-tag">{S.tags.draft}</span>}</figcaption>
+    </figure>
+    <div class="who__text">
+      <p class="eyebrow" data-reveal>{v.who.section.eyebrow}</p>
+      <h2 id="who-title" class="who__title" data-reveal>{v.who.section.title}</h2>
+      <p class="lede muted" data-reveal style="--delay:.08s">{v.who.section.lede}</p>
+      <div class="principles" role="group" aria-label={v.who.section.eyebrow}>
+        {v.who.principles.slice(0, 3).map((p, i) => (
+          <button type="button" class="principle" data-principle={principleKeys[i]} aria-pressed={i === 1 ? 'true' : 'false'} data-reveal style={`--delay:${0.12 + i * 0.06}s`}>
+            <span class="principle__title">{p.title}</span>
+            <span class="principle__text">{p.text}</span>
+          </button>
+        ))}
+      </div>
+      {site.byTemplate('about') && <a class="text-link who__more" href={site.templatePath('about')} data-reveal>{v.who.section.more}</a>}
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE MAP -->
+<section class="section expertise" id="expertise" data-tone="dark" aria-labelledby="exp-title">
+  <div class="container">
+    <header class="sec-head">
+      <p class="eyebrow" data-reveal>{v.expertise.section.eyebrow}</p>
+      <h2 id="exp-title" data-reveal>{site.withCount(v.expertise.section.title)}</h2>
+      <p class="muted sec-head__text" data-reveal style="--delay:.08s">{v.expertise.section.text}</p>
+    </header>
+    <div data-reveal style="--delay:.1s">
+      <ExpertiseMap
+        services={site.services} sectors={site.sectors} combinations={exp?.combinations.items ?? []} expertisePath={expertisePath}
+        showSampleTag={site.sectors.some((s) => s.sample)}
+        labels={{ filterLabel: v.expertise.section.filterLabel, allSectors: v.expertise.section.allSectors, sampleSectors: S.tags.sampleSectors,
+          alsoOffered: exp?.labels.alsoOffered ?? '', ourPlatform: exp?.labels.ourPlatform ?? '', related: exp?.labels.related ?? '',
+          enquire: exp?.labels.enquireShort ?? S.common.makeEnquiry, fullDetails: exp?.labels.fullDetails ?? '', newTab: S.common.newTab }} />
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+{stages.length > 0 && (
+<section class="section approach" id="approach" data-tone="light" aria-labelledby="app-title">
+  <div class="container">
+    <header class="sec-head sec-head--split">
+      <div>
+        <p class="eyebrow" data-reveal>{v.approach.section.eyebrow}</p>
+        <h2 id="app-title" data-reveal>{v.approach.section.title}</h2>
+      </div>
+      <p class="muted sec-head__text" data-reveal>
+        {v.approach.section.text}
+        {v.approach.draft && <span class="sample-tag">{S.tags.draft}</span>}
+        <a class="text-link sec-head__link" href={site.templatePath('approach')}>{v.approach.section.link}</a>
+      </p>
+    </header>
+    <ol class="approach__steps">
+      {stages.map((step, i) => (
+        <li class="approach__step" data-reveal style={`--delay:${i * 0.12}s`}>
+          <svg class="approach__arch" viewBox={`0 ${Math.floor(tallest) - 4} 160 ${Math.ceil(300 - tallest) + 6}`} aria-hidden="true">
+            <path d={archSet[i].d} pathLength="1" />
+            <text x="80" y="285" text-anchor="middle">{(i + 1).toLocaleString(site.info.lang)}</text>
+          </svg>
+          <h3>{step.title}</h3>
+          <p class="muted">{step.text}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+)}
+
+<!-- SECTORS -->
+<section class="section sectors" id="sectors" data-tone="ivory" aria-labelledby="sec-title">
+  <div class="container">
+    <header class="sec-head sec-head--split">
+      <div>
+        <p class="eyebrow" data-reveal>{v.sectors.section.eyebrow}</p>
+        <h2 id="sec-title" data-reveal>{v.sectors.section.title}</h2>
+      </div>
+      <p class="muted sec-head__text" data-reveal>{v.sectors.section.text} {site.sectors.some((s) => s.sample) && <span class="sample-tag">{S.tags.sampleSectors}</span>}
+        {site.byTemplate('industries') && <a class="text-link sec-head__link" href={site.templatePath('industries')}>{v.sectors.section.link}</a>}</p>
+    </header>
+  </div>
+  <div class="sectors__track">
+    {site.sectors.map((s, i) => (
+      <article class="sector" data-reveal style={`--delay:${i * 0.08}s`}>
+        <div class="sector__art"><GirihTile id={`sec-${s.slug}`} fold={s.fold} tone={i % 2 ? 'light' : 'dark'} tile={i % 2 ? 90 : 110} /></div>
+        <h3>{s.name}</h3>
+        <p class="muted">{s.challenge}</p>
+        <ul class="sector__services">
+          {s.services.filter((slug) => site.serviceBySlug[slug]).map((slug) => <li>{site.serviceBySlug[slug].label}</li>)}
+        </ul>
+        <button type="button" class="text-link" data-sector-jump={s.slug}>{v.sectors.section.mapLink}</button>
+      </article>
+    ))}
+  </div>
+</section>
+
+<!-- INSIGHTS -->
+{site.insights.length > 0 && (
+<section class="section insights" id="insights" data-tone="light" aria-labelledby="ins-title">
+  <div class="container">
+    <header class="sec-head sec-head--split">
+      <div>
+        <p class="eyebrow" data-reveal>{v.insights.section.eyebrow}</p>
+        <h2 id="ins-title" data-reveal>{v.insights.section.title}</h2>
+      </div>
+      <p class="muted sec-head__text" data-reveal>{v.insights.section.text} {site.insights.some((a) => a.sample) && <span class="sample-tag">{S.tags.sampleArticles}</span>}
+        <a class="text-link sec-head__link" href={site.templatePath('insights')}>{v.insights.section.link}</a></p>
+    </header>
+    <div class="insights__grid">
+      {site.insights.slice(0, 3).map((a, i) => (
+        <article class:list={['insight', { 'insight--feature': i === 0 }]} data-reveal style={`--delay:${i * 0.1}s`}>
+          <div class="insight__art"><GirihTile id={`ins-${i}`} fold={a.fold} tone={i === 0 ? 'turquoise' : i === 1 ? 'dark' : 'light'} tile={i === 0 ? 120 : 90} /></div>
+          <div class="insight__body">
+            <p class="insight__kind">{a.kind}{a.sample && <span class="sample-tag">{S.tags.sample}</span>}</p>
+            <h3><a class="insight__link" href={site.articlePath(a.slug)}>{a.title}</a></h3>
+            <p class="muted">{a.dek}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+)}
+
+<Closing heading={v.closing.title} text={v.closing.text} button={S.common.makeEnquiry} />
+<style>
+  /* ---------- Hero ---------- */
+  .hero { position: relative; min-height: max(640px, 100svh); display: grid; grid-template-rows: 1fr auto; overflow: hidden; isolation: isolate; touch-action: pan-y; }
+  .hero__canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
+  .hero__content { align-self: center; padding-top: calc(var(--header-h) + 48px); padding-bottom: 48px; display: grid; gap: clamp(20px, 2.6vw, 32px); }
+  .hero__title { font-size: var(--step-5); line-height: 0.98; letter-spacing: -0.005em; max-width: 12ch; }
+  .hero__line { display: block; overflow: hidden; padding-bottom: 0.06em; }
+  .hero__line > span { display: block; transform: translateY(108%); animation: line-up 1.15s var(--ease-arch) forwards; animation-delay: calc(0.25s + var(--i) * 0.13s); }
+  .hero__line:nth-child(2) > span { color: var(--turquoise); }
+  :global(.has-intro) .hero__line > span { animation-delay: calc(2.5s + var(--i) * 0.13s); }
+  :global(.has-intro.intro-skipped) .hero__line > span { animation-delay: calc(0.5s + var(--i) * 0.13s); }
+  @keyframes line-up { to { transform: none; } }
+  .hero__eyebrow, .hero__lede, .hero__actions { animation: fade-up 1s var(--ease-out) both; animation-delay: 0.8s; }
+  :global(.has-intro) :is(.hero__eyebrow, .hero__lede, .hero__actions) { animation-delay: 3s; }
+  :global(.has-intro.intro-skipped) :is(.hero__eyebrow, .hero__lede, .hero__actions) { animation-delay: 1s; }
+  @keyframes fade-up { from { opacity: 0; transform: translateY(16px); } }
+  .hero__lede { font-size: var(--step-1); max-width: 40ch; line-height: 1.5; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero__base { border-top: 1px solid var(--line-dark); background: linear-gradient(to top, rgba(14, 26, 43, 0.85), rgba(14, 26, 43, 0)); }
+  .hero__base-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 18px calc(18px + env(safe-area-inset-bottom, 0px)); }
+  .hero__scroll { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; }
+  .hero__scroll i { width: 1px; height: 28px; background: linear-gradient(var(--turquoise), transparent); animation: scroll-cue 2.4s var(--ease-arch) infinite; transform-origin: top; }
+  @keyframes scroll-cue { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+  .hero__services { list-style: none; display: grid; grid-template-columns: repeat(4, auto); justify-content: end; gap: 6px 28px; }
+  .hero__services li { display: flex; align-items: center; gap: 10px; }
+  .hero__services li::before { content: ''; flex: none; width: 5px; height: 5px; background: var(--brass); transform: rotate(45deg); }
+  .hero__services a { font-size: 0.84rem; text-decoration: none; opacity: 0.75; transition: opacity 0.2s, color 0.2s; }
+  .hero__services a:hover { opacity: 1; color: var(--turquoise); }
+  .hero__hint { position: absolute; inset-inline-end: max(var(--gutter), env(safe-area-inset-right, 0px)); top: calc(var(--header-h) + 28px); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(242, 236, 223, 0.45); }
+  @media (hover: none), (max-width: 760px) { .hero__hint { display: none; } }
+  @media (max-width: 900px) { .hero__services { display: none; } }
+
+  /* ---------- Section heads ---------- */
+  .sec-head { display: grid; gap: 18px; margin-bottom: clamp(40px, 6vw, 80px); max-width: 52rem; }
+  .sec-head h2 { font-size: var(--step-4); }
+  .sec-head__text { max-width: 46ch; }
+  .sec-head__text .sample-tag { margin-inline-start: 6px; vertical-align: 2px; }
+  .sec-head__link { display: flex; width: max-content; margin-top: 14px; color: var(--turquoise-ink); }
+  .who__more { color: var(--turquoise-ink); justify-self: start; }
+  .insight { position: relative; }
+  .insight__link { text-decoration: none; }
+  .insight__link::after { content: ''; position: absolute; inset: 0; }
+  .insight:hover h3 { color: var(--turquoise-ink); }
+  .insight :global(.girih-tile__pattern) { transition: transform 1.4s var(--ease-out); }
+  .insight:hover :global(.girih-tile__pattern) { transform: rotate(15deg) scale(1.1); }
+  .sec-head--split { max-width: none; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); align-items: end; gap: 18px 64px; }
+  .sec-head--split > div { display: grid; gap: 18px; }
+  @media (max-width: 860px) { .sec-head--split { grid-template-columns: 1fr; } }
+
+  /* ---------- Who we are ---------- */
+  .who__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(40px, 7vw, 120px); align-items: center; }
+  .who__figure { margin: 0; display: grid; gap: 16px; justify-items: center; }
+  .who__figure :global(.who__svg) { width: min(100%, 520px); }
+  .who__caption { font-size: 0.82rem; color: var(--ink-soft); text-align: center; }
+  .who__text { display: grid; gap: 22px; }
+  .who__title { font-size: var(--step-4); }
+  .principles { display: grid; gap: 0; border-top: 1px solid var(--line-light); margin-top: 8px; }
+  .principle { display: grid; gap: 4px; text-align: start; background: none; border: 0; border-bottom: 1px solid var(--line-light); padding-block: 18px; padding-inline: 30px 0; cursor: pointer; position: relative; transition: padding 0.5s var(--ease-out); }
+  .principle::before { content: ''; position: absolute; inset-inline-start: 4px; top: 27px; width: 10px; height: 10px; border: 1px solid var(--brass-ink); transform: rotate(45deg); transition: background 0.3s, border-color 0.3s; }
+  .principle__title { font-family: var(--font-display); font-size: var(--step-2); }
+  .principle__text { color: var(--ink-soft); max-width: 46ch; display: grid; grid-template-rows: 0fr; overflow: hidden; transition: opacity 0.5s; opacity: 0.0; max-height: 0; }
+  .principle[aria-pressed='true'] .principle__text { opacity: 1; max-height: 8em; }
+  .principle[aria-pressed='true']::before { background: var(--turquoise-ink); border-color: var(--turquoise-ink); }
+  .principle[aria-pressed='true'] .principle__title { color: var(--turquoise-ink); }
+  .principle:hover { padding-inline-start: 36px; }
+  @media (max-width: 860px) { .who__grid { grid-template-columns: 1fr; } .who__figure :global(.who__svg) { width: min(78%, 400px); } }
+
+  /* ---------- Expertise ---------- */
+  .expertise { background: radial-gradient(90% 70% at 30% 50%, var(--lapis-800), var(--lapis-900)); }
+
+  /* ---------- Approach ---------- */
+  .approach__steps { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 3vw, 44px); position: relative; }
+  .approach__steps::before { content: ''; position: absolute; inset-inline-start: 0; inset-inline-end: 0; top: calc(var(--arch-h, 0px)); height: 1px; }
+  .approach__step { display: grid; gap: 12px; align-content: start; }
+  .approach__arch { width: 100%; max-width: 220px; height: auto; overflow: visible; border-bottom: 1px solid var(--line-light); }
+  .approach__arch path { fill: none; stroke: var(--ink); stroke-width: 1.3; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s var(--ease-arch); transition-delay: calc(var(--delay, 0s) + 0.2s); }
+  .approach__step:global(.is-in) .approach__arch path, :global(html:not(.js)) .approach__arch path { stroke-dashoffset: 0; }
+  .approach__step:last-child .approach__arch path { stroke: var(--turquoise-ink); stroke-width: 2; }
+  .approach__arch text { font-family: var(--font-display); font-size: 40px; fill: var(--brass-ink); }
+  .approach__step h3 { font-size: var(--step-2); margin-top: 8px; }
+  @media (max-width: 860px) { .approach__steps { grid-template-columns: 1fr 1fr; row-gap: 48px; } }
+  @media (max-width: 480px) { .approach__steps { grid-template-columns: 1fr; } .approach__arch { max-width: 140px; } }
+  @media (prefers-reduced-motion: reduce) { .approach__arch path { stroke-dashoffset: 0; } }
+
+  /* ---------- Sectors ---------- */
+  .sectors__track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(208px, 1fr); gap: clamp(16px, 1.8vw, 24px); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px)) max(var(--gutter), env(safe-area-inset-right, 0px)); padding-bottom: 12px; max-width: calc(var(--max) + 2 * var(--gutter)); margin-inline: auto; scrollbar-width: thin; }
+  .sector { scroll-snap-align: start; display: grid; gap: 12px; align-content: start; grid-template-rows: auto auto auto 1fr auto; }
+  .sector__services { align-self: start; }
+  .sector__art { max-width: 100%; overflow: hidden; }
+  .sector__art :global(svg) { transition: transform 1.2s var(--ease-out); }
+  .sector:hover .sector__art :global(.girih-tile__pattern) { transform: rotate(22.5deg) scale(1.15); }
+  .sector h3 { font-size: var(--step-1); margin-top: 6px; }
+  .sector p { font-size: 0.95rem; }
+  .sector__services { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+  .sector__services li { font-size: 0.75rem; border: 1px solid var(--line-light); padding: 3px 8px; border-radius: 2px; color: var(--ink-soft); }
+  .sector .text-link { justify-self: start; margin-top: 4px; color: var(--turquoise-ink); }
+
+  /* ---------- Insights ---------- */
+  .insights__grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); grid-template-rows: auto 1fr; align-items: start; gap: clamp(24px, 3vw, 44px) clamp(24px, 4vw, 64px); }
+  .insight { display: grid; grid-template-columns: minmax(90px, 0.45fr) minmax(0, 1fr); gap: 20px; align-items: start; padding-bottom: 24px; border-bottom: 1px solid var(--line-light); }
+  .insight--feature { grid-row: span 2; grid-template-columns: 1fr; border-bottom: 0; }
+  .insight--feature .insight__art { max-width: 420px; }
+  .insight__body { display: grid; gap: 10px; min-width: 0; }
+  .insight__kind { display: flex; gap: 10px; align-items: center; font-size: 0.75rem; font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--turquoise-ink); }
+  .insight h3 { font-size: var(--step-1); }
+  .insight--feature h3 { font-size: var(--step-3); }
+  .insight p.muted { font-size: 0.95rem; }
+  .insight--feature p.muted { font-size: var(--step-0); max-width: 46ch; }
+  @media (max-width: 860px) { .insights__grid { grid-template-columns: 1fr; } .insight--feature { grid-row: auto; } .insight--feature .insight__art { max-width: 300px; } }
+</style>
+
+<script>
+  import { mountGirihField } from '../scripts/girih-field';
+
+  const canvas = document.querySelector<HTMLCanvasElement>('[data-girih]');
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  if (canvas && hero) {
+    const intro = document.documentElement.classList.contains('show-intro');
+    const rtl = document.documentElement.dir === 'rtl';
+    mountGirihField(canvas, hero, { origin: [rtl ? 0.32 : 0.68, 0.48], originPortrait: [rtl ? 0.38 : 0.62, 0.16], delay: intro ? 2100 : 0, rtl });
+  }
+
+  // Identity composition: principles trace their layer of the figure.
+  const fig = document.querySelector<HTMLElement>('[data-identity]');
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-principle]');
+  const setLayer = (key: string) => {
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.principle === key)));
+    fig?.querySelectorAll<SVGGElement>('[data-layer]').forEach((g) => g.classList.toggle('is-on', g.dataset.layer === key));
+  };
+  buttons.forEach((b) => {
+    b.addEventListener('click', () => setLayer(b.dataset.principle!));
+    b.addEventListener('mouseenter', () => { if (matchMedia('(hover: hover)').matches) setLayer(b.dataset.principle!); });
+  });
+  setLayer('cultural');
+</script>

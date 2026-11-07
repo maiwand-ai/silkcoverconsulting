@@ -1,0 +1,60 @@
+{
+  "id": "Contact",
+  "title": "Contact",
+  "description": "Start a conversation with SilkCover Consulting.",
+  "menu": {
+    "show": true,
+    "footer": true,
+    "order": 6,
+    "label": "Contact",
+    "blurb": "Start a conversation with our team.",
+    "fold": "8",
+    "tone": "light"
+  },
+  "template": {
+    "discriminant": "contact",
+    "value": {
+      "hero": {
+        "eyebrow": "Contact",
+        "title": "Start a conversation",
+        "lede": "Tell us about the decision in front of you, the people involved and the time you have. We will tell you honestly whether and how we can help."
+      },
+      "write": {
+        "title": "Write to us",
+        "copy": "Copy address",
+        "copied": "Copied",
+        "copyFail": "Select the address above to copy it",
+        "rail": "Write to us"
+      },
+      "steps": {
+        "title": "What happens next",
+        "items": [
+          {
+            "title": "We read your message",
+            "text": "A member of our team reviews every enquiry personally."
+          },
+          {
+            "title": "We reply",
+            "text": "We answer your questions or suggest a short call to understand the context."
+          },
+          {
+            "title": "We propose",
+            "text": "If we can help, we send a clear proposal with scope, timeline and cost."
+          }
+        ],
+        "draft": true,
+        "rail": "What happens next"
+      },
+      "where": {
+        "title": "Where we are",
+        "text": "Office locations will be published here once confirmed.",
+        "rail": "Where we are"
+      },
+      "form": {
+        "title": "Send an enquiry",
+        "sub": "All fields are required unless marked optional.",
+        "rail": "Enquiry form"
+      }
+    }
+  }
+}

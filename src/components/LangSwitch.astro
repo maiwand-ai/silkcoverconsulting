@@ -1,0 +1,19 @@
+---
+/** Language switcher: links to the same page in English, Dari and Pashto. */
+interface Props { alternates: { locale: string; href: string; name: string }[]; current: string; label: string; class?: string }
+const { alternates, current, label, class: cls = '' } = Astro.props;
+const langs: Record<string, string> = { en: 'en', fa: 'fa-AF', ps: 'ps-AF' };
+---
+<nav class:list={['lang', cls]} aria-label={label}>
+  {alternates.map((a) => (
+    <a href={a.href} hreflang={langs[a.locale]} lang={langs[a.locale]} aria-current={a.locale === current ? 'true' : undefined} data-lang={a.locale}>{a.name}</a>
+  ))}
+</nav>
+<style>
+  .lang { display: inline-flex; align-items: center; gap: 2px; }
+  .lang a { text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 6px 10px; border-radius: 999px; opacity: 0.72; transition: opacity 0.2s, background 0.2s; line-height: 1.2; }
+  .lang a[lang^='fa'], .lang a[lang^='ps'] { font-family: 'Noto Sans Arabic Variable', 'Noto Sans Arabic', sans-serif; font-size: 0.9rem; letter-spacing: 0; }
+  .lang a:hover { opacity: 1; background: rgba(127, 127, 127, 0.14); }
+  .lang a[aria-current] { opacity: 1; background: currentColor; }
+  .lang a[aria-current] { color: inherit; background: rgba(127, 127, 127, 0.2); box-shadow: inset 0 0 0 1px currentColor; }
+</style>

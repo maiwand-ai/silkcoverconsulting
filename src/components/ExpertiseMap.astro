@@ -1,0 +1,268 @@
+---
+/**
+ * Interactive expertise map: the services arranged as an n-fold girih rosette.
+ * Lines show how services combine; the sector filter lights the services each
+ * sector typically needs. Works with mouse, touch and keyboard. Content comes from the admin.
+ */
+import { starPath, polygonPath, polar, defaultStep } from '../lib/geometry';
+import type { Service, Sector } from '../lib/content';
+
+interface Props {
+  services: Service[];
+  sectors: Sector[];
+  combinations: { a: string | null; b: string | null; note: string }[];
+  expertisePath: string;
+  labels: { filterLabel: string; allSectors: string; sampleSectors: string; alsoOffered: string; ourPlatform: string; related: string; enquire: string; fullDetails: string; newTab: string };
+  showSampleTag?: boolean;
+}
+const { services, sectors, combinations, expertisePath, labels, showSampleTag = true } = Astro.props;
+const connections = combinations.filter((c) => c.a && c.b && c.a !== c.b) as { a: string; b: string; note: string }[];
+
+const R = 228;
+const N = services.length;
+const nodes = services.map((s, i) => {
+  const angle = (i * 360) / N;
+  const p = polar(R, angle);
+  const words = s.label.split(' ');
+  const mid = Math.ceil(words.length / 2);
+  const lines = words.length > 1 ? [words.slice(0, mid).join(' '), words.slice(mid).join(' ')] : [s.label];
+  const side = angle === 0 ? 'top' : angle === 180 ? 'bottom' : angle < 180 ? 'right' : 'left';
+  const lp = polar(R + (side === 'top' || side === 'bottom' ? 78 : 66), angle);
+  return { ...s, ...p, angle, lines, side, lx: lp.x, ly: lp.y, k: defaultStep(s.fold) };
+});
+const at = Object.fromEntries(nodes.map((n) => [n.slug, n]));
+const conns = connections.filter((c) => at[c.a] && at[c.b]).map(({ a, b, note }) => {
+  const A = at[a], B = at[b];
+  const cx = (A.x + B.x) * 0.22, cy = (A.y + B.y) * 0.22;
+  return { a, b, note, d: `M${A.x} ${A.y} Q${cx} ${cy} ${B.x} ${B.y}` };
+});
+const notesFor = (slug: string) =>
+  connections.filter(({ a, b }) => (a === slug || b === slug) && at[a] && at[b]).map(({ a, b, note }) => ({ other: a === slug ? b : a, note }));
+const sectorData = Object.fromEntries(sectors.map((s) => [s.slug, s.services]));
+const rosette = starPath(12, 5, 104);
+const rosetteCore = polygonPath(12, 40, 0, 0, -75);
+const ring = polygonPath(N, R, 0, 0, -90);
+---
+<div class="xmap" data-xmap data-sectors={JSON.stringify(sectorData)}>
+  <div class="xmap__filters" role="group" aria-label={labels.filterLabel}>
+    <span class="xmap__filters-label">{labels.filterLabel}</span>
+    <button type="button" class="chip" aria-pressed="true" data-sector="">{labels.allSectors}</button>
+    {sectors.map((s) => <button type="button" class="chip" aria-pressed="false" data-sector={s.slug}>{s.name}</button>)}
+    {showSampleTag && <span class="sample-tag">{labels.sampleSectors}</span>}
+  </div>
+
+  <div class="xmap__body">
+    <div class="xmap__figure">
+      <svg viewBox="-440 -350 880 700" class="xmap__svg" role="group" aria-label={labels.filterLabel}>
+        <path d={ring} class="xmap__ring" />
+        <g class="xmap__rosette" aria-hidden="true">
+          <path d={rosette} />
+          <path d={rosetteCore} class="xmap__core" />
+        </g>
+        <g class="xmap__spokes" aria-hidden="true">
+          {nodes.map((n) => {
+            const a = polar(112, n.angle), b = polar(R - 52, n.angle);
+            return <line x1={a.x} y1={a.y} x2={b.x} y2={b.y} data-spoke={n.slug} />;
+          })}
+        </g>
+        <g class="xmap__conns" aria-hidden="true">
+          {conns.map((c) => <path d={c.d} data-a={c.a} data-b={c.b} pathLength="1" />)}
+        </g>
+        {nodes.map((n, i) => (
+          <g class="xmap__node" data-node={n.slug} transform={`translate(${n.x} ${n.y})`} tabindex="0" role="button"
+            aria-pressed={i === 0 ? 'true' : 'false'} aria-label={n.title}>
+            <circle r={N > 6 ? 44 : 50} class="xmap__disc" />
+            <path d={starPath(n.fold, n.k, 32)} class="xmap__glyph" />
+            <path d={polygonPath(n.fold, 11)} class="xmap__glyph-core" />
+          </g>
+        ))}
+        {nodes.map((n) => (
+          <text class={`xmap__label xmap__label--${n.side}`} data-label={n.slug} x={n.lx} y={n.ly}
+            text-anchor={n.side === 'left' ? 'end' : n.side === 'right' ? 'start' : 'middle'} aria-hidden="true">
+            {n.lines.map((l, j) => <tspan x={n.lx} dy={j === 0 ? (n.side === 'bottom' ? '0.4em' : n.side === 'top' ? `${-(n.lines.length - 1) * 1.15}em` : `${-(n.lines.length - 1) * 0.58 + 0.35}em`) : '1.15em'}>{l}</tspan>)}
+          </text>
+        ))}
+      </svg>
+      <div class="xmap__tabs" role="group" aria-label={labels.filterLabel}>
+        {nodes.map((n, i) => <button type="button" class="xmap__tab" data-tab={n.slug} aria-pressed={i === 0 ? 'true' : 'false'}>{n.label}</button>)}
+      </div>
+    </div>
+
+    <div class="xmap__panels" aria-live="polite">
+      {nodes.map((n, i) => (
+        <article class="xmap__panel" data-panel={n.slug} hidden={i !== 0}>
+          <p class="xmap__kicker">{n.label}</p>
+          <h3>{n.title}</h3>
+          <p class="xmap__line">{n.line}</p>
+          <p class="xmap__intro muted">{n.intro}</p>
+          {n.platformName && n.platformUrl && (
+            <a class="xmap__platform" href={n.platformUrl} target="_blank" rel="noopener">
+              {labels.alsoOffered} <strong lang="en" dir="ltr">{n.platformName}</strong>, {labels.ourPlatform}
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M9 8h7v7" /></svg>
+              <span class="visually-hidden">({labels.newTab})</span>
+            </a>
+          )}
+          <ul class="xmap__examples">
+            {n.examples.slice(0, 4).map((e) => <li>{e}</li>)}
+          </ul>
+          {notesFor(n.slug).length > 0 && (<div class="xmap__with">
+            <p class="xmap__with-h">{labels.related}</p>
+            <div class="xmap__with-list">
+              {notesFor(n.slug).map((c) => (
+                <button type="button" class="xmap__with-btn" data-goto={c.other} title={c.note}>{at[c.other].label}</button>
+              ))}
+            </div>
+          </div>)}
+          <div class="xmap__actions">
+            <button class="btn btn--solid" type="button" data-enquire data-service={n.slug}>{labels.enquire}</button>
+            <a class="text-link" href={`${expertisePath}#${n.slug}`}>{labels.fullDetails}</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .xmap { display: grid; gap: clamp(28px, 4vw, 48px); }
+  .xmap__filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .xmap__filters-label { font-size: 0.75rem; font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--brass); margin-inline-end: 8px; }
+  .chip { background: transparent; border: 1px solid var(--line-dark); color: rgba(242, 236, 223, 0.82); border-radius: 999px; padding: 8px 14px; font-size: 0.85rem; cursor: pointer; transition: background 0.25s, color 0.25s, border-color 0.25s; min-height: 38px; }
+  .chip:hover { border-color: rgba(242, 236, 223, 0.5); color: var(--ivory); }
+  .chip[aria-pressed='true'] { background: var(--ivory); color: var(--lapis-900); border-color: var(--ivory); }
+  .xmap__filters .sample-tag { margin-inline-start: 4px; }
+
+  .xmap__body { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: center; }
+  .xmap__svg { width: 100%; height: auto; overflow: visible; direction: ltr; }
+  .xmap__ring { fill: none; stroke: var(--line-dark); stroke-dasharray: 3 7; }
+  .xmap__rosette path { fill: none; stroke: rgba(176, 141, 87, 0.55); stroke-width: 1; }
+  .xmap__rosette .xmap__core { stroke: var(--turquoise); opacity: 0.6; }
+  .xmap__rosette { transform-origin: 0 0; animation: xmap-turn 120s linear infinite; }
+  @keyframes xmap-turn { to { transform: rotate(360deg); } }
+  .xmap__spokes line { stroke: var(--line-dark); stroke-width: 1; transition: stroke 0.4s; }
+  .xmap__spokes line.is-on { stroke: var(--turquoise); }
+  .xmap__conns path { fill: none; stroke: rgba(242, 236, 223, 0.12); stroke-width: 1; transition: stroke 0.4s, stroke-width 0.4s; }
+  .xmap__conns path.is-on { stroke: var(--turquoise); stroke-width: 1.6; stroke-dasharray: 1; stroke-dashoffset: 1; animation: xmap-draw 0.9s var(--ease-arch) forwards; }
+  @keyframes xmap-draw { to { stroke-dashoffset: 0; } }
+
+  .xmap__node { cursor: pointer; outline: none; transition: opacity 0.4s; }
+  .xmap__disc { fill: var(--lapis-800); stroke: rgba(242, 236, 223, 0.3); stroke-width: 1; transition: fill 0.4s, stroke 0.4s; }
+  .xmap__glyph { fill: none; stroke: rgba(242, 236, 223, 0.6); stroke-width: 1; transition: stroke 0.4s, transform 0.8s var(--ease-arch); }
+  .xmap__glyph-core { fill: none; stroke: var(--brass); stroke-width: 1.2; }
+  .xmap__node:hover .xmap__disc, .xmap__node:focus-visible .xmap__disc { stroke: var(--turquoise); }
+  .xmap__node:focus-visible .xmap__disc { stroke-width: 3; }
+  .xmap__node:hover .xmap__glyph { transform: rotate(22.5deg); }
+  .xmap__node[aria-pressed='true'] .xmap__disc { fill: var(--turquoise); stroke: var(--turquoise); }
+  .xmap__node[aria-pressed='true'] .xmap__glyph { stroke: var(--lapis-900); }
+  .xmap__node[aria-pressed='true'] .xmap__glyph-core { stroke: var(--lapis-900); }
+  .xmap__node.is-dim, .xmap__label.is-dim { opacity: 0.22; }
+  .xmap__label { fill: rgba(242, 236, 223, 0.78); font-family: var(--font-body); font-size: 17px; font-weight: 500; letter-spacing: 0.01em; transition: fill 0.3s, opacity 0.4s; pointer-events: none; }
+  .xmap__label.is-on { fill: var(--turquoise); }
+
+  .xmap__tabs { display: none; }
+  .xmap__panel { display: grid; gap: 14px; align-content: start; }
+  .xmap__panel:not([hidden]) { animation: panel-in 0.6s var(--ease-out); }
+  @keyframes panel-in { from { opacity: 0; transform: translateY(14px); } }
+  .xmap__kicker { font-size: 0.75rem; font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--turquoise); }
+  .xmap__panel h3 { font-size: var(--step-3); }
+  .xmap__line { font-family: var(--font-display); font-size: var(--step-1); color: var(--brass); }
+  .xmap__intro { max-width: 46ch; }
+  .xmap__platform { display: inline-flex; align-items: center; gap: 8px; justify-self: start; font-size: 0.88rem; color: var(--turquoise); text-decoration: none; border: 1px solid rgba(79, 189, 177, 0.4); border-radius: 2px; padding: 8px 12px; transition: background 0.25s, border-color 0.25s; }
+  .xmap__platform strong { font-weight: 700; letter-spacing: 0.04em; }
+  .xmap__platform svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; flex: none; }
+  .xmap__platform:hover { background: rgba(79, 189, 177, 0.1); border-color: var(--turquoise); }
+  .xmap__examples { list-style: none; display: grid; gap: 0; border-top: 1px solid var(--line-dark); }
+  .xmap__examples li { padding-block: 10px; padding-inline: 24px 0; border-bottom: 1px solid var(--line-dark); position: relative; font-size: 0.95rem; }
+  .xmap__examples li::before { content: ''; position: absolute; inset-inline-start: 2px; top: 50%; width: 7px; height: 7px; border: 1px solid var(--turquoise); transform: translateY(-50%) rotate(45deg); }
+  .xmap__with { display: grid; gap: 8px; }
+  .xmap__with-h { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.6; }
+  .xmap__with-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .xmap__with-btn { background: rgba(242, 236, 223, 0.06); border: 1px solid var(--line-dark); border-radius: 2px; padding: 6px 10px; font-size: 0.82rem; color: var(--ivory); cursor: pointer; }
+  .xmap__with-btn:hover { border-color: var(--turquoise); color: var(--turquoise); }
+  .xmap__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; padding-top: 8px; }
+
+  @media (max-width: 960px) {
+    .xmap__body { grid-template-columns: 1fr; }
+    .xmap__figure { max-width: 560px; margin-inline: auto; width: 100%; }
+  }
+  @media (max-width: 720px) {
+    .xmap__label { display: none; }
+    .xmap__svg { margin-inline: auto; width: 100%; }
+    .xmap__filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); padding-bottom: 4px; }
+    .xmap__filters::-webkit-scrollbar { display: none; }
+    .chip, .xmap__filters-label, .xmap__filters .sample-tag { flex: none; white-space: nowrap; }
+    .xmap__tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 18px; }
+    .xmap__tab { background: transparent; border: 1px solid var(--line-dark); color: var(--ivory); padding: 10px 12px; font-size: 0.85rem; text-align: start; border-radius: 2px; min-height: 48px; cursor: pointer; transition: opacity 0.3s; }
+    .xmap__tab[aria-pressed='true'] { background: var(--turquoise); color: var(--lapis-900); border-color: var(--turquoise); }
+    .xmap__tab.is-dim { opacity: 0.35; }
+  }
+  @media (prefers-reduced-motion: reduce) { .xmap__rosette { animation: none; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-xmap]').forEach((root) => {
+    const sectorMap: Record<string, string[]> = JSON.parse(root.dataset.sectors || '{}');
+    const nodes = root.querySelectorAll<SVGGElement>('[data-node]');
+    const tabs = root.querySelectorAll<HTMLButtonElement>('[data-tab]');
+    let active = nodes[0]?.dataset.node ?? '';
+    let sector = '';
+
+    function render() {
+      const allowed = sector ? new Set(sectorMap[sector]) : null;
+      nodes.forEach((n) => {
+        const s = n.dataset.node!;
+        n.setAttribute('aria-pressed', String(s === active));
+        n.classList.toggle('is-dim', !!allowed && !allowed.has(s));
+      });
+      tabs.forEach((t) => {
+        t.setAttribute('aria-pressed', String(t.dataset.tab === active));
+        t.classList.toggle('is-dim', !!allowed && !allowed.has(t.dataset.tab!));
+      });
+      root.querySelectorAll<SVGTextElement>('[data-label]').forEach((l) => {
+        l.classList.toggle('is-on', l.dataset.label === active);
+        l.classList.toggle('is-dim', !!allowed && !allowed.has(l.dataset.label!));
+      });
+      root.querySelectorAll<SVGLineElement>('[data-spoke]').forEach((l) => l.classList.toggle('is-on', l.dataset.spoke === active));
+      root.querySelectorAll<SVGPathElement>('.xmap__conns path').forEach((p) => {
+        const on = p.dataset.a === active || p.dataset.b === active;
+        if (on) { p.classList.remove('is-on'); void p.getBoundingClientRect(); }
+        p.classList.toggle('is-on', on);
+      });
+      root.querySelectorAll<HTMLElement>('[data-panel]').forEach((p) => { p.hidden = p.dataset.panel !== active; });
+    }
+    const select = (slug: string) => { if (slug && slug !== active) { active = slug; render(); } };
+
+    nodes.forEach((n) => {
+      n.addEventListener('click', () => select(n.dataset.node!));
+      n.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(n.dataset.node!); }
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          const list = Array.from(nodes), i = list.indexOf(n);
+          const next = list[(i + (e.key === 'ArrowRight' ? 1 : -1) + list.length) % list.length];
+          next.focus(); select(next.dataset.node!);
+        }
+      });
+    });
+    tabs.forEach((t) => t.addEventListener('click', () => select(t.dataset.tab!)));
+    root.querySelectorAll<HTMLButtonElement>('[data-goto]').forEach((b) => b.addEventListener('click', () => select(b.dataset.goto!)));
+
+    const chips = root.querySelectorAll<HTMLButtonElement>('[data-sector]');
+    const setSector = (slug: string) => {
+      sector = slug;
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.sector === slug)));
+      if (slug && !sectorMap[slug]?.includes(active)) active = sectorMap[slug][0];
+      render();
+    };
+    chips.forEach((c) => c.addEventListener('click', () => setSector(c.dataset.sector || '')));
+
+    // Sector cards elsewhere on the page can drive the map.
+    document.querySelectorAll<HTMLElement>('[data-sector-jump]').forEach((b) =>
+      b.addEventListener('click', () => {
+        setSector(b.dataset.sectorJump || '');
+        root.closest('section')?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      }),
+    );
+    render();
+  });
+</script>

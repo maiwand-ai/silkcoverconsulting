@@ -1,0 +1,60 @@
+---
+/**
+ * One route for every page in every language:
+ *   /            /about/        /insights/<article>/      (English)
+ *   /fa/         /fa/about/     /fa/insights/<article>/   (Dari)
+ *   /ps/ ...                                               (Pashto)
+ * Pages and their order come from the admin; each page's type picks its template.
+ */
+import Base from '../layouts/Base.astro';
+import Home from '../templates/Home.astro';
+import About from '../templates/About.astro';
+import Expertise from '../templates/Expertise.astro';
+import Approach from '../templates/Approach.astro';
+import Industries from '../templates/Industries.astro';
+import Insights from '../templates/Insights.astro';
+import Article from '../templates/Article.astro';
+import Contact from '../templates/Contact.astro';
+import Custom from '../templates/Custom.astro';
+import { getSite, alternatesFor, locales, localeInfo, type Locale } from '../lib/content';
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const l of locales) {
+    const site = await getSite(l);
+    const prefix = localeInfo[l].prefix.replace(/^\//, '');
+    const join = (...parts: string[]) => parts.filter(Boolean).join('/') || undefined;
+    for (const page of site.pages) {
+      paths.push({ params: { path: join(prefix, page.slug === 'home' ? '' : page.slug) }, props: { locale: l, slug: page.slug } });
+      if (page.template.discriminant === 'insights') {
+        site.insights.forEach((a, i) => {
+          paths.push({ params: { path: join(prefix, page.slug, a.slug) }, props: { locale: l, slug: page.slug, article: a.slug, next: site.insights[(i + 1) % site.insights.length].slug } });
+        });
+      }
+    }
+  }
+  return paths;
+}
+
+interface Props { locale: Locale; slug: string; article?: string; next?: string }
+const { locale, slug, article, next } = Astro.props;
+const site = await getSite(locale);
+const page = site.bySlug[slug];
+const alternates = await alternatesFor(slug, article);
+const art = article ? site.insights.find((a) => a.slug === article) : undefined;
+const nextArt = next ? site.insights.find((a) => a.slug === next) : undefined;
+const t = page.template.discriminant;
+const title = art ? art.title : page.title;
+const description = art ? art.dek : page.description;
+---
+<Base site={site} page={page} title={title} description={description} alternates={alternates} intro={t === 'home'}>
+  {art && nextArt ? <Article site={site} page={page} article={art} next={nextArt} /> :
+   t === 'home' ? <Home site={site} page={page} /> :
+   t === 'about' ? <About site={site} page={page} /> :
+   t === 'expertise' ? <Expertise site={site} page={page} /> :
+   t === 'approach' ? <Approach site={site} page={page} /> :
+   t === 'industries' ? <Industries site={site} page={page} /> :
+   t === 'insights' ? <Insights site={site} page={page} /> :
+   t === 'contact' ? <Contact site={site} page={page} /> :
+   <Custom site={site} page={page} />}
+</Base>

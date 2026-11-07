@@ -1,0 +1,101 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import MenuOverlay from '../components/MenuOverlay.astro';
+import Footer from '../components/Footer.astro';
+import EnquiryDialog from '../components/EnquiryDialog.astro';
+import Intro from '../components/Intro.astro';
+import { archPolygon } from '../lib/geometry';
+import type { Site, Page } from '../lib/content';
+
+interface Props {
+  site: Site;
+  title: string;
+  description?: string;
+  /** Page whose doorway is "current" in the menu (omit on 404). */
+  page?: Page;
+  /** Same page in each language, for the switcher and hreflang. */
+  alternates: { locale: string; href: string; name: string }[];
+  /** Opening animation (homepage only, once per session). */
+  intro?: boolean;
+}
+const { site, title, description, page, alternates, intro = false } = Astro.props;
+const S = site.settings;
+const fullTitle = title === S.siteName ? title : `${title} · ${S.siteName}`;
+const desc = description || S.description;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL('/og.png', Astro.site);
+
+// Cross-document page transition: the new page opens through the SilkCover arch.
+const vtCss = `@keyframes vt-arch{from{clip-path:${archPolygon(50, 100, 0.01, 0)}}to{clip-path:${archPolygon(50, 100, 150, 95)}}}`;
+const orgLd = { '@context': 'https://schema.org', '@type': 'Organization', name: S.siteName, url: Astro.site?.toString(), description: S.description };
+---
+<!doctype html>
+<html lang={site.info.lang} dir={site.info.dir}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={desc} />
+  <link rel="canonical" href={canonical} />
+  {alternates.map((a) => <link rel="alternate" hreflang={a.locale === 'en' ? 'en' : `${a.locale}-AF`} href={new URL(a.href, Astro.site)} />)}
+  {alternates.find((a) => a.locale === 'en') && <link rel="alternate" hreflang="x-default" href={new URL(alternates.find((a) => a.locale === 'en')!.href, Astro.site)} />}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <meta name="theme-color" content="#0e1a2b" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={S.siteName} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={desc} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content={site.info.lang.replace('-', '_')} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+  <style is:global set:html={vtCss}></style>
+  <script is:inline define:vars={{ intro }}>
+    document.documentElement.classList.add('js');
+    try {
+      if (intro && !sessionStorage.getItem('sc-intro') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('show-intro', 'has-intro');
+      }
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">{S.header.skip}</a>
+  {intro && <Intro site={site} />}
+  <Header site={site} alternates={alternates} />
+  <MenuOverlay site={site} page={page} alternates={alternates} />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer site={site} />
+  <EnquiryDialog site={site} />
+
+  <script>
+    // Scroll reveals
+    const els = document.querySelectorAll<HTMLElement>('[data-reveal]');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+      els.forEach((el) => io.observe(el));
+    } else {
+      els.forEach((el) => el.classList.add('is-in'));
+    }
+  </script>
+</body>
+</html>
+
+<style is:global>
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root) { animation: 0.9s var(--ease-arch) both vt-dim; }
+  ::view-transition-new(root) { animation: 0.9s var(--ease-arch) both vt-arch; }
+  @keyframes vt-dim { to { opacity: 0.4; transform: translateY(-3%); } }
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+  }
+</style>

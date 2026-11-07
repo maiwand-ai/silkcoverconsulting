@@ -1,0 +1,101 @@
+{
+  "id": "Privacy",
+  "title": "Privacy policy",
+  "description": "How SilkCover Consulting handles the personal information you share with us.",
+  "menu": {
+    "show": false,
+    "footer": false,
+    "order": 90,
+    "label": "Privacy policy",
+    "blurb": "How we handle your information.",
+    "fold": "8",
+    "tone": "dark"
+  },
+  "template": {
+    "discriminant": "custom",
+    "value": {
+      "hero": {
+        "eyebrow": "Privacy",
+        "title": "Privacy policy",
+        "lede": "DRAFT for review by a legal adviser before publication. Last updated: to be confirmed."
+      },
+      "blocks": [
+        {
+          "discriminant": "text",
+          "value": {
+            "rail": "Who we are",
+            "eyebrow": "",
+            "heading": "Who we are",
+            "paragraphs": [
+              "SilkCover Consulting (“SilkCover”, “we”) is responsible for the personal information collected through this website. You can contact us about privacy at the enquiry address shown on our Contact page."
+            ]
+          }
+        },
+        {
+          "discriminant": "text",
+          "value": {
+            "rail": "What we collect",
+            "eyebrow": "",
+            "heading": "What we collect",
+            "paragraphs": [
+              "When you send an enquiry, we collect the details you enter: your name, your organisation (if given), your email address, the area of interest you select and your message.",
+              "This website does not use advertising or tracking cookies. It stores one small setting in your browser for the current visit, so the opening animation is not shown again on every page."
+            ]
+          }
+        },
+        {
+          "discriminant": "text",
+          "value": {
+            "rail": "How we use it",
+            "eyebrow": "",
+            "heading": "How we use your information",
+            "paragraphs": [
+              "We use your details only to reply to your enquiry and, if you ask us to, to prepare a proposal. We rely on your consent, which you give by ticking the box on the form.",
+              "We do not sell your information or use it for marketing without your separate permission."
+            ]
+          }
+        },
+        {
+          "discriminant": "text",
+          "value": {
+            "rail": "Sharing and storage",
+            "eyebrow": "",
+            "heading": "Sharing and storage",
+            "paragraphs": [
+              "Enquiries are delivered to us through a form service provider [name to be confirmed], which processes them on our behalf. We keep enquiries only as long as needed to respond and follow up [retention period to be confirmed]."
+            ]
+          }
+        },
+        {
+          "discriminant": "list",
+          "value": {
+            "rail": "Your rights",
+            "heading": "Your rights",
+            "items": [
+              "Ask what information we hold about you.",
+              "Ask us to correct information that is wrong.",
+              "Ask us to delete your information.",
+              "Withdraw your consent at any time."
+            ]
+          }
+        },
+        {
+          "discriminant": "text",
+          "value": {
+            "rail": "Changes",
+            "eyebrow": "",
+            "heading": "Changes to this policy",
+            "paragraphs": [
+              "If we change how we handle personal information, we will update this page and the date at the top."
+            ]
+          }
+        }
+      ],
+      "showClosing": false,
+      "closing": {
+        "title": "",
+        "text": ""
+      }
+    }
+  }
+}

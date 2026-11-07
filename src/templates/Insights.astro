@@ -1,0 +1,130 @@
+---
+import GirihTile from '../components/GirihTile.astro';
+import Closing from '../components/Closing.astro';
+import SectionRail from '../components/SectionRail.astro';
+import { sectionsFor, type Site, type Page } from '../lib/content';
+
+interface Props { site: Site; page: Page }
+const { site, page } = Astro.props;
+if (page.template.discriminant !== 'insights') throw new Error('Insights template needs an insights page');
+const v = page.template.value;
+const S = site.settings;
+const L = v.labels;
+const kinds = [...new Set(site.insights.map((i) => i.kind))];
+const [feature, ...rest] = site.insights;
+const expertisePath = site.templatePath('expertise');
+const minutes = (a: (typeof site.insights)[number]) => `${site.readMinutes(a).toLocaleString(site.info.lang)} ${L.minRead}`;
+---
+<!-- MASTHEAD -->
+<section class="n-mast" data-tone="light" aria-labelledby="n-title">
+  <div class="container">
+    <div class="n-mast__top">
+      <p class="eyebrow">{v.hero.eyebrow}</p>
+      {site.insights.some((a) => a.sample) && <span class="sample-tag">{S.tags.sampleArticles}</span>}
+    </div>
+    <h1 id="n-title" class="n-mast__title">{v.hero.title}</h1>
+    <div class="n-mast__bar">
+      <p class="muted">{v.hero.lede}</p>
+      <div class="n-filters" role="group" aria-label={L.topics} data-filters>
+        <button type="button" class="n-chip" aria-pressed="true" data-kind="">{L.all}</button>
+        {kinds.map((k) => <button type="button" class="n-chip" aria-pressed="false" data-kind={k}>{k}</button>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<SectionRail items={sectionsFor(page, site)} title={S.common.onThisPage} />
+
+<!-- FEATURE -->
+{feature && (
+<section class="n-feature" id="featured" data-tone="light" aria-label={L.featured}>
+  <div class="container">
+    <article class="feat" data-article data-kind-of={feature.kind}>
+      <div class="feat__art"><GirihTile id="feat" fold={feature.fold} tone="turquoise" tile={110} h={420} /></div>
+      <div class="feat__body">
+        <p class="n-kind">{feature.kind} <span>·</span> {minutes(feature)}</p>
+        <h2><a href={site.articlePath(feature.slug)} class="n-link">{feature.title}</a></h2>
+        <p class="muted feat__dek">{feature.dek}</p>
+        <span class="text-link feat__more" aria-hidden="true">{L.read}</span>
+      </div>
+    </article>
+  </div>
+</section>
+)}
+
+<!-- LIST -->
+<section class="n-list" id="articles" data-tone="light" aria-label={L.more}>
+  <div class="container n-list__grid">
+    {rest.map((a, i) => (
+      <article class="card" data-article data-kind-of={a.kind}>
+        <div class="card__art"><GirihTile id={`card-${i}`} fold={a.fold} tone={i % 2 ? 'light' : 'dark'} tile={90} arch={false} h={220} /></div>
+        <p class="n-kind">{a.kind} <span>·</span> {minutes(a)}</p>
+        <h3><a href={site.articlePath(a.slug)} class="n-link">{a.title}</a></h3>
+        <p class="muted">{a.dek}</p>
+      </article>
+    ))}
+    <aside class="n-topics" id="topics">
+      <h2>{L.topics}</h2>
+      <ul>{site.services.map((s) => <li><a href={`${expertisePath}#${s.slug}`}>{s.label}</a></li>)}</ul>
+    </aside>
+  </div>
+  <p class="container n-empty" data-empty hidden>{L.empty}</p>
+</section>
+
+<Closing heading={v.closing.title} text={v.closing.text} button={S.common.makeEnquiry} />
+<style>
+  .n-mast { padding-top: calc(var(--header-h) + clamp(36px, 6vw, 80px)); padding-bottom: 28px; }
+  .n-mast__top { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-bottom: 18px; border-bottom: 1px solid var(--ink); }
+  .n-mast__title { font-size: clamp(3.2rem, 1rem + 9vw, 10rem); line-height: 0.92; letter-spacing: -0.02em; padding-block: 28px 18px; }
+  .n-mast__bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding-top: 16px; border-top: 1px solid var(--line-light); }
+  .n-filters { display: flex; flex-wrap: wrap; gap: 6px; }
+  .n-chip { background: none; border: 1px solid var(--line-light); border-radius: 999px; padding: 8px 14px; font-size: 0.85rem; cursor: pointer; min-height: 38px; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+  .n-chip:hover { border-color: var(--ink); }
+  .n-chip[aria-pressed='true'] { background: var(--ink); color: var(--ivory); border-color: var(--ink); }
+
+  .n-kind { font-size: 0.75rem; font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--turquoise-ink); }
+  .n-kind span { color: var(--line-light); margin-inline: 4px; }
+  .n-link { text-decoration: none; }
+  .n-link::after { content: ''; position: absolute; inset: 0; }
+  [data-article] { position: relative; }
+  [data-article]:hover h2, [data-article]:hover h3 { color: var(--turquoise-ink); }
+  [data-article] :global(.girih-tile__pattern) { transition: transform 1.4s var(--ease-out); }
+  [data-article]:hover :global(.girih-tile__pattern) { transform: rotate(15deg) scale(1.1); }
+
+  .n-feature { padding-block: clamp(28px, 4vw, 48px); }
+  .feat { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 80px); align-items: center; padding-bottom: clamp(40px, 5vw, 64px); border-bottom: 1px solid var(--line-light); }
+  .feat__art { max-width: 420px; }
+  .feat__body { display: grid; gap: 18px; }
+  .feat h2 { font-size: var(--step-4); line-height: 1.05; transition: color 0.3s; }
+  .feat__dek { font-size: var(--step-1); max-width: 40ch; }
+  .feat__more { color: var(--turquoise-ink); }
+  @media (max-width: 820px) { .feat { grid-template-columns: 1fr; } .feat__art { max-width: 260px; } }
+
+  .n-list { padding-bottom: var(--section); }
+  .n-list__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 44px); padding-top: clamp(36px, 4vw, 56px); }
+  .card { display: grid; gap: 12px; align-content: start; }
+  .card__art { overflow: hidden; border-radius: 2px; margin-bottom: 6px; }
+  .card h3 { font-size: var(--step-2); transition: color 0.3s; }
+  .card p.muted { font-size: 0.95rem; }
+  .n-topics { border-inline-start: 1px solid var(--line-light); padding-inline-start: clamp(20px, 3vw, 40px); }
+  .n-topics h2 { font-size: var(--step-1); margin-bottom: 14px; }
+  .n-topics ul { list-style: none; display: grid; gap: 0; border-top: 1px solid var(--line-light); }
+  .n-topics a { display: block; padding: 10px 0; border-bottom: 1px solid var(--line-light); text-decoration: none; font-size: 0.92rem; transition: color 0.2s, padding 0.3s var(--ease-out); }
+  .n-topics a:hover { color: var(--turquoise-ink); padding-inline-start: 6px; }
+  .n-empty { padding-top: 24px; color: var(--ink-soft); }
+  @media (max-width: 900px) { .n-list__grid { grid-template-columns: 1fr 1fr; } .n-topics { grid-column: 1 / -1; border-inline-start: 0; padding-inline-start: 0; } }
+  @media (max-width: 560px) { .n-list__grid { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  const chips = document.querySelectorAll<HTMLButtonElement>('[data-filters] [data-kind]');
+  const articles = document.querySelectorAll<HTMLElement>('[data-article]');
+  const empty = document.querySelector<HTMLElement>('[data-empty]');
+  chips.forEach((c) => c.addEventListener('click', () => {
+    const k = c.dataset.kind || '';
+    chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+    let shown = 0;
+    articles.forEach((a) => { const on = !k || a.dataset.kindOf === k; a.hidden = !on; if (on) shown++; });
+    if (empty) empty.hidden = shown > 0;
+  }));
+</script>

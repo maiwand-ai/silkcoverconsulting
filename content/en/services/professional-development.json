@@ -1,0 +1,18 @@
+{
+  "id": "Professional Development and Vocational Programme Support",
+  "title": "Professional Development and Vocational Programme Support",
+  "label": "Professional Development",
+  "line": "Skills that match real demand.",
+  "intro": "We help training programmes respond to what employers need, working alongside appropriately authorised training providers.",
+  "examples": [
+    "Approved professional workshops",
+    "Skills needs assessments",
+    "Curriculum advice",
+    "Employer consultation",
+    "Support to appropriately authorised training providers"
+  ],
+  "fold": "9",
+  "platformName": "",
+  "platformUrl": null,
+  "order": 6
+}

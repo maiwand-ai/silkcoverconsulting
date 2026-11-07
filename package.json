@@ -1,0 +1,29 @@
+{
+  "name": "silkcover-website",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "check:content": "tsx scripts/check-content.mts"
+  },
+  "dependencies": {
+    "@astrojs/react": "4.4.2",
+    "@astrojs/sitemap": "3.7.4",
+    "@fontsource-variable/hanken-grotesk": "5.3.0",
+    "@fontsource-variable/noto-sans-arabic": "5.3.0",
+    "@fontsource/marcellus": "5.3.0",
+    "@fontsource/noto-naskh-arabic": "5.3.0",
+    "@keystatic/astro": "5.2.0",
+    "@keystatic/core": "0.6.9",
+    "astro": "5.18.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "tsx": "4.19.2"
+  }
+}

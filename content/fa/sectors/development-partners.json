@@ -1,0 +1,21 @@
+{
+  "id": "Development partners",
+  "name": "شرکای انکشافی بین‌المللی",
+  "short": "شرکای انکشافی",
+  "challenge": "برنامه‌ها به شواهد معتبر، شناخت محلی و گزارش‌دهی روشن به تمویل‌کنندگان نیاز دارند.",
+  "questions": [
+    "آیا برنامه به افرادی می‌رسد که برای آن‌ها طراحی شده است؟",
+    "میان مطالعهٔ پایه و پایانی چه تغییر کرد و چرا؟",
+    "کدام شرکای محلی ظرفیت اجرا را دارند؟"
+  ],
+  "services": [
+    "research-surveys-assessments",
+    "institutional-development",
+    "dialogue-conferences-events",
+    "strategic-communications",
+    "ngo-strategy-systems"
+  ],
+  "fold": "8",
+  "sample": true,
+  "order": 1
+}

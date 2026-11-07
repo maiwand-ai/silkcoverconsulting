@@ -1,0 +1,869 @@
+<title>SilkCover Creative Directions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Hanken+Grotesk:wght@300..700&family=Archivo:wdth,wght@62..125,100..900&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Red+Hat+Text:wght@300..700&family=Red+Hat+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a review board. Neutral stone chrome; each concept owns its stage, palette and type inside it. */
+:root{
+  --bg:#ECEDEA; --surface:#F7F7F5; --ink:#15181B; --muted:#5A5F63; --rule:#D3D5D1; --accent:#2D4A8C;
+  --f-head:"Newsreader", Georgia, serif;
+  --f-ui:"Hanken Grotesk", system-ui, sans-serif;
+  --f-mono:"Red Hat Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111416; --surface:#181C1F; --ink:#E7E9E6; --muted:#9BA1A4; --rule:#2A2F33; --accent:#93A9E2; color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111416; --surface:#181C1F; --ink:#E7E9E6; --muted:#9BA1A4; --rule:#2A2F33; --accent:#93A9E2; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--ink); font-family:var(--f-ui); font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased}
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:10; background:var(--bg)}
+.wrap{max-width:1200px; margin:0 auto; padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-head); font-weight:400; text-wrap:balance; margin:0; letter-spacing:-.01em}
+p{margin:0}
+a{color:var(--accent)}
+.eyebrow{font-family:var(--f-mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+
+/* Header */
+.masthead{padding-block:56px 32px; display:grid; gap:20px}
+.masthead h1{font-size:clamp(38px, 6vw, 72px); line-height:1.02; max-width:16ch}
+.masthead h1 em{font-style:italic; color:var(--accent)}
+.lede{font-size:18px; max-width:62ch; color:var(--muted)}
+.status{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); margin-top:12px}
+.status > div{background:var(--surface); padding:18px 20px; display:grid; gap:6px; min-width:0}
+.status b{font-weight:600}
+.flag{display:inline-flex; align-items:center; gap:6px; font-family:var(--f-mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase}
+.flag::before{content:""; width:8px; height:8px; border-radius:50%; background:#C0841E}
+.flag.ok::before{background:#3E8E6A}
+
+.jump{position:sticky; top:env(safe-area-inset-top,0px); z-index:5; background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--rule)}
+.jump .wrap{display:flex; gap:22px; overflow-x:auto; padding-block:12px; scrollbar-width:none}
+.jump a{font-family:var(--f-mono); font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); text-decoration:none; white-space:nowrap}
+.jump a:hover{color:var(--ink)}
+
+/* Concept sections */
+.concept{padding-block:72px 24px; display:grid; gap:28px; border-top:1px solid var(--rule)}
+.concept-head{display:grid; grid-template-columns:auto 1fr; gap:8px 28px; align-items:end}
+.concept-letter{font-family:var(--f-head); font-size:clamp(64px,10vw,120px); line-height:.8; color:var(--accent); grid-row:span 2}
+.concept-head h2{font-size:clamp(30px,4vw,48px); line-height:1.05}
+.concept-head p{color:var(--muted); max-width:60ch}
+.concept-head .eyebrow{grid-column:2}
+
+.details{display:grid; grid-template-columns:repeat(12,1fr); gap:28px 32px}
+.details > *{min-width:0}
+.col-4{grid-column:span 4} .col-6{grid-column:span 6} .col-8{grid-column:span 8} .col-12{grid-column:span 12}
+@media (max-width: 900px){ .col-4,.col-6,.col-8{grid-column:span 12} }
+.block{display:grid; gap:10px; align-content:start}
+.block h3{font-family:var(--f-mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+.block p, .block li{font-size:15.5px}
+.block ul{margin:0; padding-left:18px; display:grid; gap:6px}
+
+.swatches{display:grid; grid-template-columns:repeat(auto-fill, minmax(130px,1fr)); gap:10px}
+.sw{display:grid; gap:6px; font-size:13px}
+.sw i{display:block; aspect-ratio:3/2; border-radius:3px; box-shadow:inset 0 0 0 1px rgba(127,127,127,.25)}
+.sw b{font-weight:600}
+.sw span{font-family:var(--f-mono); font-size:11.5px; color:var(--muted)}
+
+.type-spec{border:1px solid var(--rule); background:var(--surface); padding:22px; display:grid; gap:14px}
+.type-spec .disp{font-size:clamp(34px,4.5vw,52px); line-height:1}
+.type-spec .body{font-size:16px; max-width:52ch}
+.type-spec .meta{font-family:var(--f-mono); font-size:11.5px; color:var(--muted)}
+
+.mark-tile{aspect-ratio:1; max-width:100%; border-radius:3px; display:grid; place-items:center; padding:18%}
+.mark-tile svg{width:100%; height:100%}
+.mark-row{display:grid; grid-template-columns:repeat(3,1fr); gap:10px}
+.mark-row figure{margin:0; display:grid; gap:6px}
+.mark-row figcaption{font-family:var(--f-mono); font-size:11px; color:var(--muted)}
+
+/* Stage (live hero sketch) */
+.stage-wrap{container-type:inline-size; container-name:stage}
+.stage{position:relative; aspect-ratio:16/9; max-width:100%; overflow:hidden; border-radius:4px; isolation:isolate; touch-action:pan-y}
+@container stage (max-width: 640px){ .stage{aspect-ratio:4/5} }
+.stage canvas{position:absolute; inset:0; width:100%; height:100%; display:block}
+.stage-top{position:absolute; inset:0 0 auto 0; display:flex; justify-content:space-between; align-items:center; padding:3cqi 4cqi; z-index:3}
+.brand{display:flex; align-items:center; gap:10px; font-size:max(13px,1.5cqi); letter-spacing:.02em}
+.brand svg{width:max(24px,2.6cqi); height:max(24px,2.6cqi)}
+.menu-btn{font:inherit; font-size:max(12px,1.2cqi); letter-spacing:.14em; text-transform:uppercase; background:none; border:1px solid currentColor; color:inherit; padding:.6em 1.1em; cursor:pointer; border-radius:999px}
+.stage-hero{position:absolute; left:4cqi; bottom:5.5cqi; max-width:54%; z-index:2; display:grid; gap:1.6cqi}
+@container stage (max-width: 640px){ .stage-hero{max-width:none; right:4cqi; bottom:7cqi} }
+.stage-hero .where{font-size:max(11px,1.05cqi); letter-spacing:.16em; text-transform:uppercase; opacity:.75}
+.stage-hero .cta{justify-self:start; font:inherit; font-size:max(12px,1.2cqi); background:none; border:0; color:inherit; padding:0; cursor:pointer; display:inline-flex; gap:.7em; align-items:center; letter-spacing:.04em}
+.stage-hero .cta::after{content:""; width:3.4em; height:1px; background:currentColor; transition:width .4s}
+.stage-hero .cta:hover::after{width:5em}
+.stage-note{display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-family:var(--f-mono); font-size:11.5px; color:var(--muted); margin-top:10px}
+.replay{font:inherit; background:none; border:0; color:var(--accent); cursor:pointer; padding:0; text-decoration:underline; text-underline-offset:3px}
+
+.menu{position:absolute; inset:0; z-index:4; visibility:hidden}
+.is-open .menu{visibility:visible}
+.menu ol{list-style:none; margin:0; padding:0}
+.menu button.item{font:inherit; color:inherit; background:none; border:0; cursor:pointer; padding:0; text-align:left}
+.menu .close{position:absolute; top:3cqi; right:4cqi; font:inherit; font-size:max(12px,1.2cqi); letter-spacing:.14em; text-transform:uppercase; background:none; border:1px solid currentColor; color:inherit; border-radius:999px; padding:.6em 1.1em; cursor:pointer}
+
+/* ---------- Concept A: Girih ---------- */
+.A{background:#0E1A2B; color:#F2ECDF; font-family:"Hanken Grotesk", system-ui, sans-serif}
+.A .stage-hero h4{font-family:"Marcellus", "Trajan Pro", Georgia, serif; font-weight:400; font-size:clamp(24px,5.6cqi,74px); line-height:1.04; margin:0; letter-spacing:.005em; text-wrap:balance}
+.A .stage-hero h4 span{color:#4FBDB1}
+.A .brand{font-family:"Marcellus", Georgia, serif; font-size:max(15px,1.8cqi); letter-spacing:.06em}
+.A .menu{background:#F2ECDF; color:#0E1A2B; clip-path:var(--clip-closed); transition:clip-path .9s cubic-bezier(.76,0,.24,1), visibility 0s .9s}
+.A.is-open .menu{clip-path:var(--clip-open); transition:clip-path .9s cubic-bezier(.76,0,.24,1), visibility 0s}
+.A .menu-inner{position:absolute; inset:0; display:grid; place-items:center; text-align:center}
+.A .menu ol{display:grid; gap:.5cqi}
+.A .menu .item{font-family:"Marcellus", Georgia, serif; font-size:clamp(20px,3.6cqi,46px); line-height:1.15; text-align:center; transition:color .3s, letter-spacing .4s}
+.A .menu .item:hover, .A .menu .item:focus-visible{color:#7A1F2B; letter-spacing:.04em}
+.A .menu .item[aria-current="page"]{color:#1F7F78}
+.A .menu .tile{font-size:max(11px,1cqi); letter-spacing:.2em; text-transform:uppercase; color:#8A6F45; margin-bottom:2cqi}
+@media (prefers-reduced-motion: reduce){ .A .menu, .A.is-open .menu{transition:none} }
+
+/* ---------- Concept B: Pishtaq ---------- */
+.B{background:#E6E1D6; color:#1B1C1E; font-family:"Newsreader", Georgia, serif}
+.B .stage-top{font-family:"Red Hat Mono", ui-monospace, monospace}
+.B .brand{font-family:"Archivo", system-ui, sans-serif; font-variation-settings:"wdth" 112; font-weight:700; text-transform:uppercase; letter-spacing:.12em; font-size:max(12px,1.3cqi)}
+.B .menu-btn{border-radius:0; font-family:"Red Hat Mono", monospace; letter-spacing:.08em}
+.B .stage-hero{top:15cqi; bottom:auto; max-width:46%}
+.B .stage-hero h4{font-family:"Archivo", "Arial Narrow", sans-serif; font-variation-settings:"wdth" 62; font-weight:800; text-transform:uppercase; font-size:clamp(30px,7.4cqi,104px); line-height:.86; margin:0; letter-spacing:-.005em}
+.B .stage-hero h4 span{display:block}
+.B .stage-hero h4 span:nth-child(2){color:#27428F}
+.B .stage-hero .where, .B .stage-hero .cta{font-family:"Red Hat Mono", monospace}
+@container stage (max-width: 640px){ .B .stage-hero{top:auto; bottom:7cqi; max-width:none} .B .stage-hero h4{font-size:12cqi} }
+.B .menu{background:#1B1C1E; color:#E6E1D6; transform:translateX(101%); transition:transform .75s cubic-bezier(.65,0,.15,1), visibility 0s .75s; display:grid; grid-template-rows:1fr auto}
+.B.is-open .menu{transform:none; transition:transform .75s cubic-bezier(.65,0,.15,1), visibility 0s}
+.B .menu ol{padding:11cqi 4cqi 2cqi; display:grid; align-content:start}
+.B .menu li{border-top:1px solid rgba(230,225,214,.18)}
+.B .menu .item{display:grid; grid-template-columns:9cqi 1fr auto; align-items:baseline; width:100%; padding:1cqi 0}
+.B .menu .num{font-family:"Red Hat Mono", monospace; font-size:max(11px,1.05cqi); color:#8FA3D8}
+.B .menu .lbl{font-family:"Archivo", sans-serif; font-variation-settings:"wdth" 70; font-weight:700; text-transform:uppercase; font-size:clamp(18px,3.2cqi,42px); line-height:1; transition:font-variation-settings .45s, color .3s}
+.B .menu .item:hover .lbl, .B .menu .item:focus-visible .lbl{font-variation-settings:"wdth" 118; color:#fff}
+.B .menu .item[aria-current="page"] .lbl{color:#8FA3D8}
+.B .menu .scale{font-family:"Red Hat Mono", monospace; font-size:max(10px,.95cqi); opacity:.55}
+.B .titleblock{display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid rgba(230,225,214,.3); font-family:"Red Hat Mono", monospace; font-size:max(10px,.95cqi)}
+.B .titleblock div{padding:1.2cqi 4cqi 1.6cqi; border-left:1px solid rgba(230,225,214,.18); display:grid; gap:2px}
+.B .titleblock div:first-child{border-left:0}
+.B .titleblock span{opacity:.55; text-transform:uppercase; letter-spacing:.08em}
+@container stage (max-width: 640px){ .B .titleblock{grid-template-columns:1fr 1fr} .B .menu .item{grid-template-columns:12cqi 1fr} .B .menu .scale{display:none} }
+@media (prefers-reduced-motion: reduce){ .B .menu, .B.is-open .menu{transition:none} }
+
+/* ---------- Concept C: Tār-o-Pūd ---------- */
+.C{background:#1B0F14; color:#F1E6D6; font-family:"Red Hat Text", system-ui, sans-serif; --halo:#1B0F14}
+.C .brand{font-family:"Bodoni Moda", Didot, serif; font-style:italic; font-size:max(16px,1.9cqi)}
+.C .stage-hero h4{font-family:"Bodoni Moda", Didot, "Times New Roman", serif; font-weight:500; font-size:clamp(26px,5.8cqi,80px); line-height:1.0; margin:0; font-optical-sizing:auto}
+.C .stage-hero h4 em{font-style:italic; color:#D9B66B; font-weight:400}
+.C .menu{background:rgba(27,15,20,.97); opacity:0; transition:opacity .5s, visibility 0s .5s; display:grid; place-items:center start; padding-left:8cqi}
+.C.is-open .menu{opacity:1; transition:opacity .5s, visibility 0s}
+.C .menu ol{display:grid; gap:.4cqi; width:min(70cqi, 100%)}
+.C .menu .item{position:relative; display:block; width:100%; font-family:"Bodoni Moda", Didot, serif; font-size:clamp(20px,3.4cqi,44px); line-height:1.2; padding-bottom:.25em}
+.C .menu .item svg{position:absolute; left:0; bottom:0; width:100%; height:.5em; overflow:visible}
+.C .menu .item path{fill:none; stroke:#C9A45C; stroke-width:1; opacity:.45; transform-origin:center; transform-box:fill-box; transition:transform .5s cubic-bezier(.3,1.4,.5,1), opacity .3s}
+.C .menu .item:hover path, .C .menu .item:focus-visible path{transform:scaleY(.04); opacity:1}
+.C .menu .item:hover, .C .menu .item:focus-visible{font-style:italic}
+.C .menu .item[aria-current="page"]{color:#D9B66B}
+.C .menu li{transform:translateX(-24px); opacity:0; transition:transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s}
+.C.is-open .menu li{transform:none; opacity:1}
+.C.is-open .menu li:nth-child(2){transition-delay:.04s} .C.is-open .menu li:nth-child(3){transition-delay:.08s}
+.C.is-open .menu li:nth-child(4){transition-delay:.12s} .C.is-open .menu li:nth-child(5){transition-delay:.16s}
+.C.is-open .menu li:nth-child(6){transition-delay:.2s} .C.is-open .menu li:nth-child(7){transition-delay:.24s}
+@media (prefers-reduced-motion: reduce){ .C .menu, .C .menu li{transition:none} }
+
+/* Comparison + recommendation */
+.section{padding-block:72px 24px; border-top:1px solid var(--rule); display:grid; gap:24px}
+.section > h2{font-size:clamp(30px,4vw,46px)}
+.table-scroll{overflow-x:auto; border:1px solid var(--rule)}
+table{border-collapse:collapse; width:100%; min-width:760px; font-size:14.5px; background:var(--surface)}
+th,td{text-align:left; vertical-align:top; padding:14px 16px; border-bottom:1px solid var(--rule)}
+thead th{font-family:var(--f-head); font-weight:400; font-size:20px}
+tbody th{font-family:var(--f-mono); font-weight:400; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); width:150px}
+tr:last-child > *{border-bottom:0}
+.rec{display:grid; grid-template-columns:repeat(12,1fr); gap:28px 32px}
+.rec > *{min-width:0}
+.rec .big{grid-column:span 7; font-family:var(--f-head); font-size:clamp(22px,2.6vw,30px); line-height:1.3}
+.rec .side{grid-column:span 5; display:grid; gap:12px; align-content:start}
+@media (max-width:900px){ .rec .big, .rec .side{grid-column:span 12} }
+.checklist{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule)}
+.checklist > div{background:var(--surface); padding:18px 20px; display:grid; gap:6px; align-content:start}
+.checklist b{font-weight:600}
+.checklist p{color:var(--muted); font-size:14.5px}
+.sitemap{display:flex; flex-wrap:wrap; gap:8px}
+.sitemap span{border:1px solid var(--rule); background:var(--surface); padding:6px 12px; font-size:14px; border-radius:2px}
+footer{padding-block:48px 64px; color:var(--muted); font-size:14px; border-top:1px solid var(--rule); margin-top:48px}
+</style>
+
+<!-- Shared mark symbols -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="mark-a" viewBox="-50 -50 100 100">
+      <g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round">
+        <path d="M42.5,17.6 L-42.5,17.6 M17.6,42.5 L-42.5,-17.6 M-17.6,42.5 L-17.6,-42.5 M-42.5,17.6 L17.6,-42.5 M-42.5,-17.6 L42.5,-17.6 M-17.6,-42.5 L42.5,17.6 M17.6,-42.5 L17.6,42.5 M42.5,-17.6 L-17.6,42.5"/>
+        <polygon points="0,-12 8.5,-8.5 12,0 8.5,8.5 0,12 -8.5,8.5 -12,0 -8.5,-8.5" stroke-width="2"/>
+      </g>
+    </symbol>
+    <symbol id="mark-b" viewBox="0 0 100 100">
+      <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square">
+        <rect x="10" y="8" width="80" height="86"/>
+        <path d="M28,94 L28,58 A28.2,28.2 0 0 1 50,24 A28.2,28.2 0 0 1 72,58 L72,94"/>
+        <path d="M50,24 L50,94" stroke-width="1.4" stroke-dasharray="3 4"/>
+      </g>
+    </symbol>
+    <symbol id="mark-c" viewBox="0 0 100 100">
+      <g fill="none" stroke-linecap="round">
+        <g transform="rotate(45 50 50)" stroke="currentColor" stroke-width="3" opacity=".55">
+          <path d="M22,38 H78 M22,62 H78 M38,22 V78 M62,22 V78"/>
+        </g>
+        <g stroke="currentColor" stroke-width="3.4">
+          <path d="M16,38 H84 M16,62 H84 M38,16 V84 M62,16 V84"/>
+        </g>
+        <!-- over-crossings: halo then strand -->
+        <g stroke="var(--halo, #1B0F14)" stroke-width="9">
+          <path d="M31,38 H45 M62,31 V45 M38,55 V69 M55,62 H69"/>
+        </g>
+        <g stroke="currentColor" stroke-width="3.4">
+          <path d="M29,38 H47 M62,29 V47 M38,53 V71 M53,62 H71"/>
+        </g>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="wrap masthead">
+  <div class="eyebrow">SilkCover Consulting · Creative directions · Review 1 · 6 November 2026</div>
+  <h1>Three directions for <em>SilkCover</em>, before a line of the site is built</h1>
+  <p class="lede">Each direction below has its own palette, type, mark, navigation and motion language, with a live hero sketch you can interact with. Move your cursor (or drag a finger) across each stage, and open its menu. All three use the same working line from the brief so you can compare the identity rather than the copy.</p>
+  <div class="status" role="list">
+    <div role="listitem"><span class="flag">Missing</span><b>Company materials</b><p>The project folder is empty: no logo, documents, photos or existing site code.</p></div>
+    <div role="listitem"><span class="flag">Missing</span><b>Public footprint</b><p>A web search for “SilkCover Consulting” found no website or listing to draw from.</p></div>
+    <div role="listitem"><span class="flag ok">Ready</span><b>Identity concepts</b><p>Concepts depend on identity, not facts, so they can be judged now. Services, sectors and locations stay as placeholders.</p></div>
+  </div>
+</header>
+
+<nav class="jump" aria-label="Sections"><div class="wrap">
+  <a href="#concept-a">A · Girih</a><a href="#concept-b">B · Pishtaq</a><a href="#concept-c">C · Tār-o-Pūd</a><a href="#compare">Compare</a><a href="#recommendation">Recommendation</a><a href="#needed">What I need</a>
+</div></nav>
+
+<main class="wrap">
+
+<!-- ================= A ================= -->
+<section class="concept" id="concept-a">
+  <div class="concept-head">
+    <div class="concept-letter" aria-hidden="true">A</div>
+    <div class="eyebrow">Contemporary heritage</div>
+    <div><h2>Girih: the light moves across the tile</h2>
+    <p>Girih is the strapwork geometry of Herat’s tilework: interlaced star-and-polygon lines drawn with compass and straightedge. Here it becomes a living field. Night lapis ground, ivory type, and a lantern of Herat turquoise that follows the visitor across the pattern.</p></div>
+  </div>
+
+  <div>
+    <div class="stage-wrap">
+      <div class="stage A" data-concept="A">
+        <canvas aria-hidden="true"></canvas>
+        <div class="stage-top">
+          <div class="brand"><svg aria-hidden="true" style="color:#B08D57"><use href="#mark-a"/></svg>SilkCover</div>
+          <button class="menu-btn" data-open aria-expanded="false">Menu</button>
+        </div>
+        <div class="stage-hero">
+          <div class="where" data-where>Home</div>
+          <h4>Global perspective. <span>Cultural depth.</span> Strategic thinking.</h4>
+          <button class="cta" type="button">Explore our expertise</button>
+        </div>
+        <div class="menu" aria-hidden="true" inert>
+          <button class="close" data-close>Close</button>
+          <div class="menu-inner"><div>
+            <div class="tile">SilkCover</div>
+            <ol>
+              <li><button class="item" aria-current="page">Home</button></li>
+              <li><button class="item">About SilkCover</button></li>
+              <li><button class="item">Our Expertise</button></li>
+              <li><button class="item">Our Approach</button></li>
+              <li><button class="item">Industries</button></li>
+              <li><button class="item">Insights</button></li>
+              <li><button class="item">Contact</button></li>
+            </ol>
+          </div></div>
+        </div>
+      </div>
+    </div>
+    <div class="stage-note"><span>Live sketch. Pattern assembles on load; cursor carries the light. Menu opens through a pointed arch.</span><button class="replay" data-replay="A">Replay opening</button></div>
+  </div>
+
+  <div class="details">
+    <div class="block col-8">
+      <h3>Palette</h3>
+      <div class="swatches">
+        <div class="sw"><i style="background:#0E1A2B"></i><b>Night lapis</b><span>#0E1A2B · ground</span></div>
+        <div class="sw"><i style="background:#F2ECDF"></i><b>Plaster ivory</b><span>#F2ECDF · text <em class="ratio" data-fg="#F2ECDF" data-bg="#0E1A2B"></em></span></div>
+        <div class="sw"><i style="background:#4FBDB1"></i><b>Herat turquoise</b><span>#4FBDB1 · light, links <em class="ratio" data-fg="#4FBDB1" data-bg="#0E1A2B"></em></span></div>
+        <div class="sw"><i style="background:#B08D57"></i><b>Antique brass</b><span>#B08D57 · mark, rules</span></div>
+        <div class="sw"><i style="background:#7A1F2B"></i><b>Garnet</b><span>#7A1F2B · hover, on ivory <em class="ratio" data-fg="#7A1F2B" data-bg="#F2ECDF"></em></span></div>
+      </div>
+    </div>
+    <div class="block col-4">
+      <h3>Signature mark</h3>
+      <div class="mark-row">
+        <figure><div class="mark-tile" style="background:#0E1A2B;color:#B08D57"><svg><use href="#mark-a"/></svg></div><figcaption>Primary</figcaption></figure>
+        <figure><div class="mark-tile" style="background:#F2ECDF;color:#0E1A2B"><svg><use href="#mark-a"/></svg></div><figcaption>On ivory</figcaption></figure>
+        <figure><div class="mark-tile" style="background:#4FBDB1;color:#0E1A2B"><svg><use href="#mark-a"/></svg></div><figcaption>Accent</figcaption></figure>
+      </div>
+      <p>An eight-pointed girih star (the {8/3} star polygon) around a small octagon. It reads as a compass rose: one centre, many directions.</p>
+    </div>
+
+    <div class="block col-6">
+      <h3>Typography</h3>
+      <div class="type-spec">
+        <div class="disp" style="font-family:'Marcellus',Georgia,serif">Herat, measured</div>
+        <div class="body" style="font-family:'Hanken Grotesk',sans-serif">Marcellus for display: a flared, inscriptional serif that recalls carved lettering on stone portals. Hanken Grotesk for reading: open, calm and very legible at small sizes.</div>
+        <div class="meta">Display: Marcellus 400 · Body: Hanken Grotesk 300–600 · Generous tracking on caps labels</div>
+      </div>
+    </div>
+    <div class="block col-6">
+      <h3>Afghan cultural integration</h3>
+      <ul>
+        <li>Girih strapwork from Herat’s Friday Mosque tilework, rebuilt as a precise line field instead of a printed ornament.</li>
+        <li>The pointed four-centred arch becomes the menu’s reveal shape and the crop for editorial images.</li>
+        <li>Turquoise and lapis taken from tile glazes, used as light rather than as fill.</li>
+        <li>Pattern lives only in the hero, transitions and section dividers. Reading surfaces stay plain ivory.</li>
+      </ul>
+    </div>
+
+    <div class="block col-4">
+      <h3>Hero concept</h3>
+      <p>A full field of girih lines draws itself outward from the centre in about two seconds, then settles. A turquoise light follows the cursor across the strapwork, so the pattern reveals itself only where the visitor looks. On phones, the light follows the finger and drifts slowly at rest.</p>
+    </div>
+    <div class="block col-4">
+      <h3>Navigation</h3>
+      <p>A full-screen ivory overlay that opens through a growing pointed arch, as if stepping through a portal. Page transitions reuse the arch: it closes on the old page and opens on the new one. The current page is marked in turquoise.</p>
+    </div>
+    <div class="block col-4">
+      <h3>Motion language</h3>
+      <p>Lines draw, light moves, arches open. Nothing bounces or spins. Scroll reveals follow the order of construction: guide circle, then lines, then fill. With reduced motion, the pattern appears finished and the arch becomes a cut.</p>
+    </div>
+    <div class="block col-6">
+      <h3>What makes it distinctive</h3>
+      <p>The heritage reference is the most direct of the three, and the most recognisable to anyone who knows Herat. Because the geometry is computed and lit live rather than printed, it reads as precision and craft, not decoration.</p>
+    </div>
+    <div class="block col-6">
+      <h3>Risk to manage</h3>
+      <p>Pushed too far, it drifts towards the “cultural organisation” look the brief warns against. The rule: pattern only where something moves or changes, never as wallpaper behind text.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= B ================= -->
+<section class="concept" id="concept-b">
+  <div class="concept-head">
+    <div class="concept-letter" aria-hidden="true">B</div>
+    <div class="eyebrow">Architectural intelligence</div>
+    <div><h2>Pishtaq: the site as a set of drawings</h2>
+    <p>The pishtaq is the tall framed portal of Timurid architecture, the kind that fronted the Musalla complex in Herat. This direction treats the website as an architect’s drawing set: limestone paper, graphite lines, compass construction, and a single Badakhshan lapis accent. Strategy shown as structure.</p></div>
+  </div>
+
+  <div>
+    <div class="stage-wrap">
+      <div class="stage B" data-concept="B">
+        <canvas aria-hidden="true"></canvas>
+        <div class="stage-top">
+          <div class="brand"><svg aria-hidden="true"><use href="#mark-b"/></svg>SilkCover</div>
+          <button class="menu-btn" data-open aria-expanded="false">Index</button>
+        </div>
+        <div class="stage-hero">
+          <div class="where" data-where>A-00 · Home</div>
+          <h4><span>Global perspective.</span><span>Cultural depth.</span><span>Strategic thinking.</span></h4>
+          <button class="cta" type="button">See how we work</button>
+        </div>
+        <div class="menu" aria-hidden="true" inert>
+          <button class="close" data-close>Close</button>
+          <ol>
+            <li><button class="item" aria-current="page"><span class="num">A-00</span><span class="lbl">Home</span><span class="scale">Elevation</span></button></li>
+            <li><button class="item"><span class="num">A-01</span><span class="lbl">About SilkCover</span><span class="scale">Section</span></button></li>
+            <li><button class="item"><span class="num">A-02</span><span class="lbl">Our Expertise</span><span class="scale">Plan</span></button></li>
+            <li><button class="item"><span class="num">A-03</span><span class="lbl">Our Approach</span><span class="scale">Detail</span></button></li>
+            <li><button class="item"><span class="num">A-04</span><span class="lbl">Industries</span><span class="scale">Site plan</span></button></li>
+            <li><button class="item"><span class="num">A-05</span><span class="lbl">Insights</span><span class="scale">Notes</span></button></li>
+            <li><button class="item"><span class="num">A-06</span><span class="lbl">Contact</span><span class="scale">Schedule</span></button></li>
+          </ol>
+          <div class="titleblock">
+            <div><span>Project</span>SilkCover</div>
+            <div><span>Drawing</span>Sheet index</div>
+            <div><span>Sheets</span>7</div>
+            <div><span>Status</span>For review</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stage-note"><span>Live sketch. Arch is constructed from two compass centres; move near them to reveal the construction. Index opens as a drawing sheet list.</span><button class="replay" data-replay="B">Replay opening</button></div>
+  </div>
+
+  <div class="details">
+    <div class="block col-8">
+      <h3>Palette</h3>
+      <div class="swatches">
+        <div class="sw"><i style="background:#E6E1D6"></i><b>Limestone</b><span>#E6E1D6 · paper</span></div>
+        <div class="sw"><i style="background:#1B1C1E"></i><b>Graphite</b><span>#1B1C1E · line, text <em class="ratio" data-fg="#1B1C1E" data-bg="#E6E1D6"></em></span></div>
+        <div class="sw"><i style="background:#27428F"></i><b>Badakhshan lapis</b><span>#27428F · the one accent <em class="ratio" data-fg="#27428F" data-bg="#E6E1D6"></em></span></div>
+        <div class="sw"><i style="background:#B9A887"></i><b>Fired sand</b><span>#B9A887 · tint, shadow</span></div>
+        <div class="sw"><i style="background:#8FA3D8"></i><b>Lapis light</b><span>#8FA3D8 · on graphite <em class="ratio" data-fg="#8FA3D8" data-bg="#1B1C1E"></em></span></div>
+      </div>
+    </div>
+    <div class="block col-4">
+      <h3>Signature mark</h3>
+      <div class="mark-row">
+        <figure><div class="mark-tile" style="background:#E6E1D6;color:#1B1C1E"><svg><use href="#mark-b"/></svg></div><figcaption>Primary</figcaption></figure>
+        <figure><div class="mark-tile" style="background:#1B1C1E;color:#E6E1D6"><svg><use href="#mark-b"/></svg></div><figcaption>Reversed</figcaption></figure>
+        <figure><div class="mark-tile" style="background:#27428F;color:#E6E1D6"><svg><use href="#mark-b"/></svg></div><figcaption>Accent</figcaption></figure>
+      </div>
+      <p>A pointed arch inside its rectangular portal frame, with the construction axis left visible. Structure and opening: a frame that lets you through.</p>
+    </div>
+
+    <div class="block col-6">
+      <h3>Typography</h3>
+      <div class="type-spec">
+        <div class="disp" style="font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 62;font-weight:800;text-transform:uppercase">Built to read</div>
+        <div class="body" style="font-family:'Newsreader',Georgia,serif">An inverted pairing. Archivo at its narrowest width for towering display lines that behave like elevations, and Newsreader, a reading serif, for long-form text. Red Hat Mono carries sheet numbers, coordinates and labels.</div>
+        <div class="meta">Display: Archivo wdth 62–118, 700–800 · Body: Newsreader · Labels: Red Hat Mono</div>
+      </div>
+    </div>
+    <div class="block col-6">
+      <h3>Afghan cultural integration</h3>
+      <ul>
+        <li>Proportion, not ornament: the pointed arch and the pishtaq frame set page grids, image crops and the mark.</li>
+        <li>Compass-and-straightedge construction, the method behind Herat’s architecture, shown openly as a graphic language.</li>
+        <li>Lapis lazuli from Badakhshan, mined there for thousands of years, as the single accent colour.</li>
+        <li>The quietest cultural touch of the three. It is felt through structure and light rather than seen as pattern.</li>
+      </ul>
+    </div>
+
+    <div class="block col-4">
+      <h3>Hero concept</h3>
+      <p>Towering condensed type on the left. On the right, an arch is drawn line by line as a construction drawing. Bringing the cursor near the compass centres reveals the circles that generate the arch, with a live coordinate readout. The ratio shown is calculated from the drawn geometry.</p>
+    </div>
+    <div class="block col-4">
+      <h3>Navigation</h3>
+      <p>“Index” opens a drawing-sheet list: every page has a sheet number (A-00 to A-06) and a drawing type, finished with an architect’s title block. Page transitions slide like changing sheets. On hover, the label widens along Archivo’s width axis.</p>
+    </div>
+    <div class="block col-4">
+      <h3>Motion language</h3>
+      <p>Precise and mechanical. Lines are drawn, sheets slide, type widens. Scroll storytelling moves between drawing types: a plan on the Expertise page, a section on About, a detail on Approach. Each page’s opening is a different drawing, so no two pages share a layout.</p>
+    </div>
+    <div class="block col-6">
+      <h3>What makes it distinctive</h3>
+      <p>The most credible and editorial of the three, and the easiest to keep consistent across many pages and content types. Few consulting firms speak in architectural drawings, and the method itself makes the point about rigorous thinking.</p>
+    </div>
+    <div class="block col-6">
+      <h3>Risk to manage</h3>
+      <p>The cultural identity is subtle enough that some visitors may miss it. It needs the arch photography and lapis accent applied with conviction, or it becomes a well-made minimalist site.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= C ================= -->
+<section class="concept" id="concept-c">
+  <div class="concept-head">
+    <div class="concept-letter" aria-hidden="true">C</div>
+    <div class="eyebrow">The SilkCover signature</div>
+    <div><h2>Tār-o-Pūd: warp and weft</h2>
+    <p>In Dari, <i>tār-o-pūd</i> means warp and weft, and by extension the very fabric of a thing. Afghan carpets are made of thousands of these crossings. Here silk-like threads of gold, madder and indigo run across a fixed warp, passing over and under. Where the visitor reaches in, the threads draw together. Connection is the subject.</p></div>
+  </div>
+
+  <div>
+    <div class="stage-wrap">
+      <div class="stage C" data-concept="C">
+        <canvas aria-hidden="true"></canvas>
+        <div class="stage-top">
+          <div class="brand"><svg aria-hidden="true" style="color:#D9B66B"><use href="#mark-c"/></svg>SilkCover</div>
+          <button class="menu-btn" data-open aria-expanded="false">Menu</button>
+        </div>
+        <div class="stage-hero">
+          <div class="where" data-where>Home</div>
+          <h4>Global perspective. <em>Cultural depth.</em> Strategic thinking.</h4>
+          <button class="cta" type="button">Follow the thread</button>
+        </div>
+        <div class="menu" aria-hidden="true" inert>
+          <button class="close" data-close>Close</button>
+          <ol>
+            <li><button class="item" aria-current="page">Home<svg viewBox="0 0 400 10" preserveAspectRatio="none" aria-hidden="true"><path d="M0,5 C25,0 25,10 50,5 S75,0 100,5 S125,10 150,5 S175,0 200,5 S225,10 250,5 S275,0 300,5 S325,10 350,5 S375,0 400,5"/></svg></button></li>
+            <li><button class="item">About SilkCover<svg viewBox="0 0 400 10" preserveAspectRatio="none" aria-hidden="true"><path d="M0,5 C25,0 25,10 50,5 S75,0 100,5 S125,10 150,5 S175,0 200,5 S225,10 250,5 S275,0 300,5 S325,10 350,5 S375,0 400,5"/></svg></button></li>
+            <li><button class="item">Our Expertise<svg viewBox="0 0 400 10" preserveAspectRatio="none" aria-hidden="true"><path d="M0,5 C25,0 25,10 50,5 S75,0 100,5 S125,10 150,5 S175,0 200,5 S225,10 250,5 S275,0 300,5 S325,10 350,5 S375,0 400,5"/></svg></button></li>
+            <li><button class="item">Our Approach<svg viewBox="0 0 400 10" preserveAspectRatio="none" aria-hidden="true"><path d="M0,5 C25,0 25,10 50,5 S75,0 100,5 S125,10 150,5 S175,0 200,5 S225,10 250,5 S275,0 300,5 S325,10 350,5 S375,0 400,5"/></svg></button></li>
+            <li><button class="item">Industries<svg viewBox="0 0 400 10" preserveAspectRatio="none" aria-hidden="true"><path d="M0,5 C25,0 25,10 50,5 S75,0 100,5 S125,10 150,5 S175,0 200,5 S225,10 250,5 S275,0 300,5 S325,10 350,5 S375,0 400,5"/></svg></button></li>
+            <li><button class="item">Insights<svg viewBox="0 0 400 10" preserveAspectRatio="none" aria-hidden="true"><path d="M0,5 C25,0 25,10 50,5 S75,0 100,5 S125,10 150,5 S175,0 200,5 S225,10 250,5 S275,0 300,5 S325,10 350,5 S375,0 400,5"/></svg></button></li>
+            <li><button class="item">Contact<svg viewBox="0 0 400 10" preserveAspectRatio="none" aria-hidden="true"><path d="M0,5 C25,0 25,10 50,5 S75,0 100,5 S125,10 150,5 S175,0 200,5 S225,10 250,5 S275,0 300,5 S325,10 350,5 S375,0 400,5"/></svg></button></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="stage-note"><span>Live sketch. Threads weave over and under a fixed warp; your cursor draws them together. Menu threads pull taut on hover.</span><button class="replay" data-replay="C">Replay opening</button></div>
+  </div>
+
+  <div class="details">
+    <div class="block col-8">
+      <h3>Palette</h3>
+      <div class="swatches">
+        <div class="sw"><i style="background:#1B0F14"></i><b>Kohl</b><span>#1B0F14 · ground</span></div>
+        <div class="sw"><i style="background:#F1E6D6"></i><b>Raw silk</b><span>#F1E6D6 · text <em class="ratio" data-fg="#F1E6D6" data-bg="#1B0F14"></em></span></div>
+        <div class="sw"><i style="background:#D9B66B"></i><b>Gold thread</b><span>#D9B66B · accent <em class="ratio" data-fg="#D9B66B" data-bg="#1B0F14"></em></span></div>
+        <div class="sw"><i style="background:#9B2F3E"></i><b>Madder</b><span>#9B2F3E · carpet red</span></div>
+        <div class="sw"><i style="background:#3C4F8C"></i><b>Indigo</b><span>#3C4F8C · carpet blue</span></div>
+      </div>
+    </div>
+    <div class="block col-4">
+      <h3>Signature mark</h3>
+      <div class="mark-row">
+        <figure><div class="mark-tile" style="background:#1B0F14;color:#D9B66B;--halo:#1B0F14"><svg><use href="#mark-c"/></svg></div><figcaption>Primary</figcaption></figure>
+        <figure><div class="mark-tile" style="background:#F1E6D6;color:#1B0F14;--halo:#F1E6D6"><svg><use href="#mark-c"/></svg></div><figcaption>On silk</figcaption></figure>
+        <figure><div class="mark-tile" style="background:#9B2F3E;color:#F1E6D6;--halo:#9B2F3E"><svg><use href="#mark-c"/></svg></div><figcaption>Madder</figcaption></figure>
+      </div>
+      <p>Four threads woven over and under into a square knot, layered on a rotated copy so the knot becomes an eight-fold star. Weaving and girih geometry in one symbol.</p>
+    </div>
+
+    <div class="block col-6">
+      <h3>Typography</h3>
+      <div class="type-spec">
+        <div class="disp" style="font-family:'Bodoni Moda',Didot,serif">Fine <em style="color:var(--accent)">threads</em>, strong cloth</div>
+        <div class="body" style="font-family:'Red Hat Text',sans-serif">Bodoni Moda, a high-contrast optical serif whose hairlines echo silk thread, with italics for emphasis. Red Hat Text for body copy: warm, round, and clear on dark grounds.</div>
+        <div class="meta">Display: Bodoni Moda 400–600, italic for emphasis · Body: Red Hat Text 300–600</div>
+      </div>
+    </div>
+    <div class="block col-6">
+      <h3>Afghan cultural integration</h3>
+      <ul>
+        <li>Carpet weaving structure (warp, weft, knot) as the system behind layout grids, dividers and transitions.</li>
+        <li>Madder red, indigo and gold, the classic dye palette of Afghan carpets, kept to threads and accents.</li>
+        <li>Carpet gul (medallion) geometry reduced to the woven-knot mark.</li>
+        <li>A Dari phrase gives the system its name internally and can appear once, in About, as the firm’s story.</li>
+      </ul>
+    </div>
+
+    <div class="block col-4">
+      <h3>Hero concept</h3>
+      <p>A dark loom. Threads flow slowly across a fixed warp, crossing over and under it. When the visitor reaches into the field, nearby threads gather towards the point. A visual of a consultancy drawing markets, disciplines and people together. On touch, a drag pulls the threads.</p>
+    </div>
+    <div class="block col-4">
+      <h3>Navigation</h3>
+      <p>Each menu item sits on its own loose thread that pulls taut on hover. Between pages, weft threads sweep across the screen and part to reveal the next page. On the Expertise page the same threads become the lines of an interactive expertise map.</p>
+    </div>
+    <div class="block col-4">
+      <h3>Motion language</h3>
+      <p>Fluid but slow, like cloth rather than liquid. Things gather, tighten and part. Every connection line on the site (maps, process diagrams, the expertise map) is drawn as a thread, so the motif carries meaning wherever it appears.</p>
+    </div>
+    <div class="block col-6">
+      <h3>What makes it distinctive</h3>
+      <p>The most original and memorable of the three. Its central metaphor (connection, things woven together, fabric) fits a consultancy, and it gives the strongest recurring element for interactive diagrams and transitions.</p>
+    </div>
+    <div class="block col-6">
+      <h3>Risk to manage</h3>
+      <p>Silk and dark grounds can drift towards fashion or luxury retail. It needs disciplined editorial layouts on inner pages and plain, credible content to stay a consultancy. It is also the heaviest to build well on mobile.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Compare ================= -->
+<section class="section" id="compare">
+  <div class="eyebrow">Side by side</div>
+  <h2>How the three differ</h2>
+  <div class="table-scroll">
+    <table>
+      <thead><tr><th></th><th>A · Girih</th><th>B · Pishtaq</th><th>C · Tār-o-Pūd</th></tr></thead>
+      <tbody>
+        <tr><th>First impression</th><td>Crafted, luminous, rooted</td><td>Rigorous, editorial, calm</td><td>Fluid, connected, memorable</td></tr>
+        <tr><th>Cultural signal</th><td>Strongest: Herat tile geometry</td><td>Subtlest: arch proportion and lapis</td><td>Medium: carpet structure and dyes</td></tr>
+        <tr><th>Ground</th><td>Dark (night lapis)</td><td>Light (limestone)</td><td>Dark (kohl)</td></tr>
+        <tr><th>Recurring element</th><td>Girih star and arch reveal</td><td>Construction drawing and sheet index</td><td>Thread, used for every connection line</td></tr>
+        <tr><th>Best for</th><td>A firm whose heritage is central to its offer</td><td>A firm selling analytical rigour to institutional clients</td><td>A firm whose value is connecting markets and people</td></tr>
+        <tr><th>Main risk</th><td>Reads as ornamental if overused</td><td>Heritage may go unnoticed</td><td>Can feel like luxury retail</td></tr>
+        <tr><th>Build effort</th><td>Medium (Canvas 2D)</td><td>Low to medium (Canvas 2D or SVG)</td><td>Medium to high (Canvas 2D, careful mobile tuning)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= Recommendation ================= -->
+<section class="section" id="recommendation">
+  <div class="eyebrow">My recommendation</div>
+  <h2>Lead with C, built on A’s geometry and B’s discipline</h2>
+  <div class="rec">
+    <p class="big">Tār-o-Pūd gives SilkCover the one thing the brief asks for most: a signature that people remember and that carries meaning across every interactive feature. To keep it a consultancy, I would constrain the threads to girih angles (multiples of 22.5°) so the motion has architectural rigour, and use Pishtaq’s editorial grid and type discipline on the reading pages (About, Insights).</p>
+    <div class="side">
+      <p>If you prefer one pure direction, B is the safest for credibility with institutional clients, and A is the strongest cultural statement.</p>
+      <p>You can also mix specific elements, for example C’s hero with A’s arch menu. Tell me which parts you want and I’ll build the homepage prototype from them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Needed ================= -->
+<section class="section" id="needed">
+  <div class="eyebrow">Before the homepage prototype</div>
+  <h2>What I need from you</h2>
+  <p class="lede">Nothing below has been invented. Until these arrive, the prototype will use clearly marked placeholders for every one of them.</p>
+  <div class="checklist">
+    <div><b>1 · Your direction</b><p>A, B, C, or the recommended hybrid, plus anything you want changed.</p></div>
+    <div><b>2 · Name and logo</b><p>Exact spelling (SilkCover or Silkcover), any existing logo files, and whether you are open to a new mark.</p></div>
+    <div><b>3 · Services</b><p>The actual consulting services, with a sentence or two on each. This shapes the Expertise page and the expertise map.</p></div>
+    <div><b>4 · Industries and geography</b><p>Sectors served and countries or regions of activity. The world map only gets built if there is real geographic focus.</p></div>
+    <div><b>5 · People and story</b><p>Founding year, leadership names, roles, bios and photos you are happy to publish.</p></div>
+    <div><b>6 · Proof</b><p>Any figures, clients or case studies you are cleared to show. No statistics will appear without them.</p></div>
+    <div><b>7 · Contact and offices</b><p>Verified addresses, email, phone, and where form enquiries should be delivered.</p></div>
+    <div><b>8 · Imagery and articles</b><p>Photos you own, and any insights or publications for the editorial section.</p></div>
+  </div>
+  <div class="block">
+    <h3>Working page list (will be adjusted to your real services)</h3>
+    <div class="sitemap"><span>Home</span><span>About SilkCover</span><span>Our Expertise (with one page per service)</span><span>Our Approach</span><span>Industries</span><span>Insights (index and article)</span><span>Contact</span></div>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap">Prototype sketches for review. Placeholder navigation and copy; no SilkCover facts are stated on this page.</div></footer>
+
+<script>
+(() => {
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+  const ease = t => t<.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+
+  /* ---- contrast readouts (computed, not typed) ---- */
+  const lum = hex => { const n = parseInt(hex.slice(1),16); return [n>>16, n>>8&255, n&255].map(c => { c/=255; return c<=.03928? c/12.92 : Math.pow((c+.055)/1.055,2.4) }).reduce((s,c,i)=> s + c*[.2126,.7152,.0722][i], 0) };
+  document.querySelectorAll('.ratio').forEach(el => {
+    const a = lum(el.dataset.fg), b = lum(el.dataset.bg);
+    const r = (Math.max(a,b)+.05)/(Math.min(a,b)+.05);
+    el.style.fontStyle = 'normal';
+    el.textContent = ` · ${r.toFixed(1)}:1`;
+  });
+
+  /* ---- stage framework ---- */
+  const stages = [];
+  class Stage {
+    constructor(el, impl){
+      this.el = el; this.cv = el.querySelector('canvas'); this.ctx = this.cv.getContext('2d');
+      this.impl = impl; this.mouse = {x:0, y:0, active:false, sx:0, sy:0}; this.t0 = performance.now(); this.visible = true;
+      new ResizeObserver(() => this.resize()).observe(el);
+      el.addEventListener('pointermove', e => { const r = el.getBoundingClientRect(); this.mouse.x = e.clientX - r.left; this.mouse.y = e.clientY - r.top; if(!this.mouse.active){ this.mouse.sx = this.mouse.x; this.mouse.sy = this.mouse.y } this.mouse.active = true; if(RM) this.draw(performance.now()) });
+      el.addEventListener('pointerleave', () => { this.mouse.active = false; if(RM) this.draw(performance.now()) });
+      new IntersectionObserver(es => es.forEach(e => this.visible = e.isIntersecting), {rootMargin:'100px'}).observe(el);
+    }
+    resize(){
+      const r = this.el.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1);
+      this.W = r.width; this.H = r.height; this.cv.width = Math.round(r.width*d); this.cv.height = Math.round(r.height*d);
+      this.ctx.setTransform(d,0,0,d,0,0); this.impl.setup(this); this.draw(performance.now());
+    }
+    draw(now){
+      const m = this.mouse; m.sx += (m.x - m.sx)*.12; m.sy += (m.y - m.sy)*.12;
+      const p = RM ? 1 : clamp((now - this.t0)/this.impl.dur, 0, 1);
+      this.impl.render(this, p, RM ? 0 : now);
+    }
+  }
+
+  /* ---- A: Girih field ---- */
+  const A = {
+    dur: 2600,
+    setup(s){
+      const {W,H} = s, sz = clamp(Math.min(W,H)/6.5, 46, 110);
+      s.sz = sz; s.segs = []; s.portrait = W < H*1.05;
+      const cx = s.portrait ? W*.5 : W*.64, cy = s.portrait ? H*.32 : H*.5, maxD = Math.hypot(W,H)*.75;
+      const r = sz*.56, ri = r*.34;
+      for(let i=-1; i<=Math.ceil(W/sz)+1; i++) for(let j=-1; j<=Math.ceil(H/sz)+1; j++){
+        const x = i*sz, y = j*sz, delay = Math.hypot(x-cx, y-cy)/maxD*.62;
+        const v = [], w = [];
+        for(let k=0;k<8;k++){ const a = k*Math.PI/4 + Math.PI/8; v.push([x + r*Math.cos(a), y + r*Math.sin(a)]); const b = k*Math.PI/4; w.push([x + ri*Math.cos(b), y + ri*Math.sin(b)]) }
+        for(let k=0;k<8;k++){
+          const a = v[k], b = v[(k+3)%8]; s.segs.push({ax:a[0],ay:a[1],bx:b[0],by:b[1],mx:(a[0]+b[0])/2,my:(a[1]+b[1])/2,delay,t:0});
+          const c = w[k], d = w[(k+1)%8]; s.segs.push({ax:c[0],ay:c[1],bx:d[0],by:d[1],mx:x,my:y,delay:delay+.05,t:1});
+        }
+      }
+      s.cx = cx; s.cy = cy;
+    },
+    render(s, p, now){
+      const {ctx,W,H,sz} = s; ctx.fillStyle = '#0E1A2B'; ctx.fillRect(0,0,W,H);
+      let lx, ly;
+      if(s.mouse.active){ lx = s.mouse.sx; ly = s.mouse.sy }
+      else { const t = now*.00018; lx = s.cx + Math.cos(t)*W*.16; ly = s.cy + Math.sin(t*1.3)*H*.18 }
+      const B = 8, paths = [[],[]].map(() => Array.from({length:B}, () => new Path2D()));
+      const sig2 = 2*(sz*2.3)**2;
+      for(const g of s.segs){
+        let l = clamp((p - g.delay)/.36, 0, 1); if(l<=0) continue; l = ease(l);
+        const d2 = (g.mx-lx)**2 + (g.my-ly)**2, glow = Math.exp(-d2/sig2);
+        const b = Math.min(B-1, Math.floor(glow*B)), path = paths[g.t][b];
+        path.moveTo(g.ax, g.ay); path.lineTo(g.ax + (g.bx-g.ax)*l, g.ay + (g.by-g.ay)*l);
+      }
+      ctx.lineWidth = 1;
+      for(let b=0;b<B;b++){
+        const f = b/(B-1);
+        // ivory base -> turquoise light
+        ctx.strokeStyle = `rgba(${Math.round(242+(79-242)*f)},${Math.round(236+(189-236)*f)},${Math.round(223+(177-223)*f)},${.08 + f*.85})`; ctx.stroke(paths[0][b]);
+        ctx.strokeStyle = `rgba(176,141,87,${.1 + f*.8})`; ctx.stroke(paths[1][b]);
+      }
+      // legibility veil for type
+      const g = s.portrait ? ctx.createLinearGradient(0,H,0,H*.35) : ctx.createLinearGradient(0,0,W*.8,0);
+      g.addColorStop(0,'rgba(14,26,43,.95)'); g.addColorStop(.45,'rgba(14,26,43,.62)'); g.addColorStop(1,'rgba(14,26,43,0)');
+      ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+      const t = ctx.createLinearGradient(0,0,0,H*.18); t.addColorStop(0,'rgba(14,26,43,.85)'); t.addColorStop(1,'rgba(14,26,43,0)');
+      ctx.fillStyle = t; ctx.fillRect(0,0,W,H*.18);
+    }
+  };
+
+  /* ---- B: Pishtaq construction drawing ---- */
+  const B = {
+    dur: 2800,
+    setup(s){
+      const {W,H} = s; s.portrait = W < H*1.05;
+      let cx, G, a;
+      if(s.portrait){ cx = W*.5; G = H*.5; a = Math.min(W*.26, H*.15) } else { cx = W*.74; G = H*.86; a = Math.min(W*.135, H*.23) }
+      const jamb = a*.95, y0 = G - jamb, e = .32*a, r = a + e, rise = Math.sqrt(r*r - e*e);
+      Object.assign(s, {cx, G, a, y0, e, r, rise});
+      // arch outline points
+      const pts = [[cx-a, G],[cx-a, y0]];
+      const fa = Math.acos(-e/r), N = 40;
+      for(let i=1;i<=N;i++){ const f = Math.PI + (fa - Math.PI)*i/N; pts.push([cx+e + r*Math.cos(f), y0 - r*Math.sin(f)]) }
+      const fb = Math.acos(e/r);
+      for(let i=N-1;i>=0;i--){ const f = fb*i/N; pts.push([cx-e + r*Math.cos(f), y0 - r*Math.sin(f)]) }
+      pts.push([cx+a, G]);
+      let L = 0; const acc = [0]; for(let i=1;i<pts.length;i++){ L += Math.hypot(pts[i][0]-pts[i-1][0], pts[i][1]-pts[i-1][1]); acc.push(L) }
+      s.pts = pts; s.acc = acc; s.L = L;
+      s.frame = {x: cx - a*1.55, y: y0 - rise - a*.42, w: a*3.1, h: G - (y0 - rise - a*.42)};
+    },
+    render(s, p, now){
+      const {ctx,W,H,cx,G,a,y0,e,r,rise} = s, ink = '#1B1C1E', lap = '39,66,143';
+      ctx.fillStyle = '#E6E1D6'; ctx.fillRect(0,0,W,H);
+      if(s.mouse.active){ const g = ctx.createRadialGradient(s.mouse.sx,s.mouse.sy,0,s.mouse.sx,s.mouse.sy,W*.35); g.addColorStop(0,'rgba(255,253,247,.55)'); g.addColorStop(1,'rgba(255,253,247,0)'); ctx.fillStyle = g; ctx.fillRect(0,0,W,H) }
+      // 12-column grid
+      ctx.strokeStyle = 'rgba(27,28,30,.06)'; ctx.lineWidth = 1; ctx.beginPath();
+      for(let i=1;i<12;i++){ const x = Math.round(W*i/12)+.5; ctx.moveTo(x,0); ctx.lineTo(x,H) } ctx.stroke();
+      const pc = clamp(p/.35,0,1), pf = clamp((p-.15)/.5,0,1), pa = ease(clamp((p-.25)/.6,0,1)), pl = clamp((p-.75)/.25,0,1);
+      // construction: centres + circles
+      const m = s.mouse, prox = c => m.active ? Math.exp(-((m.sx-c[0])**2 + (m.sy-c[1])**2)/(2*(a*1.1)**2)) : 0;
+      const C1 = [cx+e, y0], C2 = [cx-e, y0];
+      ctx.setLineDash([4,5]);
+      [C1,C2].forEach(c => { ctx.strokeStyle = `rgba(${lap},${(.18 + .6*prox(c))*pc})`; ctx.beginPath(); ctx.arc(c[0],c[1],r,0,Math.PI*2*pc); ctx.stroke() });
+      ctx.strokeStyle = `rgba(${lap},${.4*pc})`; ctx.beginPath();
+      ctx.moveTo(cx - a*2.1, y0); ctx.lineTo(cx - a*2.1 + a*4.2*pc, y0);
+      ctx.moveTo(cx, G + a*.2); ctx.lineTo(cx, G + a*.2 - (rise + jambOf(s) + a*.8)*pc); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.strokeStyle = `rgba(${lap},${.8*pc})`; ctx.beginPath();
+      [C1,C2].forEach(c => { ctx.moveTo(c[0]-5,c[1]); ctx.lineTo(c[0]+5,c[1]); ctx.moveTo(c[0],c[1]-5); ctx.lineTo(c[0],c[1]+5) }); ctx.stroke();
+      // pishtaq frame
+      const f = s.frame; ctx.strokeStyle = ink; ctx.lineWidth = 1.2;
+      ctx.beginPath(); const per = 2*(f.w+f.h), dl = per*pf;
+      rectPath(ctx, f, dl); ctx.stroke();
+      // arch outline (progressive)
+      ctx.lineWidth = 2.2; ctx.beginPath(); const target = s.L*pa;
+      ctx.moveTo(s.pts[0][0], s.pts[0][1]);
+      for(let i=1;i<s.pts.length;i++){ if(s.acc[i] <= target) ctx.lineTo(s.pts[i][0], s.pts[i][1]); else { const k = (target - s.acc[i-1])/(s.acc[i]-s.acc[i-1]); ctx.lineTo(s.pts[i-1][0] + (s.pts[i][0]-s.pts[i-1][0])*k, s.pts[i-1][1] + (s.pts[i][1]-s.pts[i-1][1])*k); break } }
+      ctx.stroke();
+      // ground line
+      ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(f.x - a*.3, G+.5); ctx.lineTo(f.x + (f.w + a*.6)*pf, G+.5); ctx.stroke();
+      // labels + dimension
+      if(pl > 0){
+        ctx.globalAlpha = pl; ctx.font = `500 ${Math.max(10, a*.085)}px "Red Hat Mono", monospace`; ctx.fillStyle = `rgb(${lap})`;
+        ctx.fillText('C1', C1[0]+7, C1[1]-7); ctx.fillText('C2', C2[0]-22, C2[1]-7);
+        ctx.fillText('SPRINGLINE', cx - a*2.05, y0 - 6);
+        const dy = G + a*.28; ctx.strokeStyle = `rgb(${lap})`; ctx.beginPath();
+        ctx.moveTo(cx-a, dy); ctx.lineTo(cx+a, dy); ctx.moveTo(cx-a, dy-5); ctx.lineTo(cx-a, dy+5); ctx.moveTo(cx+a, dy-5); ctx.lineTo(cx+a, dy+5); ctx.stroke();
+        const txt = `RISE : SPAN = ${(rise/(2*a)).toFixed(2)}`; const tw = ctx.measureText(txt).width;
+        ctx.fillStyle = '#E6E1D6'; ctx.fillRect(cx - tw/2 - 6, dy - 8, tw + 12, 16);
+        ctx.fillStyle = `rgb(${lap})`; ctx.fillText(txt, cx - tw/2, dy + 4);
+        ctx.globalAlpha = 1;
+      }
+      // crosshair + coordinates
+      if(m.active){
+        ctx.strokeStyle = `rgba(${lap},.35)`; ctx.lineWidth = 1; ctx.beginPath();
+        ctx.moveTo(m.sx+.5,0); ctx.lineTo(m.sx+.5,H); ctx.moveTo(0,m.sy+.5); ctx.lineTo(W,m.sy+.5); ctx.stroke();
+        ctx.font = '500 11px "Red Hat Mono", monospace'; ctx.fillStyle = `rgb(${lap})`;
+        const lbl = `X ${String(Math.round(m.sx - cx)).padStart(4,' ')}  Y ${String(Math.round(G - m.sy)).padStart(4,' ')}`;
+        ctx.fillText(lbl, Math.min(m.sx + 10, W - 130), Math.max(m.sy - 10, 14));
+      }
+      // veil behind text on portrait
+      if(s.portrait){ const g = ctx.createLinearGradient(0,H,0,H*.55); g.addColorStop(0,'rgba(230,225,214,.96)'); g.addColorStop(1,'rgba(230,225,214,0)'); ctx.fillStyle = g; ctx.fillRect(0,H*.55,W,H*.45) }
+    }
+  };
+  function jambOf(s){ return s.G - s.y0 }
+  function rectPath(ctx, f, len){
+    const P = [[f.x,f.y+f.h],[f.x,f.y],[f.x+f.w,f.y],[f.x+f.w,f.y+f.h]];
+    ctx.moveTo(P[0][0]+.5, P[0][1]); let left = len;
+    for(let i=1;i<P.length;i++){ const seg = Math.hypot(P[i][0]-P[i-1][0], P[i][1]-P[i-1][1]); if(left >= seg){ ctx.lineTo(P[i][0]+.5, P[i][1]+.5); left -= seg } else { const k = left/seg; ctx.lineTo(P[i-1][0] + (P[i][0]-P[i-1][0])*k + .5, P[i-1][1] + (P[i][1]-P[i-1][1])*k + .5); break } }
+  }
+
+  /* ---- C: Warp and weft ---- */
+  const COLORS = ['rgba(217,182,107,.9)','rgba(241,230,214,.75)','rgba(200,90,102,.85)','rgba(127,147,209,.85)'];
+  const C = {
+    dur: 2400,
+    setup(s){
+      const {W,H} = s; s.portrait = W < H*1.05;
+      s.top = s.portrait ? H*.1 : H*.1; s.band = s.portrait ? H*.46 : H*.8;
+      s.N = s.portrait ? 14 : 18; s.sp = 14;
+    },
+    yAt(s, k, x, t){
+      const base = s.top + (k+.5)*s.band/s.N, A = s.band/s.N*.95;
+      let y = base + A*Math.sin(x*(2*Math.PI/(s.W*.6)) + t*.00035 + k*.45) + A*.35*Math.sin(x*(2*Math.PI/(s.W*.23)) - t*.0002 + k);
+      const m = s.mouse;
+      if(m.active){
+        const gx = Math.exp(-((x-m.sx)**2)/(2*(s.W*.11)**2)), gy = Math.exp(-((base-m.sy)**2)/(2*(s.band*.32)**2));
+        y += (m.sy - y)*.72*gx*gy;
+      }
+      return y;
+    },
+    render(s, p, now){
+      const {ctx,W,H,N,sp} = s; ctx.fillStyle = '#1B0F14'; ctx.fillRect(0,0,W,H);
+      // warp
+      ctx.strokeStyle = 'rgba(241,230,214,.07)'; ctx.lineWidth = 1; ctx.beginPath();
+      const nw = Math.ceil(W/sp);
+      for(let i=0;i<nw;i++){ const x = i*sp + sp/2; ctx.moveTo(x, s.top - 20); ctx.lineTo(x, s.top + s.band + 20) } ctx.stroke();
+      const groups = COLORS.map(() => new Path2D()), halo = new Path2D(), over = new Path2D();
+      for(let k=0;k<N;k++){
+        const reach = W*ease(clamp((p - k*.022)/.6, 0, 1)); if(reach <= 0) continue;
+        const path = groups[k % COLORS.length];
+        path.moveTo(0, this.yAt(s,k,0,now));
+        for(let x=6; x<=reach; x+=6) path.lineTo(x, this.yAt(s,k,x,now));
+        for(let i=0;i<nw;i++){
+          const x = i*sp + sp/2; if(x > reach) break;
+          if((i+k)%2) continue;
+          const y = this.yAt(s,k,x,now);
+          halo.moveTo(x, y-4); halo.lineTo(x, y+4); over.moveTo(x, y-4.5); over.lineTo(x, y+4.5);
+        }
+      }
+      ctx.lineWidth = 1.3; COLORS.forEach((c,i) => { ctx.strokeStyle = c; ctx.stroke(groups[i]) });
+      ctx.lineWidth = 3.4; ctx.strokeStyle = '#1B0F14'; ctx.stroke(halo);
+      ctx.lineWidth = 1; ctx.strokeStyle = 'rgba(241,230,214,.32)'; ctx.stroke(over);
+      // veil
+      const g = s.portrait ? ctx.createLinearGradient(0,H,0,H*.5) : ctx.createLinearGradient(0,0,W*.72,0);
+      g.addColorStop(0,'rgba(27,15,20,.96)'); g.addColorStop(.5,'rgba(27,15,20,.6)'); g.addColorStop(1,'rgba(27,15,20,0)');
+      ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+    }
+  };
+
+  const impls = {A, B, C};
+  document.querySelectorAll('.stage').forEach(el => stages.push(new Stage(el, impls[el.dataset.concept])));
+
+  // Arch clip-path for concept A menu
+  function archPoly(cx, base, a, jamb){
+    const e = .3*a, r = a + e, pts = [[cx-a, base],[cx-a, base-jamb]], y0 = base - jamb, N = 16;
+    const fa = Math.acos(-e/r); for(let i=1;i<=N;i++){ const f = Math.PI + (fa-Math.PI)*i/N; pts.push([cx+e + r*Math.cos(f), y0 - r*Math.sin(f)]) }
+    const fb = Math.acos(e/r); for(let i=N-1;i>=0;i--){ const f = fb*i/N; pts.push([cx-e + r*Math.cos(f), y0 - r*Math.sin(f)]) }
+    pts.push([cx+a, base]);
+    return 'polygon(' + pts.map(p => `${p[0].toFixed(2)}% ${p[1].toFixed(2)}%`).join(',') + ')';
+  }
+  document.querySelectorAll('.stage.A .menu').forEach(m => {
+    m.style.setProperty('--clip-closed', archPoly(50, 100, .01, 0));
+    m.style.setProperty('--clip-open', archPoly(50, 100, 150, 90));
+  });
+
+  // Menus: open/close, focus, page indicator
+  document.querySelectorAll('.stage').forEach(st => {
+    const menu = st.querySelector('.menu'), openBtn = st.querySelector('[data-open]'), where = st.querySelector('[data-where]');
+    const open = () => { st.classList.add('is-open'); menu.removeAttribute('inert'); menu.setAttribute('aria-hidden','false'); openBtn.setAttribute('aria-expanded','true'); setTimeout(() => (menu.querySelector('[aria-current]') || menu.querySelector('.item')).focus({preventScroll:true}), RM ? 0 : 350) };
+    const close = () => { st.classList.remove('is-open'); menu.setAttribute('inert',''); menu.setAttribute('aria-hidden','true'); openBtn.setAttribute('aria-expanded','false'); openBtn.focus({preventScroll:true}) };
+    openBtn.addEventListener('click', open);
+    st.querySelector('.cta').addEventListener('click', open);
+    st.querySelector('[data-close]').addEventListener('click', close);
+    st.addEventListener('keydown', e => { if(e.key === 'Escape' && st.classList.contains('is-open')) close() });
+    menu.querySelectorAll('.item').forEach(it => it.addEventListener('click', () => {
+      menu.querySelectorAll('.item').forEach(x => x.removeAttribute('aria-current')); it.setAttribute('aria-current','page');
+      const num = it.querySelector('.num'), lbl = it.querySelector('.lbl');
+      where.textContent = num ? `${num.textContent} · ${lbl.textContent}` : it.childNodes[0].textContent.trim();
+      close();
+    }));
+  });
+
+  document.querySelectorAll('[data-replay]').forEach(b => {
+    if(RM){ b.hidden = true; return }
+    b.addEventListener('click', () => { const s = stages.find(s => s.el.dataset.concept === b.dataset.replay); s.t0 = performance.now() });
+  });
+
+  if(!RM){ const loop = now => { stages.forEach(s => { if(s.visible) s.draw(now) }); requestAnimationFrame(loop) }; requestAnimationFrame(loop) }
+  document.fonts && document.fonts.ready.then(() => stages.forEach(s => s.draw(performance.now())));
+})();
+</script>

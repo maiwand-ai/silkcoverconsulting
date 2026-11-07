@@ -1,0 +1,44 @@
+{
+  "id": "Interpretation",
+  "title": "Interpretation is infrastructure",
+  "kind": "Dialogue",
+  "dek": "Running multilingual consultations where every participant can follow and contribute.",
+  "service": "dialogue-conferences-events",
+  "fold": "10",
+  "sample": true,
+  "order": 3,
+  "body": [
+    {
+      "type": "p",
+      "text": "In a multilingual consultation, interpretation is not a service added to the event. It is the structure the event stands on. When it fails, some participants stop speaking, and the consultation quietly becomes a conversation among those who share the dominant language."
+    },
+    {
+      "type": "h2",
+      "text": "Plan language from the invitation"
+    },
+    {
+      "type": "p",
+      "text": "Ask participants which languages they prefer when they register, and plan interpreters, materials and session lengths around the answers. Translated agendas and background papers sent in advance let people prepare in the language they think in."
+    },
+    {
+      "type": "quote",
+      "text": "If people cannot follow, they cannot contribute."
+    },
+    {
+      "type": "h2",
+      "text": "Design sessions for interpretation"
+    },
+    {
+      "type": "p",
+      "text": "Interpreted sessions run more slowly. Build in time for it, brief interpreters on technical terms beforehand and ask speakers to pause between ideas. Small-group discussions in a shared language, reported back to the plenary, often produce richer input than a single large session."
+    },
+    {
+      "type": "h2",
+      "text": "Report in every language used"
+    },
+    {
+      "type": "p",
+      "text": "Participants should be able to read what was recorded from their contribution. Sharing the summary in each language used at the event closes the loop, and builds the trust that makes the next consultation easier."
+    }
+  ]
+}

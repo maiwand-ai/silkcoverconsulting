@@ -1,0 +1,177 @@
+---
+import GirihTile from '../components/GirihTile.astro';
+import Closing from '../components/Closing.astro';
+import SectionRail from '../components/SectionRail.astro';
+import { starPath, defaultStep } from '../lib/geometry';
+import { sectionsFor, type Site, type Page } from '../lib/content';
+
+interface Props { site: Site; page: Page }
+const { site, page } = Astro.props;
+if (page.template.discriminant !== 'industries') throw new Error('Industries template needs an industries page');
+const v = page.template.value;
+const S = site.settings;
+const L = v.labels;
+const expertisePath = site.templatePath('expertise');
+const num = (i: number) => i.toLocaleString(site.info.lang, { minimumIntegerDigits: 2 });
+---
+<!-- OPENING + MATRIX -->
+<section class="i-open" id="overview" data-tone="dark" aria-labelledby="i-title">
+  <div class="container">
+    <div class="i-open__head">
+      <div>
+        <p class="eyebrow">{v.hero.eyebrow}</p>
+        <h1 id="i-title">{v.hero.title}</h1>
+      </div>
+      <div class="i-open__side">
+        <p class="lede muted">{v.hero.lede}</p>
+        {site.sectors.some((s) => s.sample) && <span class="sample-tag">{S.tags.sampleSectors}</span>}
+      </div>
+    </div>
+
+    <div class="matrix-wrap" data-matrix>
+      <table class="matrix">
+        <caption class="visually-hidden">{v.hero.title}</caption>
+        <thead>
+          <tr>
+            <th scope="col" class="matrix__corner">{L.sector}</th>
+            {site.services.map((s, c) => (
+              <th scope="col" data-col={c}>
+                <a href={`${expertisePath}#${s.slug}`} class="matrix__svc">
+                  <svg viewBox="-50 -50 100 100" aria-hidden="true"><path d={starPath(s.fold, defaultStep(s.fold), 42)} /></svg>
+                  <span>{s.label}</span>
+                </a>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {site.sectors.map((sec, r) => (
+            <tr data-row={r}>
+              <th scope="row"><a href={`#${sec.slug}`}>{sec.name}</a></th>
+              {site.services.map((s, c) => {
+                const on = sec.services.includes(s.slug);
+                return (
+                  <td data-col={c} class:list={{ 'is-match': on }}>
+                    <span class="matrix__mark" aria-hidden="true"></span>
+                    <span class="visually-hidden">{on ? L.yes : L.no}</span>
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<SectionRail items={sectionsFor(page, site)} title={S.common.onThisPage} />
+
+<!-- SECTORS -->
+{site.sectors.map((sec, i) => (
+  <section class:list={['i-sec', { 'i-sec--flip': i % 2 === 1 }]} id={sec.slug} data-tone={i % 2 ? 'ivory' : 'light'} aria-labelledby={`${sec.slug}-h`}>
+    <div class="container i-sec__grid">
+      <div class="i-sec__art" data-reveal>
+        <GirihTile id={`ind-${sec.slug}`} fold={sec.fold} tone={i % 3 === 0 ? 'dark' : i % 3 === 1 ? 'light' : 'turquoise'} tile={96} h={460} />
+      </div>
+      <div class="i-sec__body">
+        <p class="i-sec__kicker" data-reveal>{L.sectorWord} {num(i + 1)} {sec.sample && <span class="sample-tag">{S.tags.sample}</span>}</p>
+        <h2 id={`${sec.slug}-h`} data-reveal>{sec.name}</h2>
+        <p class="i-sec__challenge" data-reveal style="--delay:.05s">{sec.challenge}</p>
+        {sec.questions.length > 0 && (
+          <div class="i-sec__qs" data-reveal style="--delay:.1s">
+            <h3>{L.questions}</h3>
+            <ol>{sec.questions.map((q, qi) => <li data-n={num(qi + 1)}>{q}</li>)}</ol>
+          </div>
+        )}
+        <div class="i-sec__svcs" data-reveal style="--delay:.15s">
+          <h3>{L.services}</h3>
+          <ul>
+            {sec.services.filter((slug) => site.serviceBySlug[slug]).map((slug) => <li><a href={`${expertisePath}#${slug}`}>{site.serviceBySlug[slug].label}</a></li>)}
+          </ul>
+        </div>
+        <div data-reveal style="--delay:.2s">
+          <button class="btn btn--solid" type="button" data-enquire data-service={sec.services[0] ?? ''}>{L.discuss}</button>
+        </div>
+      </div>
+    </div>
+  </section>
+))}
+
+<Closing heading={v.closing.title} text={v.closing.text} button={S.common.makeEnquiry} />
+<style>
+  .i-open { padding-top: calc(var(--header-h) + clamp(40px, 6vw, 90px)); padding-bottom: clamp(56px, 8vw, 110px); background: radial-gradient(80% 60% at 70% 0%, var(--lapis-700), var(--lapis-900) 60%); }
+  .i-open__head { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 24px clamp(32px, 6vw, 96px); align-items: end; margin-bottom: clamp(36px, 5vw, 64px); }
+  .i-open__head > div:first-child { display: grid; gap: 20px; }
+  .i-open h1 { font-size: var(--step-5); line-height: 0.98; }
+  .i-open__side { display: grid; gap: 14px; justify-items: start; }
+  @media (max-width: 860px) { .i-open__head { grid-template-columns: 1fr; } }
+
+  /* Matrix */
+  .matrix-wrap { position: relative; overflow-x: auto; border-top: 1px solid var(--line-dark); scrollbar-width: thin; }
+  .matrix { border-collapse: collapse; width: 100%; min-width: 900px; table-layout: fixed; }
+  .matrix th, .matrix td { border-bottom: 1px solid var(--line-dark); transition: background 0.25s; }
+  .matrix__corner { width: 240px; text-align: start; vertical-align: bottom; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass); padding: 0 0 14px; }
+  thead th { vertical-align: bottom; padding: 18px 6px 14px; }
+  .matrix__svc { display: grid; justify-items: center; gap: 10px; text-decoration: none; text-align: center; font-size: 0.78rem; font-weight: 500; line-height: 1.3; color: rgba(242, 236, 223, 0.82); }
+  .matrix__svc svg { width: 30px; height: 30px; fill: none; stroke: var(--brass); stroke-width: 2.4; transition: transform 0.8s var(--ease-arch), stroke 0.3s; }
+  .matrix__svc:hover { color: var(--turquoise); }
+  .matrix__svc:hover svg { transform: rotate(30deg); stroke: var(--turquoise); }
+  tbody th { text-align: start; font-family: var(--font-display); font-weight: 400; font-size: var(--step-1); padding-block: 18px; padding-inline: 0 16px; }
+  tbody th a { text-decoration: none; transition: color 0.2s; }
+  tbody th a:hover { color: var(--turquoise); }
+  td { text-align: center; padding: 0; height: 64px; }
+  .matrix__mark { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: rgba(242, 236, 223, 0.14); transition: transform 0.4s var(--ease-out), background 0.3s; }
+  td.is-match .matrix__mark { width: 14px; height: 14px; border-radius: 0; background: var(--turquoise); transform: rotate(45deg); }
+  .matrix .is-trace { background: rgba(242, 236, 223, 0.05); }
+  .matrix td.is-trace.is-match .matrix__mark { transform: rotate(45deg) scale(1.35); background: var(--ivory); }
+  .matrix th.is-trace .matrix__svc, .matrix tr.is-trace th a { color: var(--turquoise); }
+
+  /* Sector sections */
+  .i-sec { padding-block: clamp(64px, 7vw, 104px); }
+  .i-sec__grid { display: grid; grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr); gap: clamp(32px, 6vw, 100px); align-items: start; }
+  .i-sec--flip .i-sec__art { order: 2; }
+  .i-sec__art { position: sticky; top: calc(var(--header-h) + 96px); max-width: 360px; width: 100%; justify-self: center; }
+  .i-sec__body { display: grid; gap: 20px; max-width: 42rem; }
+  .i-sec__kicker { display: flex; gap: 12px; align-items: center; font-size: 0.75rem; font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--brass-ink); }
+  .i-sec h2 { font-size: var(--step-4); }
+  .i-sec__challenge { font-family: var(--font-display); font-size: var(--step-2); line-height: 1.25; color: var(--turquoise-ink); max-width: 30ch; }
+  .i-sec h3 { font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--ink-soft); margin-bottom: 12px; }
+  .i-sec__qs ol { list-style: none; counter-reset: q; border-top: 1px solid var(--line-light); }
+  .i-sec__qs li { counter-increment: q; display: grid; grid-template-columns: 36px 1fr; padding: 14px 0; border-bottom: 1px solid var(--line-light); font-size: 1.02rem; }
+  .i-sec__qs li::before { content: attr(data-n); font-size: 0.78rem; color: var(--brass-ink); padding-top: 0.2em; }
+  .i-sec__svcs ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+  .i-sec__svcs a { display: inline-block; text-decoration: none; font-size: 0.88rem; padding: 7px 14px; border: 1px solid var(--line-light); border-radius: 999px; transition: border-color 0.2s, color 0.2s; }
+  .i-sec__svcs a:hover { border-color: var(--turquoise-ink); color: var(--turquoise-ink); }
+  @media (max-width: 860px) {
+    .i-sec__grid { grid-template-columns: 1fr; }
+    .i-sec--flip .i-sec__art { order: 0; }
+    .i-sec__art { position: static; max-width: 200px; justify-self: start; }
+  }
+</style>
+
+<script>
+  // Trace a row and column through the matrix on hover or focus.
+  const m = document.querySelector<HTMLElement>('[data-matrix]');
+  if (m) {
+    const clear = () => m.querySelectorAll('.is-trace').forEach((el) => el.classList.remove('is-trace'));
+    const trace = (row: string | null, col: string | null) => {
+      clear();
+      if (row !== null) m.querySelector(`tr[data-row="${row}"]`)?.classList.add('is-trace');
+      if (row !== null) m.querySelectorAll(`tr[data-row="${row}"] td`).forEach((el) => el.classList.add('is-trace'));
+      if (col !== null) m.querySelectorAll(`[data-col="${col}"]`).forEach((el) => el.classList.add('is-trace'));
+    };
+    m.addEventListener('pointerover', (e) => {
+      const cell = (e.target as HTMLElement).closest<HTMLElement>('td, th');
+      if (!cell) return;
+      const row = cell.closest<HTMLElement>('tr')?.dataset.row ?? null;
+      trace(row, cell.dataset.col ?? null);
+    });
+    m.addEventListener('pointerleave', clear);
+    m.addEventListener('focusin', (e) => {
+      const cell = (e.target as HTMLElement).closest<HTMLElement>('td, th');
+      if (cell) trace(cell.closest<HTMLElement>('tr')?.dataset.row ?? null, cell.dataset.col ?? null);
+    });
+    m.addEventListener('focusout', clear);
+  }
+</script>

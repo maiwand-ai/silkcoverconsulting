@@ -1,0 +1,18 @@
+{
+  "id": "Strategic Communications",
+  "title": "Strategic Communications",
+  "label": "Strategic Communications",
+  "line": "Messages that reach the people who matter.",
+  "intro": "We help institutions say the right thing to the right audience, in the right language, with strategy grounded in audience research.",
+  "examples": [
+    "Communication strategies and stakeholder engagement",
+    "Audience research",
+    "Media training",
+    "Multilingual content and institutional publications",
+    "Strategic briefings"
+  ],
+  "fold": "16",
+  "platformName": "",
+  "platformUrl": null,
+  "order": 5
+}

@@ -1,0 +1,19 @@
+{
+  "id": "Education and training",
+  "name": "ارائه‌کنندگان آموزش و تحصیل",
+  "short": "آموزش و تحصیل",
+  "challenge": "کورس‌ها باید با تقاضای کارفرمایان همخوان باشند و معیارهای مراجع تأییدکننده را برآورده کنند.",
+  "questions": [
+    "کارفرمایان اکنون و در پنج سال آینده به چه مهارت‌هایی نیاز دارند؟",
+    "آیا نصاب ما با این تقاضا همخوانی دارد؟",
+    "چگونه کارفرمایان را در طراحی کورس دخیل کنیم؟"
+  ],
+  "services": [
+    "professional-development",
+    "research-surveys-assessments",
+    "institutional-development"
+  ],
+  "fold": "16",
+  "sample": true,
+  "order": 5
+}

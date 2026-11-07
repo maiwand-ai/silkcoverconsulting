@@ -1,0 +1,44 @@
+{
+  "id": "Feasibility studies",
+  "title": "What makes a feasibility study useful to a lender",
+  "kind": "Market analysis",
+  "dek": "Five questions investors ask first, and how to answer them with evidence rather than optimism.",
+  "service": "market-analysis-feasibility",
+  "fold": "12",
+  "sample": true,
+  "order": 2,
+  "body": [
+    {
+      "type": "p",
+      "text": "A feasibility study is often written to persuade. The ones that persuade lenders are the ones that read as if they were written to inform. Investors have seen many optimistic forecasts; what they look for is evidence that the authors tested their assumptions honestly."
+    },
+    {
+      "type": "h2",
+      "text": "Who will buy, and why?"
+    },
+    {
+      "type": "p",
+      "text": "Demand should be shown, not asserted. Primary research with potential customers, existing sales data from comparable businesses and clear pricing evidence carry more weight than national statistics on market size."
+    },
+    {
+      "type": "h2",
+      "text": "What could go wrong?"
+    },
+    {
+      "type": "p",
+      "text": "A credible study names its risks: supply interruptions, regulatory change, currency movements, competition. For each, it explains the likely impact and what would reduce it. Silence on risk is read as a risk in itself."
+    },
+    {
+      "type": "quote",
+      "text": "Lenders do not expect certainty. They expect honesty about uncertainty."
+    },
+    {
+      "type": "h2",
+      "text": "How sensitive are the numbers?"
+    },
+    {
+      "type": "p",
+      "text": "Show what happens to returns if sales are slower, costs are higher or prices are lower than planned. A project that still works under reasonable pessimism is far easier to finance than one that only works if everything goes right."
+    }
+  ]
+}

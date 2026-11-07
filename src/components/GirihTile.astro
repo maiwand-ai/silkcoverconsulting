@@ -1,0 +1,61 @@
+---
+/**
+ * Generated girih artwork: an n-fold star tile repeated as a pattern,
+ * optionally cropped to the SilkCover pointed arch. Replaces stock imagery.
+ */
+import { archPath, starPath, polygonPath, defaultStep, ARCH_RISE } from '../lib/geometry';
+
+interface Props {
+  id: string;
+  fold?: number;
+  tone?: 'dark' | 'light' | 'turquoise';
+  arch?: boolean;
+  /** Tile size in viewBox units (smaller = denser). */
+  tile?: number;
+  class?: string;
+  label?: string;
+  /** ViewBox height (width is 300). Taller values give slimmer arches. */
+  h?: number;
+}
+const { id, fold = 8, tone = 'dark', arch = true, tile = 100, class: cls = '', label, h = 400 } = Astro.props;
+
+const W = 300, H = h;
+const a = W / 2;
+const jamb = H - ARCH_RISE * a;
+const outline = archPath(W / 2, H, a, jamb);
+const k = defaultStep(fold);
+const r = tile / 2;
+const star = starPath(fold, k, r * 0.98, r, r);
+const core = polygonPath(fold, r * 0.36, r, r);
+const cornerStar = [
+  [0, 0], [tile, 0], [0, tile], [tile, tile],
+].map(([x, y]) => polygonPath(4, r * 0.3, x, y, 45)).join(' ');
+
+const palettes = {
+  dark: { bg: 'var(--lapis-900)', line: 'rgba(242,236,223,0.28)', accent: 'var(--brass)' },
+  light: { bg: 'var(--ivory-2)', line: 'rgba(14,26,43,0.22)', accent: 'var(--turquoise-ink)' },
+  turquoise: { bg: 'var(--turquoise-ink)', line: 'rgba(242,236,223,0.32)', accent: 'var(--ivory)' },
+};
+const p = palettes[tone];
+const clipId = `${id}-clip`;
+const patId = `${id}-pat`;
+---
+<svg class:list={['girih-tile', cls]} viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" role={label ? 'img' : undefined} aria-label={label} aria-hidden={label ? undefined : 'true'}>
+  <defs>
+    <pattern id={patId} width={tile} height={tile} patternUnits="userSpaceOnUse" patternTransform={`translate(${W / 2 - r} ${H * 0.42 - r})`}>
+      <path d={star} fill="none" stroke={p.line} stroke-width="1" />
+      <path d={core} fill="none" stroke={p.accent} stroke-width="1.2" />
+      <path d={cornerStar} fill="none" stroke={p.line} stroke-width="1" />
+    </pattern>
+    {arch && <clipPath id={clipId}><path d={outline} /></clipPath>}
+  </defs>
+  <g clip-path={arch ? `url(#${clipId})` : undefined}>
+    <rect width={W} height={H} fill={p.bg} />
+    <rect class="girih-tile__pattern" width={W} height={H} fill={`url(#${patId})`} />
+  </g>
+  {arch && <path d={outline} fill="none" stroke={p.accent} stroke-width="1.5" vector-effect="non-scaling-stroke" opacity="0.8" />}
+</svg>
+<style>
+  .girih-tile { width: 100%; height: auto; }
+  .girih-tile__pattern { transform-origin: 50% 42%; transition: transform 1.4s var(--ease-out); }
+</style>

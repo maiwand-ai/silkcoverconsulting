@@ -1,0 +1,44 @@
+---
+/** Closing invitation, shared by pages. A large arch frames the call to action. */
+import { archPath, ARCH_RISE } from '../lib/geometry';
+import Mark from './Mark.astro';
+interface Props { heading: string; text: string; button: string; id?: string }
+const { id = 'get-in-touch', heading, text, button } = Astro.props;
+const a = 300, jamb = 260, base = 700;
+const outer = archPath(400, base, a, jamb);
+const inner = archPath(400, base, a - 26, jamb);
+const top = base - jamb - ARCH_RISE * a;
+---
+<section class="closing" id={id} data-tone="dark" aria-labelledby="closing-title">
+  <div class="container closing__inner">
+    <svg class="closing__arch" viewBox={`0 ${Math.floor(top) - 4} 800 ${Math.ceil(base - top) + 4}`} aria-hidden="true" data-reveal>
+      <path d={outer} pathLength="1" class="closing__line" />
+      <path d={inner} pathLength="1" class="closing__line closing__line--inner" />
+    </svg>
+    <div class="closing__content">
+      <Mark class="closing__mark" />
+      <h2 id="closing-title" data-reveal>{heading}</h2>
+      <p class="muted" data-reveal style="--delay:.1s">{text}</p>
+      <div class="closing__actions" data-reveal style="--delay:.2s">
+        <button class="btn btn--solid" type="button" data-enquire>{button}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" /></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .closing { padding-block: clamp(80px, 10vw, 140px) 0; overflow: hidden; background: radial-gradient(120% 80% at 50% 100%, var(--lapis-700) 0%, var(--lapis-900) 60%); }
+  .closing__inner { position: relative; display: grid; place-items: center; }
+  .closing__arch { grid-area: 1 / 1; width: min(800px, 100%); height: auto; fill: none; stroke: var(--brass); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+  .closing__line { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 2.2s var(--ease-arch); }
+  .closing__line--inner { stroke: rgba(242, 236, 223, 0.18); transition-delay: 0.3s; }
+  :global(.js) .closing__arch.is-in .closing__line, :global(html:not(.js)) .closing__line { stroke-dashoffset: 0; }
+  .closing__arch:global(.is-in) { transform: none; }
+  .closing__content { grid-area: 1 / 1; align-self: end; display: grid; justify-items: center; text-align: center; gap: 22px; max-width: 34rem; padding: 0 12px clamp(60px, 9vw, 110px); }
+  .closing__content :global(.closing__mark) { width: 44px; height: 44px; color: var(--turquoise); }
+  .closing__content h2 { font-size: var(--step-4); }
+  .closing__actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  @media (prefers-reduced-motion: reduce) { .closing__line { stroke-dashoffset: 0; transition: none; } }
+</style>

@@ -1,0 +1,18 @@
+{
+  "id": "Dialogue, Conferences and Events",
+  "title": "Dialogue, Conferences and Events",
+  "label": "Dialogue & Events",
+  "line": "The right people, in the right room.",
+  "intro": "We design and run convenings where both the content and the logistics matter, so participants can focus on the conversation.",
+  "examples": [
+    "Dialogue design and facilitation",
+    "Stakeholder consultations",
+    "Conferences, workshops and business meetings",
+    "Logistics and interpretation",
+    "Reporting and follow-up"
+  ],
+  "fold": "10",
+  "platformName": "",
+  "platformUrl": null,
+  "order": 4
+}

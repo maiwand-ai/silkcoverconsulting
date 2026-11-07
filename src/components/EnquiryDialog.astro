@@ -1,0 +1,62 @@
+---
+import Mark from './Mark.astro';
+import EnquiryForm from './EnquiryForm.astro';
+import type { Site } from '../lib/content';
+interface Props { site: Site }
+const { site } = Astro.props;
+const F = site.settings.form;
+---
+<dialog class="enquiry" id="enquiry" aria-labelledby="enquiry-title">
+  <div class="enquiry__panel" data-tone="ivory">
+    <button class="enquiry__close" type="button" data-enquiry-close aria-label={F.close}>×</button>
+    <div class="enquiry__head">
+      <Mark class="enquiry__mark" />
+      <h2 id="enquiry-title">{F.title}</h2>
+      <p class="muted">{F.intro}</p>
+    </div>
+    <EnquiryForm site={site} idp="dlg">
+      <button slot="done-actions" class="btn btn--ghost" type="button" data-enquiry-close>{F.close}</button>
+    </EnquiryForm>
+  </div>
+</dialog>
+
+<style>
+  .enquiry { padding: 0; border: 0; background: transparent; max-width: min(760px, calc(100vw - 24px)); width: 100%; max-height: calc(100dvh - 24px); overflow: visible; color: var(--ink); }
+  .enquiry::backdrop { background: rgba(10, 19, 32, 0.72); backdrop-filter: blur(4px); }
+  .enquiry[open] { animation: enq-in 0.6s var(--ease-arch); }
+  @keyframes enq-in { from { opacity: 0; transform: translateY(40px); } }
+  .enquiry__panel { position: relative; background: var(--ivory); padding: clamp(28px, 5vw, 56px); border-radius: 220px 220px 4px 4px / 120px 120px 4px 4px; max-height: calc(100dvh - 24px); overflow-y: auto; }
+  .enquiry__close { position: absolute; top: 92px; inset-inline-end: 24px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-light); background: transparent; font-size: 1.5rem; line-height: 1; cursor: pointer; }
+  .enquiry__head { text-align: center; display: grid; justify-items: center; gap: 12px; margin-bottom: 28px; padding-top: 8px; }
+  .enquiry__head :global(.enquiry__mark) { width: 40px; height: 40px; color: var(--brass); }
+  .enquiry__head h2 { font-size: var(--step-3); }
+  @media (max-width: 600px) { .enquiry__panel { border-radius: 140px 140px 4px 4px / 70px 70px 4px 4px; } }
+</style>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('#enquiry');
+  const root = dialog?.querySelector<HTMLElement>('[data-enquiry]');
+  const select = dialog?.querySelector<HTMLSelectElement>('select[name="service"]');
+
+  function openEnquiry(service?: string) {
+    if (!dialog || !root) return;
+    root.dispatchEvent(new CustomEvent('enquiry:reset'));
+    if (service && select) {
+      const match = Array.from(select.options).find((o) => o.dataset.service === service || o.value === service);
+      if (match) select.value = match.value;
+    }
+    dialog.showModal();
+    setTimeout(() => dialog.querySelector<HTMLInputElement>('input[name="name"]')?.focus(), 50);
+  }
+
+  document.addEventListener('click', (e) => {
+    const trigger = (e.target as HTMLElement).closest<HTMLElement>('[data-enquire]');
+    if (trigger) {
+      e.preventDefault();
+      // Let the menu close first if the trigger lives inside it.
+      setTimeout(() => openEnquiry(trigger.dataset.service), trigger.closest('[data-menu]') ? 350 : 0);
+    }
+  });
+  dialog?.querySelectorAll('[data-enquiry-close]').forEach((b) => b.addEventListener('click', () => dialog.close()));
+  dialog?.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+</script>

@@ -1,0 +1,162 @@
+@import '@fontsource/marcellus/400.css';
+@import '@fontsource-variable/hanken-grotesk';
+@import '@fontsource/noto-naskh-arabic/400.css';
+@import '@fontsource/noto-naskh-arabic/600.css';
+@import '@fontsource-variable/noto-sans-arabic';
+
+/* =========================================================
+   SilkCover design tokens · Direction A "Girih"
+   Night lapis grounds, plaster ivory surfaces, Herat turquoise
+   as light, antique brass for the mark and rules.
+   ========================================================= */
+:root {
+  /* Colour */
+  --lapis-950: #0a1320;
+  --lapis-900: #0e1a2b;
+  --lapis-800: #142338;
+  --lapis-700: #1f3350;
+  --ivory: #f2ecdf;
+  --ivory-2: #e8e0cf;
+  --paper: #f7f3ea;
+  --turquoise: #4fbdb1;      /* on dark only */
+  --turquoise-ink: #1b6f69;  /* text-safe turquoise on ivory */
+  --brass: #b08d57;
+  --brass-ink: #7d6338;      /* text-safe brass on ivory */
+  --garnet: #7a1f2b;
+  --ink: #0e1a2b;
+  --ink-soft: #46526a;
+  --line-dark: rgba(242, 236, 223, 0.14);
+  --line-light: rgba(14, 26, 43, 0.14);
+
+  /* Type */
+  --font-display: 'Marcellus', 'Trajan Pro', Georgia, serif;
+  --font-body: 'Hanken Grotesk Variable', 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --step--1: clamp(0.82rem, 0.8rem + 0.1vw, 0.88rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.1rem);
+  --step-1: clamp(1.2rem, 1.1rem + 0.45vw, 1.45rem);
+  --step-2: clamp(1.5rem, 1.3rem + 0.9vw, 2.1rem);
+  --step-3: clamp(1.9rem, 1.5rem + 1.8vw, 3.1rem);
+  --step-4: clamp(2.4rem, 1.7rem + 3.2vw, 4.6rem);
+  --step-5: clamp(2.8rem, 1.6rem + 5.6vw, 7.4rem);
+  --tracking-caps: 0.18em;
+
+  /* Space & layout */
+  --gutter: clamp(20px, 4vw, 56px);
+  --max: 1320px;
+  --section: clamp(64px, 8vw, 120px);
+  --header-h: 76px;
+
+  /* Motion */
+  --ease-arch: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-reveal: 0.9s;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h) + 72px); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+[hidden] { display: none !important; }
+img, svg, canvas { display: block; max-width: 100%; }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height: 1.08; margin: 0; text-wrap: balance; letter-spacing: 0.002em; }
+p { margin: 0; text-wrap: pretty; }
+ul, ol { margin: 0; padding: 0; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+::selection { background: var(--turquoise); color: var(--lapis-900); }
+:focus-visible { outline: 2px solid var(--turquoise); outline-offset: 3px; border-radius: 2px; }
+[data-tone='light'] :focus-visible { outline-color: var(--turquoise-ink); }
+
+/* Layout primitives */
+.container { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px)) max(var(--gutter), env(safe-area-inset-right, 0px)); }
+.section { padding-block: var(--section); position: relative; }
+[data-tone='dark'] { background: var(--lapis-900); color: var(--ivory); }
+[data-tone='light'] { background: var(--paper); color: var(--ink); }
+[data-tone='ivory'] { background: var(--ivory); color: var(--ink); }
+
+/* Type utilities */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8em;
+}
+.eyebrow::before { content: ''; width: 2.2em; height: 1px; background: currentColor; opacity: 0.6; }
+[data-tone='dark'] .eyebrow { color: var(--brass); }
+[data-tone='light'] .eyebrow, [data-tone='ivory'] .eyebrow { color: var(--brass-ink); }
+.lede { font-size: var(--step-1); line-height: 1.5; max-width: 38ch; }
+[data-tone='dark'] .muted { color: rgba(242, 236, 223, 0.72); }
+[data-tone='light'] .muted, [data-tone='ivory'] .muted { color: var(--ink-soft); }
+
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.skip-link { position: fixed; inset-inline-start: 16px; top: -60px; z-index: 200; background: var(--ivory); color: var(--ink); padding: 10px 16px; border-radius: 2px; transition: top 0.2s; }
+.skip-link:focus { top: 16px; }
+
+/* Sample / placeholder marker: visible on purpose until content is confirmed */
+.sample-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-body); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 3px 8px; border: 1px dashed currentColor; border-radius: 2px; opacity: 0.85; white-space: nowrap;
+}
+[data-tone='dark'] .sample-tag { color: var(--brass); }
+[data-tone='light'] .sample-tag, [data-tone='ivory'] .sample-tag { color: var(--garnet); }
+
+/* Buttons */
+.btn {
+  --btn-bg: transparent; --btn-fg: currentColor; --btn-bd: currentColor;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.75em;
+  min-height: 48px; padding: 0 1.5em;
+  background: var(--btn-bg); color: var(--btn-fg); border: 1px solid var(--btn-bd);
+  font-size: 0.95rem; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; cursor: pointer;
+  border-radius: 999px; transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.3s var(--ease-out);
+}
+.btn svg { width: 1.1em; height: 1.1em; transition: transform 0.35s var(--ease-out); }
+.btn:hover svg { transform: translateX(4px); }
+.btn--solid { --btn-bg: var(--turquoise); --btn-fg: var(--lapis-900); --btn-bd: var(--turquoise); }
+.btn--solid:hover { --btn-bg: var(--ivory); --btn-bd: var(--ivory); }
+[data-tone='light'] .btn--solid, [data-tone='ivory'] .btn--solid { --btn-bg: var(--ink); --btn-fg: var(--ivory); --btn-bd: var(--ink); }
+[data-tone='light'] .btn--solid:hover, [data-tone='ivory'] .btn--solid:hover { --btn-bg: var(--turquoise-ink); --btn-bd: var(--turquoise-ink); }
+.btn--ghost:hover { --btn-bg: rgba(127, 127, 127, 0.1); }
+.text-link { display: inline-flex; align-items: center; gap: 0.6em; font-weight: 600; text-decoration: none; background: none; border: 0; padding: 0; cursor: pointer; }
+.text-link::after { content: ''; width: 2.4em; height: 1px; background: currentColor; transition: width 0.4s var(--ease-out); }
+.text-link:hover::after { width: 3.6em; }
+
+/* Scroll reveal. Only hides content once JS is confirmed running. */
+.js [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-out); transition-delay: var(--delay, 0s); }
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* =========================================================
+   Right-to-left languages (Dari, Pashto)
+   Arabic-script faces with full Pashto coverage. Letter-spacing is
+   removed because it breaks the joining of Arabic-script letters.
+   ========================================================= */
+[dir='rtl'] {
+  --font-display: 'Noto Naskh Arabic', 'Marcellus', serif;
+  --font-body: 'Noto Sans Arabic Variable', 'Noto Sans Arabic', 'Hanken Grotesk Variable', system-ui, sans-serif;
+  --tracking-caps: 0;
+}
+[dir='rtl'] body { line-height: 1.85; }
+[dir='rtl'] :is(h1, h2, h3, h4) { line-height: 1.35; letter-spacing: 0; }
+[dir='rtl'] *:not([lang='en']):not([lang='en'] *) { letter-spacing: 0 !important; }
+[dir='rtl'] .eyebrow, [dir='rtl'] .sample-tag { text-transform: none; }
+/* Arrows point the reading direction */
+[dir='rtl'] :is(.btn svg, .door__go svg, .post__next-link svg, .text-link svg) { scale: -1 1; }
+/* Brand and platform names stay in the Latin display face inside right-to-left pages */
+[dir='rtl'] [lang='en'] { font-family: 'Marcellus', Georgia, serif; }

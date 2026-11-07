@@ -1,0 +1,19 @@
+{
+  "id": "NGO Strategy and Systems Advisory",
+  "title": "NGO Strategy and Systems Advisory",
+  "label": "NGO Systems Advisory",
+  "line": "Donor-ready, audit-ready, operationally stable.",
+  "intro": "We help NGOs build one connected operating system across governance, finance, compliance and delivery, so they can meet donor scrutiny and scale with confidence.",
+  "examples": [
+    "Governance and risk: decision rights and policy oversight",
+    "Finance and donor-ready controls",
+    "Operations and capacity routines",
+    "Programme delivery and milestone control",
+    "Reporting and compliance with shared KPIs",
+    "Strategy, policy and procedure development"
+  ],
+  "fold": "14",
+  "platformName": "NEXNGO",
+  "platformUrl": "https://www.nexngo.com/",
+  "order": 7
+}

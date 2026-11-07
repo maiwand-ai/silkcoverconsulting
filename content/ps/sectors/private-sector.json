@@ -1,0 +1,20 @@
+{
+  "id": "Private sector",
+  "name": "خصوصي سکتور او پانګوال",
+  "short": "خصوصي سکتور",
+  "challenge": "بازار ته د ننوتو او پانګونې پرېکړې ازمویل شویو شمېرو او د خطر صادقانه لید ته اړتیا لري.",
+  "questions": [
+    "ایا د دې پانګونې د توجیه لپاره کافي غوښتنه شته؟",
+    "سوداګریز او مقرراتي خطرونه کوم دي؟",
+    "څنګه خپلو لومړیو پېرودونکو ته ورسېږو او قانع یې کړو؟"
+  ],
+  "services": [
+    "market-analysis-feasibility",
+    "research-surveys-assessments",
+    "strategic-communications",
+    "digital-advertising-content"
+  ],
+  "fold": "18",
+  "sample": true,
+  "order": 3
+}

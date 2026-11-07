@@ -1,0 +1,44 @@
+{
+  "id": "Baseline studies",
+  "title": "Designing baseline studies that survive contact with the field",
+  "kind": "Research",
+  "dek": "Why the best baselines are planned with the endline in mind, and what to fix before the first interview.",
+  "service": "research-surveys-assessments",
+  "fold": "8",
+  "sample": true,
+  "order": 1,
+  "body": [
+    {
+      "type": "p",
+      "text": "A baseline study has one job: to describe the starting point so clearly that, years later, someone can measure how far things have moved. Many baselines fail at that job, not because the fieldwork was poor, but because the study was designed in isolation from the evaluation that will one day depend on it."
+    },
+    {
+      "type": "h2",
+      "text": "Start from the endline"
+    },
+    {
+      "type": "p",
+      "text": "Before drafting a single question, write down what the final evaluation will need to compare. Which indicators matter to the programme and its funders? Which groups must be compared? If the endline will need data broken down by district, gender or age, the baseline sample must be large enough in each of those groups."
+    },
+    {
+      "type": "quote",
+      "text": "A baseline that cannot be repeated is only a snapshot."
+    },
+    {
+      "type": "h2",
+      "text": "Make it repeatable"
+    },
+    {
+      "type": "p",
+      "text": "Document everything a future team would need to repeat the study: the sampling frame, the exact wording of questions in every language, the training given to enumerators and the rules used to clean the data. Small changes in wording or translation can produce differences larger than the effect the programme is trying to achieve."
+    },
+    {
+      "type": "h2",
+      "text": "Test in the setting"
+    },
+    {
+      "type": "p",
+      "text": "Pilot the tools with people who resemble the real respondents, in the places where interviews will happen. Pilots reveal questions that are misunderstood, sensitive topics that need a different approach and practical limits such as interview length or travel time. Fixing these before fieldwork is far cheaper than explaining them in a report."
+    }
+  ]
+}

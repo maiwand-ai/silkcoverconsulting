@@ -1,0 +1,39 @@
+{
+  "id": "Industries",
+  "title": "Industries",
+  "description": "The sectors SilkCover Consulting serves, the pressures they face, and the services that answer them.",
+  "menu": {
+    "show": true,
+    "footer": true,
+    "order": 4,
+    "label": "Industries",
+    "blurb": "The sectors we serve and the pressures they face.",
+    "fold": "16",
+    "tone": "light"
+  },
+  "template": {
+    "discriminant": "industries",
+    "value": {
+      "hero": {
+        "eyebrow": "Industries",
+        "title": "Where our work meets your sector",
+        "lede": "Each sector faces its own pressures. The grid shows which services usually answer them. Point at a row or column to trace it, or choose a sector to read more."
+      },
+      "labels": {
+        "sector": "Sector",
+        "sectorWord": "Sector",
+        "questions": "Questions we help answer",
+        "services": "Services that help",
+        "discuss": "Discuss your project",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "overviewRail": "Overview",
+      "closing": {
+        "title": "Not listed here?",
+        "text": "These are the sectors we are building around, not a boundary. If your organisation faces a decision our services can inform, we would like to hear about it."
+      },
+      "closingRail": "Get in touch"
+    }
+  }
+}

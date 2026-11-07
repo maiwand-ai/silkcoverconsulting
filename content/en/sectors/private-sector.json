@@ -1,0 +1,20 @@
+{
+  "id": "Private sector",
+  "name": "Private sector and investors",
+  "short": "Private sector",
+  "challenge": "Market entry and investment decisions need tested numbers and an honest view of risk.",
+  "questions": [
+    "Is there enough demand to justify this investment?",
+    "What are the commercial and regulatory risks?",
+    "How should we reach and persuade our first customers?"
+  ],
+  "services": [
+    "market-analysis-feasibility",
+    "research-surveys-assessments",
+    "strategic-communications",
+    "digital-advertising-content"
+  ],
+  "fold": "18",
+  "sample": true,
+  "order": 3
+}
