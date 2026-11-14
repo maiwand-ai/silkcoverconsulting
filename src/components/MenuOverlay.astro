@@ -9,6 +9,7 @@ import { archPolygon } from '../lib/geometry';
 import { menuSectionsFor, type Site, type Page } from '../lib/content';
 import GirihTile from './GirihTile.astro';
 import Mark from './Mark.astro';
+import Wordmark from './Wordmark.astro';
 import LangSwitch from './LangSwitch.astro';
 
 interface Props { site: Site; page?: Page; alternates: { locale: string; href: string; name: string }[] }
@@ -31,7 +32,7 @@ const defaultOpen = doors.some((d) => d.slug === page?.slug) ? page!.slug : expe
     <div class="menu__top">
       <a class="menu__brand" href={site.pagePath('home')} aria-current={onHome ? 'page' : undefined}>
         <Mark class="menu__mark" />
-        <span lang="en" dir="ltr">SilkCover</span>
+        <Wordmark class="menu__word" tone="dark" />
         <span class="menu__home">{onHome ? S.menu.onHome : S.menu.backHome}</span>
       </a>
       <div class="menu__top-actions">
@@ -135,8 +136,10 @@ const defaultOpen = doors.some((d) => d.slug === page?.slug) ? page!.slug : expe
   /* Top bar */
   .menu__top { display: flex; justify-content: space-between; align-items: center; min-height: 42px; }
   .menu__brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-family: var(--font-display); font-size: 1.3rem; letter-spacing: 0.06em; }
-  .menu__brand :global(.menu__mark) { width: 32px; height: 32px; color: var(--brass); transition: transform 0.9s var(--ease-arch); }
-  .menu__brand:hover :global(.menu__mark) { transform: rotate(45deg); }
+  .menu__brand :global(.menu__mark) { width: 48px; height: 42px; transition: transform 0.9s var(--ease-arch); }
+  .menu__brand:hover :global(.menu__mark) { transform: scale(1.06) rotate(-4deg); }
+  .menu__brand :global(.menu__word) { height: 32px; }
+  @media (max-width: 560px) { .menu__brand :global(.menu__word) { height: 26px; } }
   .menu__home { font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(242, 236, 223, 0.55); margin-inline-start: 10px; padding-inline-start: 14px; border-inline-start: 1px solid var(--line-dark); transition: color 0.2s; }
   .menu__brand:hover .menu__home { color: var(--turquoise); }
   .menu__top-actions { display: flex; align-items: center; gap: 12px; }

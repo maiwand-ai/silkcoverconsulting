@@ -102,8 +102,8 @@ button { font: inherit; color: inherit; }
 [data-tone='light'] .muted, [data-tone='ivory'] .muted { color: var(--ink-soft); }
 
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
-.skip-link { position: fixed; inset-inline-start: 16px; top: -60px; z-index: 200; background: var(--ivory); color: var(--ink); padding: 10px 16px; border-radius: 2px; transition: top 0.2s; }
-.skip-link:focus { top: 16px; }
+.skip-link { position: fixed; inset-inline-start: 16px; top: 16px; z-index: 200; background: var(--ivory); color: var(--ink); padding: 10px 16px; border-radius: 2px; transform: translateY(calc(-100% - 40px)); transition: transform 0.2s; }
+.skip-link:focus { transform: none; }
 
 /* Sample / placeholder marker: visible on purpose until content is confirmed */
 .sample-tag {

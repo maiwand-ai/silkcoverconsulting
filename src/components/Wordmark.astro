@@ -1,0 +1,32 @@
+---
+/**
+ * "SILKCOVER / CONSULTING" lettering from the client's logo.
+ * tone="dark" uses ivory letters for dark backgrounds; "light" uses the original teal.
+ * tone="auto" shows whichever matches the nearest [data-tone-current] (used by the header).
+ */
+interface Props { tone?: 'light' | 'dark' | 'auto'; class?: string; eager?: boolean }
+const { tone = 'dark', class: cls = '', eager = false } = Astro.props;
+const loading = eager ? 'eager' : 'lazy';
+---
+<span class:list={['wordmark', `wordmark--${tone}`, cls]} aria-hidden="true">
+  {(tone === 'dark' || tone === 'auto') && (
+    <picture class="wordmark__dark">
+      <source srcset="/brand/wordmark-reversed.webp" type="image/webp" />
+      <img src="/brand/wordmark-reversed.png" width="548" height="120" alt="" loading={loading} decoding="async" />
+    </picture>
+  )}
+  {(tone === 'light' || tone === 'auto') && (
+    <picture class="wordmark__light">
+      <source srcset="/brand/wordmark.webp" type="image/webp" />
+      <img src="/brand/wordmark.png" width="548" height="120" alt="" loading={loading} decoding="async" />
+    </picture>
+  )}
+</span>
+<style>
+  .wordmark { display: inline-block; line-height: 0; }
+  .wordmark picture { display: block; height: 100%; }
+  .wordmark img { height: 100%; width: auto; }
+  .wordmark--auto .wordmark__light { display: none; }
+  :global([data-tone-current='light']) .wordmark--auto .wordmark__light { display: block; }
+  :global([data-tone-current='light']) .wordmark--auto .wordmark__dark { display: none; }
+</style>

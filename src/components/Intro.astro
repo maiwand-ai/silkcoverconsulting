@@ -1,6 +1,7 @@
 ---
 /** Opening sequence: the mark draws itself, the name appears, then the arch lifts. Skippable, once per session. */
 import Mark from './Mark.astro';
+import Wordmark from './Wordmark.astro';
 import { archPolygon } from '../lib/geometry';
 import type { Site } from '../lib/content';
 interface Props { site: Site }
@@ -11,8 +12,7 @@ const gone = archPolygon(50, -40, 160, 0);
 <div class="intro" data-intro aria-hidden="true" style={`--intro-full:${full};--intro-gone:${gone}`}>
   <div class="intro__center">
     <Mark class="intro__mark" draw />
-    <p class="intro__word" lang="en" dir="ltr">SilkCover</p>
-    <p class="intro__sub" lang="en" dir="ltr">Consulting</p>
+    <Wordmark class="intro__word" tone="dark" eager />
   </div>
   <button class="intro__skip" type="button" data-intro-skip tabindex="-1">{site.settings.common.skipIntro}</button>
 </div>
@@ -27,10 +27,9 @@ const gone = archPolygon(50, -40, 160, 0);
   }
   :global(.show-intro) .intro.is-skipped { animation: intro-out 0.7s var(--ease-arch) forwards; }
   @keyframes intro-out { to { clip-path: var(--intro-gone); visibility: hidden; } }
-  .intro__center { display: grid; justify-items: center; gap: 14px; }
-  .intro__center :global(.intro__mark) { width: clamp(72px, 10vw, 110px); height: auto; color: var(--brass); }
-  .intro__word { font-family: 'Marcellus', Georgia, serif; font-size: clamp(2rem, 5vw, 3.4rem); letter-spacing: 0.08em; opacity: 0; animation: intro-fade 0.9s var(--ease-out) 0.9s forwards; }
-  .intro__sub { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.5em; text-transform: uppercase; opacity: 0; animation: intro-fade 0.9s var(--ease-out) 1.2s forwards; color: var(--turquoise); }
+  .intro__center { display: grid; justify-items: center; gap: 22px; }
+  .intro__center :global(.intro__mark) { width: clamp(120px, 16vw, 190px); height: clamp(105px, 14vw, 166px); }
+  .intro__center :global(.intro__word) { height: clamp(44px, 6vw, 72px); opacity: 0; animation: intro-fade 0.9s var(--ease-out) 0.9s forwards; }
   @keyframes intro-fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
   .intro__skip { position: absolute; inset-inline-end: max(var(--gutter), env(safe-area-inset-right, 0px)); bottom: calc(env(safe-area-inset-bottom, 0px) + 28px); background: none; border: 1px solid rgba(242,236,223,.4); color: var(--ivory); border-radius: 999px; padding: 10px 18px; font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; }
 </style>

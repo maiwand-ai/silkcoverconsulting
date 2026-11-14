@@ -1,5 +1,6 @@
 ---
 import Mark from './Mark.astro';
+import Wordmark from './Wordmark.astro';
 import LangSwitch from './LangSwitch.astro';
 import type { Site } from '../lib/content';
 interface Props { site: Site; alternates: { locale: string; href: string; name: string }[] }
@@ -8,8 +9,8 @@ const S = site.settings;
 ---
 <header class="site-header" data-header data-tone-current="dark">
   <a class="brand" href={site.pagePath('home')} aria-label={S.header.home}>
-    <Mark class="brand-mark" />
-    <span class="brand-word" lang="en" dir="ltr">SilkCover<span class="brand-sub">Consulting</span></span>
+    <Mark class="brand-mark" eager />
+    <Wordmark class="brand-word" tone="auto" eager />
   </a>
   <div class="header-actions">
     <LangSwitch class="header-lang" alternates={alternates} current={site.locale} label={S.menu.language} />
@@ -37,10 +38,9 @@ const S = site.settings;
   .site-header.is-hidden { transform: translateY(-100%); }
 
   .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
-  .brand :global(.brand-mark) { width: 34px; height: 34px; color: var(--brass); transition: transform 0.9s var(--ease-arch); }
-  .brand:hover :global(.brand-mark) { transform: rotate(45deg); }
-  .brand-word { font-family: 'Marcellus', Georgia, serif; font-size: 1.32rem; letter-spacing: 0.06em; line-height: 1; display: grid; gap: 4px; }
-  .brand-sub { font-family: 'Hanken Grotesk Variable', system-ui, sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.34em; text-transform: uppercase; opacity: 0.7; }
+  .brand :global(.brand-mark) { width: 50px; height: 44px; transition: transform 0.9s var(--ease-arch); }
+  .brand:hover :global(.brand-mark) { transform: scale(1.06) rotate(-4deg); }
+  .brand :global(.brand-word) { height: 34px; }
 
   .header-actions { display: flex; align-items: center; gap: 10px; }
   .header-enquire { min-height: 42px; padding: 0 1.2em; font-size: 0.85rem; }
@@ -57,7 +57,8 @@ const S = site.settings;
   @media (max-width: 900px) { .header-actions :global(.header-lang) { display: none; } }
   @media (max-width: 560px) {
     .header-enquire { display: none; }
-    .brand-word { font-size: 1.15rem; }
+    .brand :global(.brand-word) { height: 28px; }
+    .brand :global(.brand-mark) { width: 42px; height: 37px; }
     .menu-toggle__label { display: none; }
     .menu-toggle { padding: 0 5px; border: 0; }
   }

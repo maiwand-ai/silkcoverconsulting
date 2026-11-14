@@ -1,5 +1,5 @@
 ---
-import Mark from './Mark.astro';
+
 import type { Site } from '../lib/content';
 interface Props { site: Site }
 const { site } = Astro.props;
@@ -10,8 +10,10 @@ const expertisePath = site.templatePath('expertise');
 <footer class="footer" data-tone="dark">
   <div class="container footer__grid">
     <div class="footer__brand">
-      <Mark class="footer__mark" />
-      <p class="footer__name" lang="en" dir="ltr">{S.siteName}</p>
+      <picture class="footer__logo">
+        <source srcset="/brand/logo-reversed.webp" type="image/webp" />
+        <img src="/brand/logo-reversed.png" width="923" height="560" alt={S.siteName} loading="lazy" decoding="async" />
+      </picture>
       <p class="footer__line muted">{S.tagline.join(' ')}</p>
     </div>
     <nav class="footer__col" aria-label={S.footer.pages}>
@@ -46,8 +48,7 @@ const expertisePath = site.templatePath('expertise');
   .footer { background: var(--lapis-950); padding-top: clamp(64px, 9vw, 120px); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 28px); }
   .footer__grid { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 48px 32px; }
   .footer__brand { display: grid; gap: 14px; align-content: start; justify-items: start; }
-  .footer__brand :global(.footer__mark) { width: 52px; height: 52px; color: var(--brass); }
-  .footer__name { font-family: 'Marcellus', Georgia, serif; font-size: var(--step-2); }
+  .footer__logo img { width: min(260px, 70vw); height: auto; }
   .footer__line { font-family: var(--font-display); max-width: 22ch; }
   .footer__h { font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; letter-spacing: var(--tracking-caps); text-transform: uppercase; color: var(--brass); margin-bottom: 18px; }
   .footer__col ul { list-style: none; display: grid; gap: 10px; }
