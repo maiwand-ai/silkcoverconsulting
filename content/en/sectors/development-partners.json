@@ -1,7 +1,7 @@
 {
   "id": "Development partners",
-  "name": "International development partners",
-  "short": "Development partners",
+  "name": "International organisations and development agencies",
+  "short": "International organisations",
   "challenge": "Programmes need credible evidence, local insight and clear reporting to donors.",
   "questions": [
     "Is the programme reaching the people it was designed for?",
@@ -16,6 +16,6 @@
     "ngo-strategy-systems"
   ],
   "fold": "8",
-  "sample": true,
+  "sample": false,
   "order": 1
 }

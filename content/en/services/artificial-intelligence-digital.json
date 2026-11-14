@@ -1,0 +1,19 @@
+{
+  "id": "Artificial Intelligence and Digital Services",
+  "title": "Artificial Intelligence and Digital Services",
+  "label": "AI & Digital",
+  "line": "Practical, responsible technology.",
+  "intro": "We help public institutions, businesses and NGOs understand and use technology in a practical and responsible way. Tools are tested for accuracy, security and performance in Pashto and Dari, and important decisions stay under human oversight.",
+  "examples": [
+    "Introductory and advanced AI training for leaders and staff",
+    "Assessment of AI readiness, needs and suitable uses",
+    "Advice on digital workflows, data management and technology selection",
+    "AI-supported document search, knowledge management, analysis, translation and reporting",
+    "Design and testing of supervised AI assistants for defined tasks",
+    "Staff guidance, operating procedures and implementation support"
+  ],
+  "fold": "10",
+  "platformName": "",
+  "platformUrl": null,
+  "order": 7
+}

@@ -12,9 +12,10 @@
     "institutional-development",
     "dialogue-conferences-events",
     "strategic-communications",
-    "professional-development"
+    "professional-development",
+    "artificial-intelligence-digital"
   ],
   "fold": "12",
-  "sample": true,
+  "sample": false,
   "order": 2
 }

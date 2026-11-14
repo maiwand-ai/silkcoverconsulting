@@ -1,15 +1,18 @@
 {
   "id": "Institutional Development and Management Services",
-  "title": "Institutional Development and Management Services",
+  "title": "Institutional Development and Reform",
   "label": "Institutional Development",
   "line": "Stronger organisations, clearer systems.",
-  "intro": "We help organisations see how they work today and build the structures they need next. Recommendations are practical and sized to the organisation’s capacity.",
+  "intro": "Training helps people develop skills; institutional reform examines how an organisation is structured and how its systems work. Each assignment begins with a realistic assessment of needs, authority and resources, and recommendations set out priorities, responsibilities, costs and a practical sequence.",
   "examples": [
-    "Organisational assessments",
-    "Management structures and administrative procedures",
-    "Institutional improvement plans",
-    "Monitoring and evaluation systems",
-    "Strategic planning"
+    "Organisational and institutional diagnostics",
+    "Strategic and operational planning",
+    "Review of mandates, structures and reporting lines",
+    "Process mapping and administrative procedures",
+    "Job descriptions and performance management",
+    "Internal controls, records management and coordination",
+    "Monitoring frameworks and standard operating procedures",
+    "Change-management advice during implementation"
   ],
   "fold": "12",
   "platformName": "",

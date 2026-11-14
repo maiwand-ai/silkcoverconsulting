@@ -17,52 +17,49 @@
       "hero": {
         "eyebrow": "Our approach",
         "title": "From the first question to a result you can use",
-        "lede": "Every assignment moves through the same four stages. Each one builds on the last, so nothing is designed before it is understood."
+        "lede": "Every assignment moves through the same four stages, from defining the question to delivering agreed outputs and handling data securely."
       },
       "stages": [
         {
           "title": "Listen",
           "text": "Understand the decision you face, the context around it and the people it affects.",
           "happens": [
-            "Inception meeting",
-            "Document review",
-            "Stakeholder mapping"
+            "Define the question, the intended users and the decisions the study should inform",
+            "Inception plan: methods, sampling, ethics, staffing, schedule and analysis"
           ],
-          "receive": "An inception note setting out the questions, scope and timeline we have agreed.",
-          "you": "A briefing, and access to the documents and people who know the context."
+          "receive": "An inception plan setting out the agreed questions, methods and timeline.",
+          "you": "A briefing on the decision you face, and access to the documents and people who know the context."
         },
         {
           "title": "Evidence",
           "text": "Gather and test the facts with methods suited to the setting and the question.",
           "happens": [
-            "Surveys and interviews",
-            "Market and data analysis",
-            "Field visits where needed"
+            "Develop, translate and pilot research tools",
+            "Train field teams in interviewing, consent, safeguarding, data protection and quality control",
+            "Collect data with supervision, validation and proportionate checks"
           ],
-          "receive": "Clean data, field notes and a briefing on emerging findings.",
+          "receive": "Tested tools, supervised fieldwork and a briefing on emerging findings.",
           "you": "Introductions and permissions that open the right doors."
         },
         {
           "title": "Design",
           "text": "Turn findings into practical options with clear trade-offs and costs.",
           "happens": [
-            "Analysis workshops",
-            "Option development",
-            "Costing and risk review"
+            "Clean and analyse the evidence, documenting missing data and important decisions",
+            "Technical review of findings, limitations and practical recommendations"
           ],
-          "receive": "A draft report, plan or strategy with options and recommendations.",
+          "receive": "Draft findings with limitations clearly stated and practical recommendations.",
           "you": "Review and feedback, so the final version fits how you work."
         },
         {
           "title": "Deliver",
           "text": "Implement, report and learn, so the next decision starts from a stronger base.",
           "happens": [
-            "Final reporting",
-            "Events, training or implementation support",
-            "Handover"
+            "Deliver agreed outputs",
+            "Handle data securely at the end of the assignment"
           ],
-          "receive": "Final deliverables, a presentation of results and handover materials.",
-          "you": "Decisions on next steps, with our support if you want it."
+          "receive": "Depending on the project: technical report, policy brief, strategic assessment, presentation, recommendations matrix, methodology note and de-identified data.",
+          "you": "Decisions on next steps, with implementation support if you want it."
         }
       ],
       "labels": {
@@ -71,7 +68,7 @@
         "receive": "What you receive",
         "you": "Your part"
       },
-      "draft": true,
+      "draft": false,
       "principles": {
         "section": {
           "eyebrow": "How we deliver",
@@ -79,23 +76,23 @@
         },
         "items": [
           {
-            "title": "Context first",
-            "text": "Methods, language and timing are chosen for the setting, not copied from a template."
+            "title": "Independent analysis",
+            "text": "Working relationships support coordination but never influence findings or imply official endorsement."
           },
           {
             "title": "Ethical and safe",
-            "text": "Informed consent, data protection and participant safety come before deadlines."
+            "text": "Participation is voluntary and informed. The safety and privacy of participants guide the choice of method."
           },
           {
-            "title": "Multilingual by design",
-            "text": "Interpretation and translated materials are planned from the start, not added at the end."
+            "title": "Pashto, Dari and English",
+            "text": "Questionnaires and materials are translated and tested in the relevant languages before fieldwork."
           },
           {
-            "title": "Usable outputs",
-            "text": "Every deliverable is written to be acted on: short, clear and honest about uncertainty."
+            "title": "Recognised guidance",
+            "text": "We follow recognised professional guidance such as the ICC/ESOMAR research code, AAPOR survey guidance and OECD evaluation criteria. This does not imply certification or endorsement by those organisations."
           }
         ],
-        "draft": true,
+        "draft": false,
         "rail": "Principles"
       },
       "closing": {

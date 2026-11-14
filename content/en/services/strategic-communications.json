@@ -1,15 +1,17 @@
 {
   "id": "Strategic Communications",
-  "title": "Strategic Communications",
-  "label": "Strategic Communications",
+  "title": "Strategic Communication and Public Engagement",
+  "label": "Strategic Communication",
   "line": "Messages that reach the people who matter.",
-  "intro": "We help institutions say the right thing to the right audience, in the right language, with strategy grounded in audience research.",
+  "intro": "We help clients communicate clearly and responsibly with their audiences. Advice is grounded in accurate information and respects confidentiality, and research findings are never manipulated for communication purposes.",
   "examples": [
-    "Communication strategies and stakeholder engagement",
-    "Audience research",
-    "Media training",
-    "Multilingual content and institutional publications",
-    "Strategic briefings"
+    "Communication assessments and strategy development",
+    "Institutional messaging and public-information plans",
+    "Media monitoring and analysis",
+    "Reports, publications and digital content",
+    "Stakeholder engagement and public-awareness campaigns",
+    "Media, spokesperson and professional communication training",
+    "Communication support for conferences and policy dialogues"
   ],
   "fold": "16",
   "platformName": "",

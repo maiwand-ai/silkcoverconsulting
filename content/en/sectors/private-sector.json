@@ -12,9 +12,10 @@
     "market-analysis-feasibility",
     "research-surveys-assessments",
     "strategic-communications",
-    "digital-advertising-content"
+    "digital-advertising-content",
+    "artificial-intelligence-digital"
   ],
   "fold": "18",
-  "sample": true,
+  "sample": false,
   "order": 3
 }

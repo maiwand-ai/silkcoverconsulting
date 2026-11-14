@@ -1,15 +1,17 @@
 {
   "id": "Research, Surveys and Assessments",
-  "title": "Research, Surveys and Assessments",
-  "label": "Research & Assessments",
+  "title": "Research, Surveys, Assessments and Policy Advisory",
+  "label": "Research & Policy",
   "line": "Evidence you can act on.",
-  "intro": "We design and run research that answers the question behind a decision: who is affected, what has changed and what is working. Methods are chosen to suit the context.",
+  "intro": "We help clients understand conditions, identify needs, assess opportunities and evaluate results. Research questions are agreed at the start, and each study distinguishes verified evidence from interpretation, identifies gaps and explains its limitations.",
   "examples": [
-    "Baseline and endline studies",
-    "Needs assessments and situation analysis",
-    "Programme evaluation",
-    "Applied research",
-    "Survey design, fieldwork and data analysis"
+    "Social, socioeconomic and governance research",
+    "Strategic, regional and policy analysis",
+    "Household, community, business and perception surveys",
+    "Needs assessments, baseline and endline studies",
+    "Programme evaluations and learning reviews",
+    "Qualitative and mixed-method research",
+    "Monitoring and third-party verification"
   ],
   "fold": "8",
   "platformName": "",

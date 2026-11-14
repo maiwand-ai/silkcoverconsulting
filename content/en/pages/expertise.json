@@ -7,7 +7,7 @@
     "footer": true,
     "order": 2,
     "label": "Our Expertise",
-    "blurb": "Eight services, from research and NGO systems to advertising.",
+    "blurb": "Nine services, from research and AI to NGO systems and advertising.",
     "fold": "12",
     "tone": "turquoise"
   },
@@ -91,6 +91,16 @@
             "a": "digital-advertising-content",
             "b": "market-analysis-feasibility",
             "note": "Market insight tells advertising whom to reach and where."
+          },
+          {
+            "a": "artificial-intelligence-digital",
+            "b": "professional-development",
+            "note": "AI training builds lasting staff capability."
+          },
+          {
+            "a": "artificial-intelligence-digital",
+            "b": "institutional-development",
+            "note": "Digital workflows and data management strengthen institutional systems."
           }
         ],
         "rail": "Combinations"

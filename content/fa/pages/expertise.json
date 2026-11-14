@@ -7,7 +7,7 @@
     "footer": true,
     "order": 2,
     "label": "تخصص‌های ما",
-    "blurb": "هشت خدمت، از تحقیق و سیستم‌های مؤسسات غیردولتی تا اعلانات.",
+    "blurb": "نُه خدمت، از تحقیق و هوش مصنوعی تا سیستم‌های مؤسسات غیردولتی و اعلانات.",
     "fold": "12",
     "tone": "turquoise"
   },
@@ -91,6 +91,16 @@
             "a": "digital-advertising-content",
             "b": "market-analysis-feasibility",
             "note": "شناخت بازار به اعلانات می‌گوید به چه کسی و در کجا برسد."
+          },
+          {
+            "a": "artificial-intelligence-digital",
+            "b": "professional-development",
+            "note": "آموزش هوش مصنوعی ظرفیت پایدار کارمندان را می‌سازد."
+          },
+          {
+            "a": "artificial-intelligence-digital",
+            "b": "institutional-development",
+            "note": "روندهای کاری دیجیتال و مدیریت معلومات سیستم‌های نهادی را تقویت می‌کنند."
           }
         ],
         "rail": "ترکیب‌ها"

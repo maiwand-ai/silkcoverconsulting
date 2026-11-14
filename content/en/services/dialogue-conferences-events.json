@@ -1,15 +1,17 @@
 {
   "id": "Dialogue, Conferences and Events",
-  "title": "Dialogue, Conferences and Events",
-  "label": "Dialogue & Events",
+  "title": "Conferences, Events and Professional Dialogue",
+  "label": "Events & Dialogue",
   "line": "The right people, in the right room.",
-  "intro": "We design and run convenings where both the content and the logistics matter, so participants can focus on the conversation.",
+  "intro": "End-to-end services for conferences, policy dialogues, workshops, consultations, business forums and training events. Each event has a clear operations plan, budget, responsibilities and contingency arrangements, agreed in advance.",
   "examples": [
-    "Dialogue design and facilitation",
-    "Stakeholder consultations",
-    "Conferences, workshops and business meetings",
-    "Logistics and interpretation",
-    "Reporting and follow-up"
+    "Event concepts, agendas, budgets and planning",
+    "Participant coordination, invitations and registration",
+    "Venues, suppliers, interpretation and technical equipment",
+    "Protocol, facilitation, moderation and speaker support",
+    "Transport, accommodation and agreed logistics",
+    "Event communication, documentation and media coordination",
+    "Summary reports, recommendations and follow-up"
   ],
   "fold": "10",
   "platformName": "",

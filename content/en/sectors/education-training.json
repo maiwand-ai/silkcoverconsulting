@@ -1,7 +1,7 @@
 {
   "id": "Education and training",
-  "name": "Education and training providers",
-  "short": "Education and training",
+  "name": "Universities, research centres and training providers",
+  "short": "Universities and training",
   "challenge": "Courses must match employer demand and meet the standards of the authorities that approve them.",
   "questions": [
     "Which skills do employers need now and in the next five years?",
@@ -14,6 +14,6 @@
     "institutional-development"
   ],
   "fold": "16",
-  "sample": true,
+  "sample": false,
   "order": 5
 }

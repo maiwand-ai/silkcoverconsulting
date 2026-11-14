@@ -132,7 +132,7 @@ const expertisePath = site.templatePath('expertise');
   .a-open__grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.7fr); gap: clamp(32px, 6vw, 96px); align-items: end; }
   .a-open__text { display: grid; gap: 26px; }
   .a-open h1 { font-size: clamp(2.6rem, 1.4rem + 5vw, 6.4rem); line-height: 1; letter-spacing: -0.01em; }
-  .a-open h1 em { font-style: normal; color: var(--turquoise-ink); }
+  .a-open h1 :global(em) { font-style: normal; color: var(--turquoise-ink); }
   .a-open .lede { max-width: 44ch; }
   .a-open__art { margin: 0; display: grid; gap: 10px; justify-items: end; animation: rise 1.2s var(--ease-arch) both 0.2s; }
   .a-open__art :global(svg) { width: min(100%, 380px); }

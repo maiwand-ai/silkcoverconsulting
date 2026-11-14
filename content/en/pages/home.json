@@ -21,7 +21,7 @@
           "Cultural depth.",
           "Strategic thinking."
         ],
-        "lede": "SilkCover Consulting helps institutions, investors and programmes decide with evidence, engage the people who matter, and build lasting capability.",
+        "lede": "An Afghan professional services firm that connects research, policy insight, institutional development, training and technology with practical solutions.",
         "primary": "Explore our expertise",
         "secondary": "Make an enquiry",
         "hint": "Move to light the pattern",
@@ -31,25 +31,25 @@
         "section": {
           "eyebrow": "Who we are",
           "title": "A consultancy built on three lines of thought",
-          "lede": "SilkCover Consulting works with organisations that need sound evidence, clear strategy and effective engagement. Our identity draws on the geometry of Herat’s tilework: many lines, one coherent pattern.",
+          "lede": "Public institutions, businesses, development organisations and civil society face complex questions that need both technical knowledge and an understanding of the Afghan context. We combine three strengths to answer them.",
           "caption": "One figure, three lines. Choose a principle to trace it.",
           "more": "More about SilkCover"
         },
         "principles": [
           {
             "title": "Global perspective",
-            "text": "We bring international standards, methods and networks to every assignment."
+            "text": "Afghan knowledge and networks combined with national and international professional expertise."
           },
           {
             "title": "Cultural depth",
-            "text": "We understand the languages, institutions and histories that shape how decisions are made on the ground."
+            "text": "Local understanding of the institutions, languages and conditions that shape how decisions are made."
           },
           {
             "title": "Strategic thinking",
-            "text": "We connect evidence to decisions, so every finding has a use and every recommendation has a reason."
+            "text": "Professional methodology and practical delivery: from a question to reliable evidence, realistic options and, where requested, implementation support."
           }
         ],
-        "draft": true,
+        "draft": false,
         "rail": "Who we are"
       },
       "expertise": {
@@ -69,7 +69,7 @@
           "text": "The same discipline applies whether we are running a survey or a conference.",
           "link": "See our approach in full"
         },
-        "draft": true,
+        "draft": false,
         "rail": "Approach"
       },
       "sectors": {

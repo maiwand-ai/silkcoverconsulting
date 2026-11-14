@@ -45,7 +45,7 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
   <div class="hero__base">
     <div class="container hero__base-inner">
       <a class="hero__scroll" href="#who"><span>{v.hero.scroll}</span><i aria-hidden="true"></i></a>
-      <ul class="hero__services" aria-label={S.footer.expertise}>
+      <ul class="hero__services" aria-label={S.footer.expertise} style={`--cols:${Math.ceil(site.services.length / 2)}`}>
         {site.services.map((s) => <li><a href={`${expertisePath}#${s.slug}`}>{s.label}</a></li>)}
       </ul>
     </div>
@@ -208,7 +208,7 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
   .hero__scroll { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; }
   .hero__scroll i { width: 1px; height: 28px; background: linear-gradient(var(--turquoise), transparent); animation: scroll-cue 2.4s var(--ease-arch) infinite; transform-origin: top; }
   @keyframes scroll-cue { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
-  .hero__services { list-style: none; display: grid; grid-template-columns: repeat(4, auto); justify-content: end; gap: 6px 28px; }
+  .hero__services { list-style: none; display: grid; grid-template-columns: repeat(var(--cols, 4), auto); justify-content: end; gap: 6px 28px; }
   .hero__services li { display: flex; align-items: center; gap: 10px; }
   .hero__services li::before { content: ''; flex: none; width: 5px; height: 5px; background: var(--brass); transform: rotate(45deg); }
   .hero__services a { font-size: 0.84rem; text-decoration: none; opacity: 0.75; transition: opacity 0.2s, color 0.2s; }

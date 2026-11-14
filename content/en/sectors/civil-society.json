@@ -1,7 +1,7 @@
 {
   "id": "Civil society",
-  "name": "Civil society and NGOs",
-  "short": "Civil society and NGOs",
+  "name": "NGOs and civil society",
+  "short": "NGOs and civil society",
   "challenge": "Organisations must show impact, strengthen systems and speak to many audiences.",
   "questions": [
     "Are our systems strong enough for donor and audit scrutiny?",
@@ -12,9 +12,10 @@
     "ngo-strategy-systems",
     "research-surveys-assessments",
     "institutional-development",
-    "strategic-communications"
+    "strategic-communications",
+    "artificial-intelligence-digital"
   ],
   "fold": "10",
-  "sample": true,
+  "sample": false,
   "order": 4
 }

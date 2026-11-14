@@ -1,7 +1,7 @@
 {
   "id": "Civil society",
-  "name": "مدني ټولنه او نادولتي موسسې",
-  "short": "مدني ټولنه او موسسې",
+  "name": "نادولتي موسسې او مدني ټولنه",
+  "short": "موسسې او مدني ټولنه",
   "challenge": "ادارې باید اغېز وښيي، سیسټمونه پیاوړي کړي او له بېلابېلو مخاطبانو سره خبرې وکړي.",
   "questions": [
     "ایا زموږ سیسټمونه د تمویلوونکو او پلټنې لپاره کافي پیاوړي دي؟",
@@ -12,9 +12,10 @@
     "ngo-strategy-systems",
     "research-surveys-assessments",
     "institutional-development",
-    "strategic-communications"
+    "strategic-communications",
+    "artificial-intelligence-digital"
   ],
   "fold": "10",
-  "sample": true,
+  "sample": false,
   "order": 4
 }

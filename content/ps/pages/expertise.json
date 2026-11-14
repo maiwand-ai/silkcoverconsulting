@@ -7,7 +7,7 @@
     "footer": true,
     "order": 2,
     "label": "زموږ تخصصونه",
-    "blurb": "اته خدمتونه، له څېړنې او د نادولتي موسسو له سیسټمونو تر اعلانونو.",
+    "blurb": "نهه خدمتونه، له څېړنې او مصنوعي ځیرکتیا تر نادولتي سیسټمونو او اعلانونو.",
     "fold": "12",
     "tone": "turquoise"
   },
@@ -91,6 +91,16 @@
             "a": "digital-advertising-content",
             "b": "market-analysis-feasibility",
             "note": "د بازار پېژندنه اعلانونو ته ښیي چې چا ته او چېرته ورسېږي."
+          },
+          {
+            "a": "artificial-intelligence-digital",
+            "b": "professional-development",
+            "note": "د مصنوعي ځیرکتیا روزنه د کارکوونکو دوامداره ظرفیت جوړوي."
+          },
+          {
+            "a": "artificial-intelligence-digital",
+            "b": "institutional-development",
+            "note": "ډیجیټل کاري بهیرونه او د معلوماتو مدیریت نهادي سیسټمونه پیاوړي کوي."
           }
         ],
         "rail": "ترکیبونه"

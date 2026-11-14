@@ -17,14 +17,15 @@
       "hero": {
         "eyebrow": "About SilkCover",
         "title": "Advice shaped by *evidence*, *context* and *purpose*.",
-        "lede": "SilkCover Consulting supports institutions, investors and programmes through {count} connected services, from research and market analysis to dialogue, communications and capability building.",
+        "lede": "An Afghan consultancy that helps institutions, businesses and organisations understand challenges, strengthen their capacities and achieve meaningful results through evidence-based research, professional advice, training and responsible use of technology.",
         "caption": "Eight-fold girih, after the tilework of Herat"
       },
       "intro": {
-        "title": "A consultancy for decisions that matter",
+        "title": "The idea behind SilkCover",
         "paragraphs": [
-          "Organisations come to us at moments of decision: before a programme starts, before an investment is made, before a reform is adopted, or when a message has to reach people who are hard to reach. Our role is to give them a clear view of where they stand and practical options for what to do next.",
-          "We combine research and analysis with the work that turns findings into action: convening stakeholders, communicating clearly, strengthening institutions and building skills. Clients can use one service or bring several together into a single programme of support."
+          "Afghanistan needs credible local institutions capable of producing sound evidence and translating it into practical action. Public institutions, businesses, development organisations and civil society often face complex questions about services, markets, organisational performance and changing social conditions.",
+          "SilkCover responds by combining local understanding, professional methodology and practical delivery. We aim to be more than a company that produces reports: our role is to help clients move from a question to reliable evidence, realistic options and, where requested, implementation support.",
+          "Constructive working relationships support lawful coordination and an understanding of local requirements. Our analysis remains independent: such relationships never influence findings or imply official endorsement."
         ],
         "rail": "Who we are"
       },
@@ -36,79 +37,79 @@
         "items": [
           {
             "title": "Global perspective",
-            "text": "International standards and methods applied to every assignment, so findings stand up to scrutiny from donors, investors and partners anywhere."
+            "text": "We bring together Afghan knowledge and networks with national and international professional expertise, so our work stands up to scrutiny wherever it is used."
           },
           {
             "title": "Cultural depth",
-            "text": "Understanding the languages, institutions and histories that shape how decisions are made on the ground. Good advice depends on knowing the setting it will be used in."
+            "text": "Complex questions need technical knowledge and an understanding of the Afghan context. Local understanding shapes every method we choose."
           },
           {
             "title": "Strategic thinking",
-            "text": "Every finding has a use and every recommendation has a reason. We connect evidence to the decision it is meant to inform."
+            "text": "Professional methodology and practical delivery move clients from a question to reliable evidence, realistic options and, where requested, implementation support."
           }
         ],
-        "draft": true,
+        "draft": false,
         "rail": "Principles"
       },
       "values": {
         "section": {
-          "eyebrow": "What we value",
-          "title": "Five commitments"
+          "eyebrow": "What guides us",
+          "title": "Vision, mission and commitments"
         },
         "items": [
           {
-            "title": "Integrity",
-            "text": "We report what the evidence shows, including what clients may not want to hear."
+            "title": "Vision",
+            "text": "To become a trusted Afghan consultancy with a growing regional and international presence, recognised for professional integrity, reliable research, innovative thinking and practical solutions."
           },
           {
-            "title": "Rigour",
-            "text": "Sound methods, checked data and conclusions that can be traced back to their source."
+            "title": "Mission",
+            "text": "To help institutions, businesses and organisations understand challenges, strengthen their capacities and achieve meaningful results."
           },
           {
-            "title": "Respect",
-            "text": "For participants, for local knowledge and for the institutions we work alongside."
+            "title": "Integrity and independence",
+            "text": "Findings are never influenced by relationships, and research is never manipulated for communication purposes."
           },
           {
-            "title": "Partnership",
-            "text": "We work with clients, not around them, and leave capability behind."
+            "title": "Reliable evidence",
+            "text": "Each study distinguishes verified evidence from interpretation, identifies gaps and explains its limitations."
           },
           {
-            "title": "Clarity",
-            "text": "Plain language, clear recommendations and no unnecessary complexity."
+            "title": "Responsible technology",
+            "text": "AI tools are tested for accuracy and security, and important decisions stay under human oversight."
           }
         ],
-        "draft": true,
-        "rail": "Values"
+        "draft": false,
+        "rail": "Vision and values"
       },
       "team": {
         "section": {
-          "eyebrow": "Leadership",
-          "title": "The people behind the work"
+          "eyebrow": "People",
+          "title": "A lean core team and a specialist network"
         },
         "people": [
           {
-            "name": "Name to be confirmed",
-            "role": "Founder and Managing Director",
-            "focus": "Strategy, client relationships and quality of delivery.",
+            "name": "Names published once confirmed",
+            "role": "Research and economics",
+            "focus": "Researchers, academics and economists for studies, surveys, assessments and policy analysis.",
             "fold": "8",
-            "sample": true
+            "sample": false
           },
           {
-            "name": "Name to be confirmed",
-            "role": "Director of Research",
-            "focus": "Research design, surveys, evaluation and data analysis.",
+            "name": "Names published once confirmed",
+            "role": "Governance and diplomacy",
+            "focus": "Former diplomats, international relations experts and governance and institutional advisers.",
             "fold": "12",
-            "sample": true
+            "sample": false
           },
           {
-            "name": "Name to be confirmed",
-            "role": "Director of Engagement",
-            "focus": "Dialogue, events, communications and partnerships.",
+            "name": "Names published once confirmed",
+            "role": "Training, technology and events",
+            "focus": "Professional trainers, AI specialists and experienced event and communication professionals.",
             "fold": "10",
-            "sample": true
+            "sample": false
           }
         ],
-        "rail": "Leadership"
+        "rail": "People"
       },
       "identity": {
         "section": {
